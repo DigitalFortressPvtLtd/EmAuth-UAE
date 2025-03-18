@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html> 
+  <head>
+    <title>Admin Dashboard</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Poppins:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic);
+/* Modern Dashboard Theme */
+:root {
+  --primary-bg: #1a1d24;
+  --secondary-bg: #242832;
+  --accent-color: #3b82f6;
+  --accent-hover: #2563eb;
+  --text-primary: #ffffff;
+  --text-secondary: #94a3b8;
+  --border-color: #2d3241;
+  --success-color: #22c55e;
+  --danger-color: #ef4444;
+  --highlight-bg: rgba(59, 130, 246, 0.1);
+  --button-hover: #2f3849;
+  --chart-green: #4ade80;
+  --chart-blue: #60a5fa;
+}
+
+/* Global Styles */
+body {
+	background: linear-gradient(-45deg, #0f092b, #411325, #112c36, #102c26);
+	background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+	height: 100vh;
+  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+}
+
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+
+/* Header Styles */
+.headings {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: var(--secondary-bg);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.headings h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+/* Counts Section */
+.counts {
+  display: flex;
+  gap: 2rem;
+  padding: 1.5rem 2rem;
+}
+
+.counts h3 {
+  background-color: var(--secondary-bg);
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 500;
+  border: 1px solid var(--border-color);
+}
+
+/* Tab Styles */
+.tab {
+  background-color: var(--secondary-bg);
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.tab button {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+
+.tab button:hover {
+  background-color: var(--highlight-bg);
+  color: var(--accent-color);
+}
+
+.tab button.active {
+  color: var(--text-primary);
+  background-color: var(--accent-color);
+  font-weight: 600;
+}
+
+/* Table Styles */
+.tabcontent {
+  padding: 2rem;
+}
+
+.df {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.df h2 {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+.df h3 {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* Filter Input */
+.filterInp {
+  margin: 1rem 0;
+}
+
+.filterInp input {
+  background-color: var(--secondary-bg);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  width: 200px;
+  transition: all 0.2s;
+}
+
+.filterInp input:focus {
+  border-color: var(--accent-color);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+/* Table Header Buttons */
+.w3-button.table-column,
+.w3-button.table-column2 {
+  background-color: var(--secondary-bg);
+  color: var(--text-secondary);
+  padding: 0.75rem 1rem;
+  border: none;
+  font-weight: 500;
+  text-align: left;
+  transition: all 0.2s;
+}
+
+.w3-button.table-column:hover,
+.w3-button.table-column2:hover {
+  background-color: var(--highlight-bg);
+  color: var(--accent-color);
+}
+
+/* Buttons */
+.btn {
+  background-color: var(--accent-color);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+  font-weight: 500;
+  border: none;
+}
+
+.btn:hover {
+  background-color: var(--accent-hover);
+}
+
+/* Refresh and Action Buttons */
+button {
+  background-color: var(--secondary-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+
+button:hover {
+  background-color: var(--button-hover);
+  border-color: var(--accent-color);
+}
+
+/* Table Styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+th, td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+}
+
+th {
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+tr:hover {
+  background-color: var(--highlight-bg);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .counts {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .tabcontent {
+    padding: 1rem;
+  }
+  
+  .df {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}
+    </style>
+  </head>
+  <body>
+    <div class="headings">
+      <h1>Admin Dashboard</h1>
+      <br />
+      <p><a href="/dashboardlogout" class="btn">Logout</a></p>
+      <div class="counts">
+        <h3 id="logcount">0 Logs</h3>
+        <h3 id="usercount">0 Users</h3>
+      </div>
+    </div>
+
+    <div class="tab">
+      <button class="tablinks" onclick="openTab(event, 'userstab');">
+        Users
+      </button>
+      <button class="tablinks" onclick="openTab(event, 'logstab');">
+        Logs
+      </button>
+      <button class="tablinks" onclick="fintechCode();">
+        Get Fintech Auth Code
+      </button>
+    </div>
+
+    <div id="logstab" class="tabcontent">
+      <div class="df">
+        <h2>Logs - </h2>
+        <h3 id="filtercount">0 Result</h3>
+      </div>
+      <button onclick="populateTable();" class="btn">Refresh</button>
+      <button onclick="window.open('/analyticsdashboard');" class="btn">Advanced analytics</button>
+      <button onclick="validatesig();" class="btn">Validate document signature</button>
+       <div class="filterInp">
+        <p>Filter:</p>
+
+        <input type="text" id="myinput" placeholder="Search..." title="Type in something" />
+      </div>
+
+      <p>Click on the header of a column to sort the table:</p>
+      <center>
+        <table>
+          <thead>
+            <tr>
+              <th>
+                <span id="name" class="w3-button table-column"
+                  >Name <i class="caret"></i
+                ></span>
+              </th>
+              <th>
+                <span id="email" class="w3-button table-column"
+                  >Email <i class="caret"></i
+                ></span>
+              </th>
+              <th>
+                <span id="requester" class="w3-button table-column"
+                  >Requester <i class="caret"></i
+                ></span>
+              </th>
+              <th>
+                <span id="timestamp" class="w3-button table-column"
+                  >Date and Time <i class="caret"></i
+                ></span>
+              </th>
+              <th>
+                <span id="ip" class="w3-button table-column"
+                  >Client IP <i class="caret"></i
+                ></span>
+              </th>
+            </tr>
+          </thead>
+          <tbody id="mytable"></tbody>
+        </table>
+      </center>
+    </div>
+
+    <script>
+      function validatesig()
+      {
+        filehash=prompt("Enter file hash")
+        signer=prompt("Enter signer email")
+        window.open("/adminsignvalidate?hash="+filehash+"&signer="+signer, "popup");
+      }
+    </script>
+
+    <div id="userstab" class="tabcontent">
+      <div class="df">
+        <h2>Users -</h2>
+        <h3 id="userfiltercount">0 Result</h3>
+      </div>
+      <button onclick="populateUserTable();" class="btn">Refresh</button>
+
+      <a href="/register"> <button class="btn">Register new user</button></a>
+
+      <div class="filterInp">
+        <p>Filter:</p>
+
+        <input type="text" id="myinput2" placeholder="Search..." title="Type in something" />
+      </div>
+
+      <p>Click on the header of a column to sort the table:</p>
+      <center>
+        <table>
+          <thead>
+            <tr>
+              <th>
+                <span id="name" class="w3-button table-column2"
+                  >Name <i class="caret"></i
+                ></span>
+              </th>
+              <th>
+                <span id="email" class="w3-button table-column2"
+                  >Email <i class="caret"></i
+                ></span>
+              </th>
+              <th>
+                <span id="edit" class="w3-button table-column2"
+                  >Edit <i class="caret"></i
+                ></span>
+              </th>
+                <th>
+                <span id="makeadmin" class="w3-button table-column2"
+                  >Make Admin <i class="caret"></i
+                ></span>
+              </th>
+            
+            </tr>
+          </thead>
+          <tbody id="mytable2"></tbody>
+        </table>
+      </center>
+    </div>
+
+    <script>
+      var table = document.getElementById("mytable");
+      var input = document.getElementById("myinput");
+      var tableData = [];
+      var tableData2 = [];
+      var table2 = document.getElementById("mytable2");
+      var input2 = document.getElementById("myinput2");
+
+      var caretUpClassName = "fa fa-caret-up";
+      var caretDownClassName = "fa fa-caret-down";
+
+      const sort_by = (field, reverse, primer) => {
+        const key = primer
+          ? function (x) {
+              return primer(x[field]);
+            }
+          : function (x) {
+              return x[field];
+            };
+
+        reverse = !reverse ? 1 : -1;
+
+        return function (a, b) {
+          return (a = key(a)), (b = key(b)), reverse * ((a > b) - (b > a));
+        };
+      };
+
+      function clearArrow() {
+        let carets = document.getElementsByClassName("caret");
+        for (let caret of carets) {
+          caret.className = "caret";
+        }
+      }
+
+      function toggleArrow(event) {
+        console.log("Sorting logs table");
+        let element = event.target;
+        let caret, field, reverse;
+        if (element.tagName === "SPAN") {
+          caret = element.getElementsByClassName("caret")[0];
+          field = element.id;
+        } else {
+          caret = element;
+          field = element.parentElement.id;
+        }
+
+        let iconClassName = caret.className;
+        clearArrow();
+        if (iconClassName.includes(caretUpClassName)) {
+          caret.className = `caret ${caretDownClassName}`;
+          reverse = false;
+        } else {
+          reverse = true;
+          caret.className = `caret ${caretUpClassName}`;
+        }
+        console.log(field);
+        tableData.sort(sort_by(field, reverse));
+        //tableData2.sort(sort_by(field, reverse));
+        populateTableNoFetch();
+        //populateUserTable();
+      }
+
+      function toggleArrow2(event) {
+        console.log("Sorting user table");
+        let element = event.target;
+        let caret, field, reverse;
+        if (element.tagName === "SPAN") {
+          caret = element.getElementsByClassName("caret")[0];
+          field = element.id;
+        } else {
+          caret = element;
+          field = element.parentElement.id;
+        }
+
+        let iconClassName = caret.className;
+        clearArrow();
+        if (iconClassName.includes(caretUpClassName)) {
+          caret.className = `caret ${caretDownClassName}`;
+          reverse = false;
+        } else {
+          reverse = true;
+          caret.className = `caret ${caretUpClassName}`;
+        }
+        console.log(field);
+        //tableData.sort(sort_by(field, reverse));
+        tableData2.sort(sort_by(field, reverse));
+        //populateTable();
+        populateUserTableNoFetch();
+      }
+
+      async function fetchUsers() {
+        const response = await fetch("/all_users");
+        tableData2 = await response.json();
+        return tableData2;
+      }
+
+      async function fetchLogs() {
+        const response = await fetch("/all_logs");
+        tableData = await response.json();
+        return tableData;
+      }
+
+      function populateTable() {
+        table.innerHTML = "";
+        fetchLogs().then((tableData) => {
+          var elem = tableData.length;
+          document.getElementById("logcount").innerHTML = elem + " Logs";
+          for (let data of tableData) {
+            let row = table.insertRow(-1);
+            let name = row.insertCell(0);
+            name.innerHTML = data.name;
+
+            let email = row.insertCell(1);
+            email.innerHTML = data.email;
+
+            let requester = row.insertCell(2);
+            requester.innerHTML = data.requester;
+
+            let timestamp = row.insertCell(3);
+            timestamp.innerHTML = data.timestamp;
+            
+            let ip = row.insertCell(4);
+            ip.innerHTML = data.ip;
+          }
+
+          filterTable();
+        });
+      }
+
+      function populateTableNoFetch() {
+        table.innerHTML = "";
+        //console.log(tableData);
+        var elem = tableData.length;
+        document.getElementById("logcount").innerHTML = elem + " Logs";
+        for (let data of tableData) {
+          let row = table.insertRow(-1);
+          let name = row.insertCell(0);
+          name.innerHTML = data.name;
+
+          let email = row.insertCell(1);
+          email.innerHTML = data.email;
+
+          let requester = row.insertCell(2);
+          requester.innerHTML = data.requester;
+
+          let timestamp = row.insertCell(3);
+          timestamp.innerHTML = data.timestamp;
+          
+            let ip = row.insertCell(4);
+            ip.innerHTML = data.ip;
+        }
+
+        filterTable();
+      }
+
+      function populateUserTable() {
+        table2.innerHTML = "";
+        fetchUsers().then((tableData2) => {
+          var elem = tableData2.length;
+          document.getElementById("usercount").innerHTML = elem + " Users";
+          for (let data of tableData2) {
+            let row = table2.insertRow(-1);
+            let name = row.insertCell(0);
+            name.innerHTML = data.name;
+            let email = row.insertCell(1);
+            email.innerHTML = data.email;
+            let edit = row.insertCell(2);
+            edit.innerHTML =
+              "<button class=\"btn\" onclick='editUser(\"" +
+              data.email +
+              "\");'>Modify</button>";
+            let makeadmin = row.insertCell(3);
+            makeadmin.innerHTML =
+              "<button class=\"btn\" onclick='makeAdmin(\"" +
+              data.email +
+              "\");'>Make Admin</button>";
+          }
+
+          filterUserTable();
+        });
+      }
+
+      function populateUserTableNoFetch() {
+        table2.innerHTML = "";
+
+        var elem = tableData2.length;
+        document.getElementById("usercount").innerHTML = elem + " Users";
+        for (let data of tableData2) {
+          let row = table2.insertRow(-1);
+          let name = row.insertCell(0);
+          name.innerHTML = data.name;
+          let email = row.insertCell(1);
+          email.innerHTML = data.email;
+          let edit = row.insertCell(2);
+          edit.innerHTML =
+            "<button class=\"btn\" onclick='editUser(\"" +
+            data.email +
+            "\");'>Modify</button>";
+          let makeadmin = row.insertCell(3);
+            makeadmin.innerHTML =
+              "<button class=\"btn\" onclick='makeAdmin(\"" +
+              data.email +
+              "\");'>Make Admin</button>";
+        }
+
+        filterUserTable();
+      }
+
+      function editUser(email) {
+        fetch("/modify", {
+          body: "email=" + email,
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          method: "post",
+        })
+          .then((response) => response.text())
+          .then((text) => {
+            alert(text);
+          });
+      }
+
+       function makeAdmin(email) {
+        fetch("/promoteadmin", {
+          body: "email=" + email,
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          method: "post",
+        })
+          .then((response) => response.text())
+          .then((text) => {
+            alert(text);
+          });
+      }
+
+      function filterTable() {
+        let filter = input.value.toUpperCase();
+        rows = table.getElementsByTagName("TR");
+        let flag = false;
+        var cntelem = 0;
+
+        for (let row of rows) {
+          let cells = row.getElementsByTagName("TD");
+          for (let cell of cells) {
+            if (cell.textContent.toUpperCase().indexOf(filter) > -1) {
+              if (filter) {
+                cell.style.backgroundColor = "#aeb0ff";
+              } else {
+                cell.style.backgroundColor = "";
+              }
+
+              flag = true;
+            } else {
+              cell.style.backgroundColor = "";
+            }
+          }
+
+          if (flag) {
+            row.style.display = "";
+            cntelem = cntelem + 1;
+          } else {
+            row.style.display = "none";
+          }
+
+          flag = false;
+        }
+        document.getElementById("filtercount").innerHTML = cntelem + " Results";
+      }
+
+      function filterUserTable() {
+        let filter = input2.value.toUpperCase();
+        rows = table2.getElementsByTagName("TR");
+        let flag = false;
+        var cntelem = 0;
+
+        for (let row of rows) {
+          let cells = row.getElementsByTagName("TD");
+          for (let cell of cells) {
+            if (cell.textContent.toUpperCase().indexOf(filter) > -1) {
+              if (filter) {
+                cell.style.backgroundColor = "#aeb0ff";
+              } else {
+                cell.style.backgroundColor = "";
+              }
+
+              flag = true;
+            } else {
+              cell.style.backgroundColor = "";
+            }
+          }
+
+          if (flag) {
+            row.style.display = "";
+            cntelem = cntelem + 1;
+          } else {
+            row.style.display = "none";
+          }
+
+          flag = false;
+        }
+        document.getElementById("userfiltercount").innerHTML =
+          cntelem + " Results";
+      }
+
+      populateTable();
+      populateUserTable();
+
+      let tableColumns = document.getElementsByClassName("table-column");
+
+      for (let column of tableColumns) {
+        column.addEventListener("click", function (event) {
+          toggleArrow(event);
+        });
+      }
+
+      let tableColumns2 = document.getElementsByClassName("table-column2");
+
+      for (let column of tableColumns2) {
+        column.addEventListener("click", function (event) {
+          toggleArrow2(event);
+        });
+      }
+
+      input.addEventListener("keyup", function (event) {
+        filterTable();
+      });
+      input2.addEventListener("keyup", function (event) {
+        filterUserTable();
+      });
+
+      function openTab(evt, tabName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.tabName += " active";
+      }
+
+      function fintechCode()
+        {
+          fetch("/getfincode")
+          .then((response) => response.text())
+          .then((text) => {
+            prompt("This code will be shown only once. Copy it. "+text,text);
+          });
+        }
+      
+      openTab(event, "userstab");
+    </script>
+  </body>
+</html>
+

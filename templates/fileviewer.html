@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>PDF Viewer</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Poppins:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic);
+      :root {
+        --primary-bg: #1a1d24;
+        --secondary-bg: #242832;
+        --accent-color: #3b82f6;
+        --accent-hover: #2563eb;
+        --text-primary: #ffffff;
+        --text-secondary: #94a3b8;
+        --border-color: #2d3241;
+        --success-color: #22c55e;
+        --danger-color: #ef4444;
+        --highlight-bg: rgba(59, 130, 246, 0.1);
+        --button-hover: #2f3849;
+      }
+
+      body {
+        background: linear-gradient(-45deg, #0f092b, #411325, #112c36, #102c26);
+        background-size: 400% 400%;
+        animation: gradient 15s ease infinite;
+        height: 100vh;
+        color: var(--text-primary);
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .form-container {
+        background-color: var(--secondary-bg);
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+      }
+
+      .form-container button {
+        width: 100%;
+        padding: 0.75rem;
+        margin-bottom: 1rem;
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        background-color: var(--accent-color);
+        color: var(--text-primary);
+        font-size: 1rem;
+        transition: all 0.2s;
+        cursor: pointer;
+      }
+
+      .form-container button:hover {
+        background-color: var(--accent-hover);
+      }
+
+      object {
+        width: 90%;
+        height: 90%;
+        border: none;
+        margin-top: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .btn {
+  background-color: var(--accent-color);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+  font-weight: 500;
+  border: none;
+}
+
+.btn:hover {
+  background-color: var(--accent-hover);
+}
+
+    </style>
+  </head>
+  <body>
+    
+
+    <object id="pdfViewer" style="display: none;"></object>
+    <div style="position: absolute; top: 20px; right: 20px;">
+      <button id="downloadBtn" class="btn">Download PDF</button>
+    </div>
+
+    <script>
+      document.getElementById('downloadBtn').addEventListener('click', async () => {
+      const formData = new FormData();
+      formData.append('filehash', '{{filehash}}');
+
+      try {
+        const response = await fetch('/signdownload', {
+        method: 'POST',
+        body: formData,
+        });
+
+        if (response.ok) {
+        const blob = await response.blob();
+
+        if (blob.type === 'application/pdf') {
+          const pdfUrl = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = pdfUrl;
+          a.download = 'downloaded.pdf';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        } else {
+          alert('The response is not a valid PDF.');
+        }
+        } else {
+        alert('Failed to fetch the PDF. Please check the file hash and try again.');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred while fetching the PDF.');
+      }
+      });
+    </script>
+    <script>
+      
+      async function showPdf()
+      {
+        const formData = new FormData();
+        formData.append('filehash', '{{filehash}}');
+
+        try {
+          const response = await fetch('/signdownload', {
+            method: 'POST',
+            body: formData,
+          });
+
+          if (response.ok) {
+            const blob = await response.blob();
+
+            if (blob.type === 'application/pdf') {
+              const pdfUrl = URL.createObjectURL(blob);
+              const pdfViewer = document.getElementById('pdfViewer');
+
+              pdfViewer.data = pdfUrl;
+              pdfViewer.style.display = 'block';
+            } else {
+              alert('The response is not a valid PDF.');
+            }
+          } else {
+            alert('Failed to fetch the PDF. Please check the file hash and try again.');
+          }
+        } catch (error) {
+          console.error('Error:', error);
+          alert('An error occurred while fetching the PDF.');
+        }
+      }
+
+      showPdf();
+    </script>
+  </body>
+</html>

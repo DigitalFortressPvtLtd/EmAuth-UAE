@@ -1,0 +1,13 @@
+fido2
+flask
+python3-cryptography
+datetime
+user_agents
+requests
+pickle-mixin
+uuid
+azure-storage-blob
+pyodbc
+azure-core
+json
+dataclasses

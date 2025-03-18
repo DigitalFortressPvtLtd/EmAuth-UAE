@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Upload Document for Signing</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Poppins:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic);
+      :root {
+        --primary-bg: #1a1d24;
+        --secondary-bg: #242832;
+        --accent-color: #3b82f6;
+        --accent-hover: #2563eb;
+        --text-primary: #ffffff;
+        --text-secondary: #94a3b8;
+        --border-color: #2d3241;
+        --success-color: #22c55e;
+        --danger-color: #ef4444;
+        --highlight-bg: rgba(59, 130, 246, 0.1);
+        --button-hover: #2f3849;
+      }
+
+      body {
+        background: linear-gradient(-45deg, #0f092b, #411325, #112c36, #102c26);
+        background-size: 400% 400%;
+        animation: gradient 15s ease infinite;
+        height: 100vh;
+        color: var(--text-primary);
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .form-container {
+        background-color: var(--secondary-bg);
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 400px;
+      }
+
+      .form-container h1 {
+        text-align: center;
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+        font-weight: 600;
+      }
+
+      .form-container label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        color: var(--text-secondary);
+      }
+
+      .form-container input,
+      .form-container button {
+        width: 100%;
+        padding: 0.75rem;
+        margin-bottom: 1rem;
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        background-color: var(--primary-bg);
+        color: var(--text-primary);
+        font-size: 1rem;
+        transition: all 0.2s;
+      }
+
+      .form-container input:focus {
+        border-color: var(--accent-color);
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+      }
+
+      .form-container button {
+        background-color: var(--accent-color);
+        border: none;
+        cursor: pointer;
+      }
+
+      .form-container button:hover {
+        background-color: var(--accent-hover);
+      }
+
+      .form-container .error {
+        color: var(--danger-color);
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+      }
+
+      .form-container .success {
+        color: var(--success-color);
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="form-container">
+      <h1>Upload Document</h1>
+      <form id="uploadForm" enctype="multipart/form-data">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" placeholder="Enter document title" required />
+
+        <label for="tosign">To Sign (Email):</label>
+        <input
+          type="email"
+          id="tosign"
+          name="tosign"
+          placeholder="Enter email of signer"
+          required
+        />
+
+        <label for="file">Upload PDF:</label>
+        <input
+          type="file"
+          id="file"
+          name="file"
+          accept="application/pdf"
+          required
+        />
+
+        <div id="message" class="error" style="display: none;">Please upload a valid PDF file.</div>
+
+        <button type="submit">Upload</button>
+      </form>
+    </div>
+
+    <script>
+      document.getElementById('uploadForm').addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const form = event.target;
+        const formData = new FormData(form);
+
+        const fileInput = document.getElementById('file');
+        const message = document.getElementById('message');
+
+        // Validate file type
+        if (!fileInput.files[0] || fileInput.files[0].type !== 'application/pdf') {
+          message.style.display = 'block';
+          message.textContent = 'Please upload a valid PDF file.';
+          return;
+        }
+
+        message.style.display = 'none';
+
+        try {
+          const response = await fetch('/signupload', {
+            method: 'POST',
+            body: formData,
+          });
+
+          if (response.ok) {
+            form.reset();
+            message.className = 'success';
+            message.textContent = 'Document uploaded successfully!';
+            message.style.display = 'block';
+            
+            const responseText = await response.text();
+            alert(responseText);
+            window.close();
+          } else {
+            throw new Error('Upload failed. Please try again.');
+          }
+        } catch (error) {
+          message.style.display = 'block';
+          message.className = 'error';
+          message.textContent = error.message;
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,94 @@
+<html>
+  <head>
+    <title>MAuthN</title>
+    
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        font-family: sans-serif;
+        font-size: 1.2em;
+        display: flex;
+        min-height: 100vh;
+        justify-content: center;
+        align-items: center;      
+      color: #e9e9e9;
+      background: linear-gradient(-45deg, #0f092b, #411325, #112c36, #102c26);
+	      background-size: 400% 400%;
+        animation: gradient 15s ease infinite;
+      }
+
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+    </style>
+    <script src="/cbor.js"></script>
+  </head>
+  <body>
+    <h1>Please perform {{type}} authenticator operation for authentication to {{requester}}</h1>
+    <script>
+	    
+	function start() {
+        fetch("/api/authenticate_{{type}}/begin?token={{token}}", {
+          method: "POST",
+        })
+          .then(function (response) {
+            if (response.ok) return response.arrayBuffer();
+            throw new Error("No credential available to authenticate!");
+          })
+          .then(CBOR.decode)
+          .then(function (options) {
+            return navigator.credentials.get(options);
+          })
+          .then(function (assertion) {
+            return fetch(
+              "/api/authenticate_{{type}}/complete?token={{token}}",
+              {
+                method: "POST",
+                headers: { "Content-Type": "application/cbor" },
+                body: CBOR.encode({
+                  credentialId: new Uint8Array(assertion.rawId),
+                  authenticatorData: new Uint8Array(
+                    assertion.response.authenticatorData
+                  ),
+                  clientDataJSON: new Uint8Array(
+                    assertion.response.clientDataJSON
+                  ),
+                  signature: new Uint8Array(assertion.response.signature),
+                }),
+              }
+            );
+          })
+          .then(
+            function (response) {
+              var stat = response.ok ? "successful" : "unsuccessful";
+              //alert(response.text());
+              if(stat=="successful" || response.text()=="successful")
+            {
+              window.location='/close_browser?intent={{forward}}';
+            }
+            else
+            {
+              window.location='/close_browser';
+            }
+              //alert("Authentication " + stat + " More details in server log...");
+            },
+            function (reason) {
+              console.log(reason);
+            }
+          );
+      }
+      start();
+    </script>
+  </body>
+</html>

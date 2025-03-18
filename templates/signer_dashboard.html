@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Document Signing Dashboard</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <style>
+      /* Styles from your uploaded dashboard */
+      @import url(https://fonts.googleapis.com/css?family=Poppins:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic);
+      :root {
+        --primary-bg: #1a1d24;
+        --secondary-bg: #242832;
+        --accent-color: #3b82f6;
+        --accent-hover: #2563eb;
+        --text-primary: #ffffff;
+        --text-secondary: #94a3b8;
+        --border-color: #2d3241;
+        --success-color: #22c55e;
+        --danger-color: #ef4444;
+        --highlight-bg: rgba(59, 130, 246, 0.1);
+        --button-hover: #2f3849;
+      }
+
+      body {
+        background: linear-gradient(-45deg, #0f092b, #411325, #112c36, #102c26);
+        background-size: 400% 400%;
+        animation: gradient 15s ease infinite;
+        height: 100vh;
+        color: var(--text-primary);
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+
+      .headings {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 2rem;
+        background-color: var(--secondary-bg);
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .tab {
+        display: flex;
+        padding: 0.5rem;
+        background-color: var(--secondary-bg);
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .tab button {
+        flex: 1;
+        background: none;
+        border: none;
+        color: var(--text-secondary);
+        padding: 0.75rem 1.5rem;
+        cursor: pointer;
+        text-align: center;
+        font-size: 0.9rem;
+        border-radius: 6px;
+        transition: all 0.2s;
+      }
+
+      .tab button.active {
+        background-color: var(--accent-color);
+        color: var(--text-primary);
+      }
+
+      .tabcontent {
+        display: none;
+        padding: 2rem;
+      }
+
+      .tabcontent.active {
+        display: block;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+      }
+
+      th, td {
+        padding: 1rem;
+        text-align: left;
+        border-bottom: 1px solid var(--border-color);
+      }
+      .floating-btn {
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          background-color: var(--accent-color);
+          color: var(--text-primary);
+          border: none;
+          border-radius: 50%;
+          width: 60px;
+          height: 60px;
+          font-size: 2rem;
+          cursor: pointer;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+          transition: background-color 0.3s;
+        }
+
+        .floating-btn:hover {
+          background-color: var(--accent-hover);
+        }
+
+        .btn {
+  background-color: var(--accent-color);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+  font-weight: 500;
+  border: none;
+}
+
+.btn:hover {
+  background-color: var(--accent-hover);
+}
+
+    </style>
+  </head>
+  <body>
+    <div class="headings">
+      <h1>Document Signing Dashboard</h1>
+      <a href="/dashboardlogout" class="btn">Logout</a>
+    </div>
+
+    <div class="tab">
+      <button class="tablinks" id="firstTab" onclick="openTab(event, 'SignsRequested')">Signs Requested</button>
+      <button class="tablinks" onclick="openTab(event, 'SignRequests')">Sign Requests</button>
+      <button class="tablinks" onclick="openTab(event, 'SignedByMe')">Signed by Me</button>
+      <button class="tablinks" onclick="openTab(event, 'Signed')">Signed</button>
+      <button class="tablinks" onclick="window.open('/signverifypage')">Verify signature</button>
+    </div>
+
+    <div id="SignsRequested" class="tabcontent">
+      <h2>Signs Requested</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>File Hash</th>
+            <th>Signer</th>
+            <th>Title</th>
+            <th>Remind</th>
+            <th>Preview</th>
+          </tr>
+        </thead>
+        <tbody id="signsRequestedTable"></tbody>
+      </table>
+
+      <button class="floating-btn" onclick="openUploadModal()">+</button>
+      <script>
+        function openUploadModal() {
+          // Implement the logic to open the upload modal here
+          window.open('/uploadpage', 'popup');
+        }
+      </script>
+    </div>
+
+    <div id="SignRequests" class="tabcontent">
+      <h2>Sign Requests</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>File Hash</th>
+            <th>Title</th>
+            <th>Requester</th>
+            <th>Sign</th>
+            <th>Preview</th>
+          </tr>
+        </thead>
+        <tbody id="signRequestsTable"></tbody>
+      </table>
+    </div>
+
+    <div id="SignedByMe" class="tabcontent">
+      <h2>Signed by Me</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>File Hash</th>
+            <th>Original Hash</th>
+            <th>Title</th>
+            <th>Requester</th>
+            <th>Preview signed</th>
+            <th>Preview original</th>
+          </tr>
+        </thead>
+        <tbody id="signedByMeTable"></tbody>
+      </table>
+    </div>
+
+    <div id="Signed" class="tabcontent">
+      <h2>Signed</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>File Hash</th>
+            <th>Original Hash</th>
+            <th>Requester</th>
+            <th>Title</th>
+            <th>Preview signed</th>
+            <th>Preview original</th>
+          </tr>
+        </thead>
+        <tbody id="signedTable"></tbody>
+      </table>
+    </div>
+
+
+
+    <script>
+      
+
+      function openTab(event, tabName) {
+        const tabcontent = document.querySelectorAll('.tabcontent');
+        const tablinks = document.querySelectorAll('.tablinks');
+
+        tabcontent.forEach(content => content.classList.remove('active'));
+        tablinks.forEach(link => link.classList.remove('active'));
+
+        document.getElementById(tabName).classList.add('active');
+        event.currentTarget.classList.add('active');
+      }
+
+      async function fetchData(endpoint, tableId) {
+        const response = await fetch(endpoint);
+        const data = await response.json();
+        const tableBody = document.getElementById(tableId);
+
+        tableBody.innerHTML = '';
+        data.forEach(item => {
+          const row = document.createElement('tr');
+
+          Object.keys(item).forEach((key, index) => {
+            const cell = document.createElement('td');
+            cell.textContent = item[key];
+            row.appendChild(cell);
+          });
+
+          const hash = item.hash;
+          const originalHash = item.originalHash;
+          const signer=item.signer;
+          const actionCells = [
+            tableId === 'signsRequestedTable' ? 'Remind' :
+            tableId === 'signRequestsTable' ? 'Sign' : null,
+            'Download',
+            tableId === 'signedByMeTable' || tableId === 'signedTable' ? 'Original Download' : null
+          ];
+
+          actionCells.forEach(action => {
+            if (action) {
+              const cell = document.createElement('td');
+              const button = document.createElement('button');
+              button.classList.add('btn');
+              button.textContent = action;
+              button.onclick = () => {
+                if (action === 'Download') download(hash);
+                else if (action === 'Original Download') download(originalHash);
+                else if (action === 'Sign') sign(hash);
+                else if (action === 'Remind') remind(signer, hash);
+              };
+              cell.appendChild(button);
+              row.appendChild(cell);
+            }
+          });
+
+          tableBody.appendChild(row);
+        });
+      }
+
+      function download(hash) {
+        console.log(`Download triggered for ${hash}`);
+        // Implement the download logic here
+        window.open(`/fileviewer?hash=${hash}`, 'popup');
+      }
+
+      function remind(signer, hash) {
+        console.log(`Remind triggered for ${signer}`);
+        fetch('/signremind', {
+          method: 'POST',
+          body: new URLSearchParams({ hash: hash, signer: signer })
+        })
+        .then(response => response.text())
+        .then(text => alert(text))
+        .catch(error => console.error('Error:', error));
+        // Implement the remind logic here
+      }
+
+      function sign(hash) {
+        
+          console.log(`Sign triggered for ${hash}`);
+          alert('Approve request from MAuthN app');
+          fetch('/sign', {
+            method: 'POST',
+            body: new URLSearchParams({ filehash: hash })
+          })
+          .then(response => response.text())
+          .then(text => alert(text))
+          .catch(error => console.error('Error:', error));
+        }
+        // Implement the sign logic here
+      
+
+      // Default tab
+      document.querySelector('.tablinks').click();
+
+      // Fetch data when tabs are opened
+      document.querySelectorAll('.tablinks').forEach(button => {
+        button.addEventListener('click', () => {
+          switch (button.textContent) {
+            case 'Signs Requested':
+              fetchData('/all_signs_requested', 'signsRequestedTable');
+              break;
+            case 'Sign Requests':
+              fetchData('/all_sign_requests', 'signRequestsTable');
+              break;
+            case 'Signed by Me':
+              fetchData('/all_signed_by_me', 'signedByMeTable');
+              break;
+            case 'Signed':
+              fetchData('/all_signed', 'signedTable');
+              break;
+          }
+        });
+      });
+
+      document.getElementById('firstTab').click();
+    </script>
+  </body>
+</html>

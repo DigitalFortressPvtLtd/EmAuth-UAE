@@ -9,32 +9,29 @@ def facial_recognition(imga1, imga2):
     
 #It is recommended to develop the pipelines in a seperate file
 #Import the file here and call the proper functions	
-import face_recognition
-import numpy as np
+import cv2
 import base64
+import numpy as np
 import io
 from PIL import Image
 
 def decode_base64_image(b64_string):
-    """Decodes a Base64 PNG string to a NumPy array."""
+    """Decodes a Base64 PNG string to a grayscale OpenCV image."""
     image_data = base64.b64decode(b64_string)
-    image = Image.open(io.BytesIO(image_data))
-    return np.array(image)  # Returns image as NumPy array
+    image = Image.open(io.BytesIO(image_data)).convert("L")  # Convert to grayscale
+    return np.array(image)
 
-def get_face_encoding(b64_string):
-    """Extracts face encoding from Base64 image."""
-    img = decode_base64_image(b64_string)
-    face_locations = face_recognition.face_locations(img, model="hog")  # Use lightweight HOG
-    if not face_locations:
-        return None
-    return face_recognition.face_encodings(img, face_locations)[0]
+def train_face_recognizer(b64_image):
+    """Trains LBPH recognizer on a single image."""
+    recognizer = cv2.face.LBPHFaceRecognizer_create()
+    image = decode_base64_image(b64_image)
+    recognizer.train([image], np.array([0]))  # Train on one face
+    return recognizer
 
-def compare_faces(b64_image1, b64_image2, threshold=0.6):
-    """Compares two Base64-encoded images."""
-    encoding1 = get_face_encoding(b64_image1)
-    encoding2 = get_face_encoding(b64_image2)
-    if encoding1 is None or encoding2 is None:
-        return False
-    distance = np.linalg.norm(encoding1 - encoding2)
-    return distance < threshold  # Returns True/False
+def compare_faces(b64_image1, b64_image2, threshold=60):
+    """Compares two images using LBPH recognizer."""
+    recognizer = train_face_recognizer(b64_image1)
+    image2 = decode_base64_image(b64_image2)
+    label, confidence = recognizer.predict(image2)
+    return confidence < threshold  # Returns True/False based on confidence score
 

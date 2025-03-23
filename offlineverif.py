@@ -10,7 +10,7 @@ from masterurl import *
 
 public_key_b64='LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUZrd0V3WUhLb1pJemowQ0FRWUlLb1pJemowREFRY0RRZ0FFQ0xDcndadkNUWVBZYXZ6eTljcHE2Yk5JWkVsRgprcjk0Y0pwUXhkNmlkZlVrSzZjcm1JSUVrV2R2VnFsZDd3YWJWc2pBdlYxdXRpU1ZDdFBIUUFMSUtnPT0KLS0tLS1FTkQgUFVCTElDIEtFWS0tLS0tCg=='
 
-def verify_signature(signature_b64):
+def verify_signature2(signature_b64):
     public_key_pem = base64.b64decode(public_key_b64)
     public_key = serialization.load_pem_public_key(public_key_pem)
     signed_data = base64.b64decode(signature_b64)
@@ -37,3 +37,9 @@ def verify_signature(signature_b64):
         return False, "Verification failed: Domain validation error"
 
     return True, "Verified"  
+
+def verify_signature(sign):
+    try:
+        return verify_signature2(sign)[0]
+    except:
+        return False

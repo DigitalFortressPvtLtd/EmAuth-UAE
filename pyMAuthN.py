@@ -4,7 +4,7 @@ from masterurl import *
 def send_request(email_of_user, required_data, requester):
 	url=f'https://{deployed_domain}/add_request'
 	params={'email': email_of_user, 'data':required_data, 'requester':requester}
-	r=requests.post(url, data=params, verify=False)
+	r=requests.post(url, data=params)
 	token=r.text
 	
 	if token.startswith("0000"):
@@ -15,7 +15,7 @@ def send_request(email_of_user, required_data, requester):
 		time.sleep(10)
 		url=f'https://{deployed_domain}/get_data'
 		params={'token': token[:36]}
-		r=requests.post(url, data=params, verify=False)
+		r=requests.post(url, data=params)
 		status=r.text
 		
 	if status.startswith('expired'):

@@ -1,4 +1,4 @@
-deployed_domain='mauthn.mukham.in'
+deployed_domain='onprem.mukham.in'
 
 import requests
 def check_domain_valid():

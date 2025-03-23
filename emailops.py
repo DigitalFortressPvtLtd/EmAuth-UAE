@@ -1,10 +1,11 @@
+from masterurl import *
 from emailsender import *
 def sendEmail(id,token):
 	message = "Subject:Authorization Token\n\nThe Token for Authorization is "+token
 	sendmail(id, message)
 	
 def sendSignupEmail(email,token):
-	message = "Subject:Account creation link\n\nThe link to set up MAuthN account is https://mauthn.mukham.in/email_signup_user?token="+token
+	message = f'Subject:Account creation link\n\nThe link to set up MAuthN account is https://{deployed_domain}/email_signup_user?token='+token
 	sendmail(email, message)
 
 def sendNewReqMail(email, requester):
@@ -16,7 +17,7 @@ def sendSuccessReqMail(email, requester):
 	sendmail(senderacc, email, message)
 
 def adminPromoteMail(email):
-	message = "Subject:MAuthN Promote to Admin\n\nYou have been promoted to admin in MAuthN. To go to admin dashboard, use mauthn.mukham.in/admin"
+	message = f"Subject:MAuthN Promote to Admin\n\nYou have been promoted to admin in MAuthN. To go to admin dashboard, use https://{deployed_domain}/admin"
 	sendmail(email, message)
 
 def signInitMail(email, title):

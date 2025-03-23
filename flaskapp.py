@@ -82,7 +82,7 @@ def page_not_found(e):
 @app.route("/checkdomain", methods=['GET', 'POST'])
 def check_domain():
 	temp=str(uuid.uuid4())
-	outf=open(filepath+'temp', 'w')
+	outf=open(filepth+'temp', 'w')
 	outf.write(temp)
 	outf.close()
 	return temp

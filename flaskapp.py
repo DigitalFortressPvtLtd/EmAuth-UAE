@@ -527,7 +527,7 @@ def face():
 	imgblob=getImgBlobFromId(id) #Get from userstable
 	img_orig=getImageFromBlob(imgblob) 
 	vldty=facial_recognition(img,img_orig)
-	if isinstance(vldty, Error):
+	if not vldty:
 		return 'false'
 	# face_match_score = vldty
 	updateGrantedPerms(token, 'face', loc) #Update requests table

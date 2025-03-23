@@ -585,7 +585,15 @@ def checkAdmin(email):
 		return val>0
 	except:
 		return False
-		
+
+def checkAnyAdmin():
+	try:
+		cursor.execute("SELECT COUNT(*) FROM [Admin]")
+		val=cursor.fetchone()[0]
+		print(val)
+		return val>0
+	except:
+		return False
 
 def addToRequest(token,id,requester,ts,reqdata,ip): #Insert to requests table ts to str
 	try:

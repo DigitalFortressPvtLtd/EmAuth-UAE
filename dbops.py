@@ -32,6 +32,14 @@ def createFinauthTable():
 	except:
 		pass
 
+def checkAnyAdmin():
+	try:
+		cursor.execute("SELECT COUNT(*) FROM [Admin]")
+		val=cursor.fetchone()[0]
+		print(val)
+		return val>0
+	except:
+		return False
 
 
 def createAdminTable():

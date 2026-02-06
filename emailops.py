@@ -9,31 +9,31 @@ def sendSignupEmail(email,token):
 	sendmail(email, message)
 
 def sendNewReqMail(email, requester):
-	message = "Subject:MAuthN Authentication Request\n\nNew authentication request on MAuthN. Details:\n"+requester+"\n\nCheck the app for more details."
+	message = "Subject:Authentication Request\n\nNew authentication request on MAuthN. Details:\n"+requester+"\n\nCheck the app for more details."
 	sendmail(email, message)
 
 def sendSuccessReqMail(email, requester):
-	message = "Subject:MAuthN Authentication Success\n\nAuthentication sucessful. Details:\n"+requester+"\n\nContact admin if not done by you."
+	message = "Subject:Authentication Success\n\nAuthentication sucessful. Details:\n"+requester+"\n\nContact admin if not done by you."
 	sendmail(senderacc, email, message)
 
 def adminPromoteMail(email):
-	message = f"Subject:MAuthN Promote to Admin\n\nYou have been promoted to admin in MAuthN. To go to admin dashboard, use https://{deployed_domain}/admin"
+	message = f"Subject:Promote to Admin\n\nYou have been promoted to admin in MAuthN. To go to admin dashboard, use https://{deployed_domain}/admin"
 	sendmail(email, message)
 
 def signInitMail(email, title):
-	message = f'Subject:MAuthN New Document signing request\n\nYou have a request to sign a document for {title}. Check the app for more details.'
+	message = f'Subject:New Document signing request\n\nYou have a request to sign a document for {title}. Check the app for more details.'
 	sendmail(email, message)
 
 def signReminderMail(email, title):
-	message = f'Subject:MAuthN Reminder Document signing \n\nYou have a pending request to sign a document for {title}. Check the app for more details.'
+	message = f'Subject:Reminder Document signing \n\nYou have a pending request to sign a document for {title}. Check the app for more details.'
 	sendmail(email, message)
 
 def signCompleteMail(email, title, signer):
-	message = f'Subject:MAuthN Document signing complete\n\nDocument signing for {title} is completed by {signer}. Check the app for more details.'
+	message = f'Subject:Document signing complete\n\nDocument signing for {title} is completed by {signer}. Check the app for more details.'
 	sendmail(email, message)
 
 def appUpdate(emaillist):
-	message = "Subject:MAuthN App Update Available\n\nA new update for MAuthN app is available. Download it for your phone from your administrator."
+	message = "Subject:App Update Available\n\nA new update for MAuthN app is available. Download it for your phone from your administrator."
 	for email in emaillist:
 		sendmail(email, message)
 

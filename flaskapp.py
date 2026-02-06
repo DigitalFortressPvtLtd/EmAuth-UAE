@@ -48,7 +48,7 @@ tz = pytz.timezone('Asia/Calcutta')
 timeout=600 #10 mins
 recentmonths=1
 url=deployed_domain
-filepth='/home/vm_user/tempkeys/'
+filepth='/etc/mauthn'
 app = Flask(__name__, static_url_path="")
 CORS(app)
 

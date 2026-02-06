@@ -1,340 +1,386 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Document Signing Dashboard</title>
+<html lang="en">
+<head>
+    <title>Document Signing Dashboard - {{productname}}</title>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
     <style>
-      /* Styles from your uploaded dashboard */
-      @import url(https://fonts.googleapis.com/css?family=Poppins:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic);
-      :root {
-        --primary-bg: #1a1d24;
-        --secondary-bg: #242832;
-        --accent-color: #3b82f6;
-        --accent-hover: #2563eb;
-        --text-primary: #ffffff;
-        --text-secondary: #94a3b8;
-        --border-color: #2d3241;
-        --success-color: #22c55e;
-        --danger-color: #ef4444;
-        --highlight-bg: rgba(59, 130, 246, 0.1);
-        --button-hover: #2f3849;
-      }
-
-      body {
-        background: linear-gradient(-45deg, #0f092b, #411325, #112c36, #102c26);
-        background-size: 400% 400%;
-        animation: gradient 15s ease infinite;
-        height: 100vh;
-        color: var(--text-primary);
-        font-family: 'Poppins', sans-serif;
-        margin: 0;
-        padding: 0;
-      }
-
-      .headings {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 1rem 2rem;
-        background-color: var(--secondary-bg);
-        border-bottom: 1px solid var(--border-color);
-      }
-
-      .tab {
-        display: flex;
-        padding: 0.5rem;
-        background-color: var(--secondary-bg);
-        border-bottom: 1px solid var(--border-color);
-      }
-
-      .tab button {
-        flex: 1;
-        background: none;
-        border: none;
-        color: var(--text-secondary);
-        padding: 0.75rem 1.5rem;
-        cursor: pointer;
-        text-align: center;
-        font-size: 0.9rem;
-        border-radius: 6px;
-        transition: all 0.2s;
-      }
-
-      .tab button.active {
-        background-color: var(--accent-color);
-        color: var(--text-primary);
-      }
-
-      .tabcontent {
-        display: none;
-        padding: 2rem;
-      }
-
-      .tabcontent.active {
-        display: block;
-      }
-
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 1rem;
-      }
-
-      th, td {
-        padding: 1rem;
-        text-align: left;
-        border-bottom: 1px solid var(--border-color);
-      }
-      .floating-btn {
-          position: fixed;
-          bottom: 20px;
-          right: 20px;
-          background-color: var(--accent-color);
-          color: var(--text-primary);
-          border: none;
-          border-radius: 50%;
-          width: 60px;
-          height: 60px;
-          font-size: 2rem;
-          cursor: pointer;
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-          transition: background-color 0.3s;
+        :root {
+            /* Dark Mode (Default) */
+            --bg-color: #202124;
+            --header-bg-color: #292a2d;
+            --border-color: #5f6368;
+            --text-color-primary: #e8eaed;
+            --text-color-secondary: #bdc1c6;
+            --link-color: #8ab4f8;
+            --button-bg-color: #8ab4f8;
+            --button-text-color: #202124;
+            --button-hover-bg: #9ac0fa;
+            --hover-bg-color: rgba(255, 255, 255, 0.05);
+            --danger-color: #f28b82; /* Red for destructive actions */
+            --danger-hover-bg: rgba(242, 139, 130, 0.1);
         }
 
-        .floating-btn:hover {
-          background-color: var(--accent-hover);
+        body.light-mode {
+            /* Light Mode Palette */
+            --bg-color: #f8f9fa;
+            --header-bg-color: #ffffff;
+            --border-color: #dadce0;
+            --text-color-primary: #202124;
+            --text-color-secondary: #5f6368;
+            --link-color: #1a73e8;
+            --button-bg-color: #1a73e8;
+            --button-text-color: #ffffff;
+            --button-hover-bg: #1b66c9;
+            --hover-bg-color: rgba(0, 0, 0, 0.04);
+            --danger-color: #d93025;
+            --danger-hover-bg: rgba(217, 48, 37, 0.05);
         }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color-primary);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            font-size: 14px;
+        }
+
+        .dashboard-container { padding: 2rem; }
+        
+        .headings {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .logo-title { display: flex; align-items: center; gap: 1rem; }
+        .logo { width: 40px; height: 40px; }
+        .title-group h1 { font-family: 'Google Sans', sans-serif; font-size: 24px; font-weight: 500; line-height: 1.2; }
+        .title-group h2 { font-family: 'Roboto', sans-serif; font-size: 14px; font-weight: 400; color: var(--text-color-secondary); line-height: 1.2; }
+        .header-actions { display: flex; align-items: center; gap: 1rem; }
+
+        .tab {
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 2rem;
+            white-space: nowrap;
+            overflow-x: auto;
+            transition: border-color 0.3s ease;
+        }
+        .tab button {
+            background: none; border: none; color: var(--text-color-secondary); padding: 1rem 0.5rem;
+            margin: 0 1rem; cursor: pointer; font-size: 1rem; font-family: 'Google Sans', sans-serif;
+            border-bottom: 3px solid transparent; transition: all 0.2s;
+        }
+        .tab button:first-child { margin-left: 0; }
+        .tab button:hover { color: var(--text-color-primary); }
+        .tab button.active { color: var(--link-color); border-bottom-color: var(--link-color); }
+
+        .tabcontent { display: none; }
+        .tabcontent.active { display: block; }
+        .tabcontent h2 { font-family: 'Google Sans', sans-serif; font-size: 20px; font-weight: 400; margin-bottom: 1.5rem; }
+
+        .table-container {
+            width: 100%; overflow-x: auto; border: 1px solid var(--border-color);
+            border-radius: 8px; background-color: var(--header-bg-color);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 1rem; text-align: left; border-bottom: 1px solid var(--border-color); }
+        thead { background-color: var(--hover-bg-color); }
+        th { color: var(--text-color-secondary); font-weight: 500; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; }
+        tbody tr:hover { background-color: var(--hover-bg-color); }
 
         .btn {
-  background-color: var(--accent-color);
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  text-decoration: none;
-  font-size: 0.9rem;
-  transition: all 0.2s;
-  font-weight: 500;
-  border: none;
-}
-
-.btn:hover {
-  background-color: var(--accent-hover);
-}
-
-    </style>
-  </head>
-  <body>
-    <div class="headings">
-      <h1>Document Signing Dashboard</h1>
-      <a href="/dashboardlogout" class="btn">Logout</a>
-    </div>
-
-    <div class="tab">
-      <button class="tablinks" id="firstTab" onclick="openTab(event, 'SignsRequested')">Signs Requested</button>
-      <button class="tablinks" onclick="openTab(event, 'SignRequests')">Sign Requests</button>
-      <button class="tablinks" onclick="openTab(event, 'SignedByMe')">Signed by Me</button>
-      <button class="tablinks" onclick="openTab(event, 'Signed')">Signed</button>
-      <button class="tablinks" onclick="window.open('/signverifypage')">Verify signature</button>
-    </div>
-
-    <div id="SignsRequested" class="tabcontent">
-      <h2>Signs Requested</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>File Hash</th>
-            <th>Signer</th>
-            <th>Title</th>
-            <th>Remind</th>
-            <th>Preview</th>
-          </tr>
-        </thead>
-        <tbody id="signsRequestedTable"></tbody>
-      </table>
-
-      <button class="floating-btn" onclick="openUploadModal()">+</button>
-      <script>
-        function openUploadModal() {
-          // Implement the logic to open the upload modal here
-          window.open('/uploadpage', 'popup');
+            display: inline-block; /* For <a> tags styled as buttons */
+            text-decoration: none; /* For <a> tags styled as buttons */
+            background-color: var(--button-bg-color); color: var(--button-text-color); border: none;
+            border-radius: 4px; padding: 8px 16px; font-size: 14px; font-weight: 500;
+            font-family: 'Google Sans', sans-serif; cursor: pointer; transition: all 0.2s ease;
         }
-      </script>
+        .btn:hover { background-color: var(--button-hover-bg); }
+        td .btn { padding: 6px 12px; font-size: 12px; }
+        
+        /* NEW DESTRUCTIVE BUTTON STYLE */
+        .btn-danger {
+            background-color: transparent;
+            border: 1px solid var(--danger-color);
+            color: var(--danger-color);
+            padding: 7px 15px; /* Adjust padding for border */
+        }
+        .btn-danger:hover {
+            background-color: var(--danger-hover-bg);
+            color: var(--danger-color);
+        }
+
+        .floating-btn {
+            position: fixed; bottom: 20px; right: 20px; width: 56px; height: 56px;
+            background-color: var(--button-bg-color); color: var(--button-text-color);
+            border: none; border-radius: 50%; font-size: 24px; cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); display: grid; place-items: center;
+            transition: all 0.2s ease;
+        }
+        .floating-btn:hover { background-color: var(--button-hover-bg); transform: translateY(-2px); }
+
+        #theme-toggle {
+            position: relative; width: 40px; height: 40px; background-color: var(--header-bg-color);
+            border: 1px solid var(--border-color); border-radius: 50%; cursor: pointer;
+            display: grid; place-items: center; transition: all 0.3s ease;
+        }
+        #theme-toggle .icon { width: 20px; height: 20px; fill: var(--text-color-secondary); }
+        .icon-sun { display: none; }
+        .icon-moon { display: block; }
+        body.light-mode .icon-sun { display: block; }
+        body.light-mode .icon-moon { display: none; }
+
+        @media (max-width: 768px) {
+            .dashboard-container { padding: 1rem; }
+            .headings { flex-direction: column; align-items: stretch; }
+            .header-actions { justify-content: space-between; width: 100%; }
+            .table-container { border: none; background-color: transparent; }
+            table { border: none; }
+            table thead { display: none; }
+            table, tbody, tr { display: block; width: 100%; }
+            tr {
+                border: 1px solid var(--border-color); border-radius: 8px;
+                margin-bottom: 1rem; background-color: var(--header-bg-color);
+            }
+            td {
+                display: flex; justify-content: space-between; align-items: center;
+                text-align: right; padding: 0.75rem 1rem; border-bottom: 1px solid var(--border-color);
+                white-space: normal; word-break: break-all;
+            }
+            tr td:last-child { border-bottom: none; }
+            td::before {
+                content: attr(data-label); font-weight: 500; text-align: left;
+                margin-right: 1rem; color: var(--text-color-secondary);
+            }
+            #signsRequestedTable td:nth-of-type(1)::before { content: "File Hash"; }
+            #signsRequestedTable td:nth-of-type(2)::before { content: "Signer"; }
+            #signsRequestedTable td:nth-of-type(3)::before { content: "Title"; }
+            #signsRequestedTable td:nth-of-type(4)::before { content: "Remind"; }
+            #signsRequestedTable td:nth-of-type(5)::before { content: "Preview"; }
+            #signRequestsTable td:nth-of-type(1)::before { content: "File Hash"; }
+            #signRequestsTable td:nth-of-type(2)::before { content: "Title"; }
+            #signRequestsTable td:nth-of-type(3)::before { content: "Requester"; }
+            #signRequestsTable td:nth-of-type(4)::before { content: "Sign"; }
+            #signRequestsTable td:nth-of-type(5)::before { content: "Preview"; }
+            #signedByMeTable td:nth-of-type(1)::before { content: "File Hash"; }
+            #signedByMeTable td:nth-of-type(2)::before { content: "Original Hash"; }
+            #signedByMeTable td:nth-of-type(3)::before { content: "Title"; }
+            #signedByMeTable td:nth-of-type(4)::before { content: "Requester"; }
+            #signedByMeTable td:nth-of-type(5)::before { content: "Preview Signed"; }
+            #signedByMeTable td:nth-of-type(6)::before { content: "Preview Original"; }
+            #signedTable td:nth-of-type(1)::before { content: "File Hash"; }
+            #signedTable td:nth-of-type(2)::before { content: "Original Hash"; }
+            #signedTable td:nth-of-type(3)::before { content: "Requester"; }
+            #signedTable td:nth-of-type(4)::before { content: "Title"; }
+            #signedTable td:nth-of-type(5)::before { content: "Preview Signed"; }
+            #signedTable td:nth-of-type(6)::before { content: "Preview Original"; }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="headings">
+            <div class="logo-title">
+                <img src="/logo.png" alt="{{productname}} Logo" class="logo">
+                <div class="title-group">
+                    <h1>{{productname}}</h1>
+                    <h2>Document Signing</h2>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button id="theme-toggle" title="Toggle light/dark theme">
+                    <svg class="icon icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.64 5.64c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41l1.06 1.06c.39.39 1.02.39 1.41 0s.39-1.02 0-1.41L5.64 5.64zm12.73 12.73c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41l1.06 1.06c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41l-1.06-1.06zM18.36 5.64l-1.06 1.06c-.39.39-.39 1.02 0 1.41s1.02.39 1.41 0l1.06-1.06c.39-.39.39-1.02 0-1.41-.39-.39-1.02-.39-1.41 0zM6.7 17.3c-.39.39-.39 1.02 0 1.41l1.06 1.06c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41l-1.06-1.06c-.39-.39-1.02-.39-1.41 0z"/></svg>
+                    <svg class="icon icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 2c-1.82 0-3.53.5-5 1.35C7.99 5.08 10 8.3 10 12s-2.01 6.92-5 8.65C6.47 21.5 8.18 22 10 22c5.52 0 10-4.48 10-10S15.52 2 10 2z"/></svg>
+                </button>
+                <a href="/dashboardlogout" class="btn btn-danger">Logout</a>
+            </div>
+        </div>
+
+        <div class="tab">
+            <button class="tablinks" id="firstTab" onclick="openTab(event, 'SignsRequested')">Signs Requested</button>
+            <button class="tablinks" onclick="openTab(event, 'SignRequests')">Sign Requests</button>
+            <button class="tablinks" onclick="openTab(event, 'SignedByMe')">Signed by Me</button>
+            <button class="tablinks" onclick="openTab(event, 'Signed')">Signed</button>
+            <button class="tablinks" onclick="window.open('/signverifypage')">Verify Signature</button>
+        </div>
+
+        <div id="SignsRequested" class="tabcontent">
+            <h2>Documents You've Sent for Signing</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr><th>File Hash</th><th>Signer</th><th>Title</th><th>Remind</th><th>Preview</th></tr>
+                    </thead>
+                    <tbody id="signsRequestedTable"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="SignRequests" class="tabcontent">
+            <h2>Documents Awaiting Your Signature</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr><th>File Hash</th><th>Title</th><th>Requester</th><th>Sign</th><th>Preview</th></tr>
+                    </thead>
+                    <tbody id="signRequestsTable"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="SignedByMe" class="tabcontent">
+            <h2>Documents You've Signed</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr><th>File Hash</th><th>Original Hash</th><th>Title</th><th>Requester</th><th>Preview Signed</th><th>Preview Original</th></tr>
+                    </thead>
+                    <tbody id="signedByMeTable"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="Signed" class="tabcontent">
+            <h2>Documents Signed by Others for You</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr><th>File Hash</th><th>Original Hash</th><th>Requester</th><th>Title</th><th>Preview Signed</th><th>Preview Original</th></tr>
+                    </thead>
+                    <tbody id="signedTable"></tbody>
+                </table>
+            </div>
+        </div>
+        
+        <button class="floating-btn" onclick="openUploadModal()" title="Upload a new document for signing">+</button>
     </div>
-
-    <div id="SignRequests" class="tabcontent">
-      <h2>Sign Requests</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>File Hash</th>
-            <th>Title</th>
-            <th>Requester</th>
-            <th>Sign</th>
-            <th>Preview</th>
-          </tr>
-        </thead>
-        <tbody id="signRequestsTable"></tbody>
-      </table>
-    </div>
-
-    <div id="SignedByMe" class="tabcontent">
-      <h2>Signed by Me</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>File Hash</th>
-            <th>Original Hash</th>
-            <th>Title</th>
-            <th>Requester</th>
-            <th>Preview signed</th>
-            <th>Preview original</th>
-          </tr>
-        </thead>
-        <tbody id="signedByMeTable"></tbody>
-      </table>
-    </div>
-
-    <div id="Signed" class="tabcontent">
-      <h2>Signed</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>File Hash</th>
-            <th>Original Hash</th>
-            <th>Requester</th>
-            <th>Title</th>
-            <th>Preview signed</th>
-            <th>Preview original</th>
-          </tr>
-        </thead>
-        <tbody id="signedTable"></tbody>
-      </table>
-    </div>
-
-
 
     <script>
-      
-
-      function openTab(event, tabName) {
-        const tabcontent = document.querySelectorAll('.tabcontent');
-        const tablinks = document.querySelectorAll('.tablinks');
-
-        tabcontent.forEach(content => content.classList.remove('active'));
-        tablinks.forEach(link => link.classList.remove('active'));
-
-        document.getElementById(tabName).classList.add('active');
-        event.currentTarget.classList.add('active');
-      }
-
-      async function fetchData(endpoint, tableId) {
-        const response = await fetch(endpoint);
-        const data = await response.json();
-        const tableBody = document.getElementById(tableId);
-
-        tableBody.innerHTML = '';
-        data.forEach(item => {
-          const row = document.createElement('tr');
-
-          Object.keys(item).forEach((key, index) => {
-            const cell = document.createElement('td');
-            cell.textContent = item[key];
-            row.appendChild(cell);
-          });
-
-          const hash = item.hash;
-          const originalHash = item.originalHash;
-          const signer=item.signer;
-          const actionCells = [
-            tableId === 'signsRequestedTable' ? 'Remind' :
-            tableId === 'signRequestsTable' ? 'Sign' : null,
-            'Download',
-            tableId === 'signedByMeTable' || tableId === 'signedTable' ? 'Original Download' : null
-          ];
-
-          actionCells.forEach(action => {
-            if (action) {
-              const cell = document.createElement('td');
-              const button = document.createElement('button');
-              button.classList.add('btn');
-              button.textContent = action;
-              button.onclick = () => {
-                if (action === 'Download') download(hash);
-                else if (action === 'Original Download') download(originalHash);
-                else if (action === 'Sign') sign(hash);
-                else if (action === 'Remind') remind(signer, hash);
-              };
-              cell.appendChild(button);
-              row.appendChild(cell);
-            }
-          });
-
-          tableBody.appendChild(row);
-        });
-      }
-
-      function download(hash) {
-        console.log(`Download triggered for ${hash}`);
-        // Implement the download logic here
-        window.open(`/fileviewer?hash=${hash}`, 'popup');
-      }
-
-      function remind(signer, hash) {
-        console.log(`Remind triggered for ${signer}`);
-        fetch('/signremind', {
-          method: 'POST',
-          body: new URLSearchParams({ hash: hash, signer: signer })
-        })
-        .then(response => response.text())
-        .then(text => alert(text))
-        .catch(error => console.error('Error:', error));
-        // Implement the remind logic here
-      }
-
-      function sign(hash) {
-        
-          console.log(`Sign triggered for ${hash}`);
-          alert('Approve request from MAuthN app');
-          fetch('/sign', {
-            method: 'POST',
-            body: new URLSearchParams({ filehash: hash })
-          })
-          .then(response => response.text())
-          .then(text => alert(text))
-          .catch(error => console.error('Error:', error));
+        function openUploadModal() {
+            window.open('/uploadpage', 'popup', 'width=600,height=600');
         }
-        // Implement the sign logic here
-      
+        
+        function openTab(event, tabName) {
+            const tabcontent = document.querySelectorAll('.tabcontent');
+            const tablinks = document.querySelectorAll('.tablinks');
+            tabcontent.forEach(content => content.classList.remove('active'));
+            tablinks.forEach(link => link.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
 
-      // Default tab
-      document.querySelector('.tablinks').click();
+        async function fetchData(endpoint, tableId) {
+            const response = await fetch(endpoint);
+            const data = await response.json();
+            const tableBody = document.getElementById(tableId);
+            tableBody.innerHTML = '';
 
-      // Fetch data when tabs are opened
-      document.querySelectorAll('.tablinks').forEach(button => {
-        button.addEventListener('click', () => {
-          switch (button.textContent) {
-            case 'Signs Requested':
-              fetchData('/all_signs_requested', 'signsRequestedTable');
-              break;
-            case 'Sign Requests':
-              fetchData('/all_sign_requests', 'signRequestsTable');
-              break;
-            case 'Signed by Me':
-              fetchData('/all_signed_by_me', 'signedByMeTable');
-              break;
-            case 'Signed':
-              fetchData('/all_signed', 'signedTable');
-              break;
-          }
+            data.forEach(item => {
+                const row = document.createElement('tr');
+                const cellOrder = {
+                    'signsRequestedTable': ['hash', 'signer', 'title'],
+                    'signRequestsTable': ['hash', 'title', 'requester'],
+                    'signedByMeTable': ['hash', 'originalHash', 'title', 'requester'],
+                    'signedTable': ['hash', 'originalHash', 'requester', 'title']
+                }[tableId];
+
+                cellOrder.forEach(key => {
+                    const cell = document.createElement('td');
+                    cell.textContent = item[key];
+                    row.appendChild(cell);
+                });
+
+                const hash = item.hash;
+                const originalHash = item.originalHash;
+                const signer = item.signer;
+                
+                if (tableId === 'signsRequestedTable') {
+                    row.innerHTML += `<td><button class="btn" onclick="remind('${signer}', '${hash}')">Remind</button></td>`;
+                    row.innerHTML += `<td><button class="btn" onclick="download('${hash}')">Preview</button></td>`;
+                } else if (tableId === 'signRequestsTable') {
+                    row.innerHTML += `<td><button class="btn" onclick="sign('${hash}')">Sign</button></td>`;
+                    row.innerHTML += `<td><button class="btn" onclick="download('${hash}')">Preview</button></td>`;
+                } else if (tableId === 'signedByMeTable' || tableId === 'signedTable') {
+                    row.innerHTML += `<td><button class="btn" onclick="download('${hash}')">Preview Signed</button></td>`;
+                    row.innerHTML += `<td><button class="btn" onclick="download('${originalHash}')">Preview Original</button></td>`;
+                }
+
+                tableBody.appendChild(row);
+            });
+        }
+
+        function download(hash) {
+            if (!hash || hash === 'undefined') {
+                alert('No hash provided for download.');
+                return;
+            }
+            window.open(`/fileviewer?hash=${hash}`, 'popup', 'width=800,height=900');
+        }
+
+        function remind(signer, hash) {
+            fetch('/signremind', {
+                method: 'POST',
+                body: new URLSearchParams({ hash: hash, signer: signer })
+            })
+            .then(response => response.text())
+            .then(text => alert(text))
+            .catch(error => console.error('Error:', error));
+        }
+
+        function sign(hash) {
+            alert('Approve request from {{productname}} app');
+            fetch('/sign', {
+                method: 'POST',
+                body: new URLSearchParams({ filehash: hash })
+            })
+            .then(response => response.text())
+            .then(text => {
+                alert(text);
+                document.getElementById('firstTab').click();
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        document.querySelectorAll('.tablinks').forEach(button => {
+            button.addEventListener('click', (e) => {
+                if (e.target.textContent === 'Verify Signature') return;
+                const endpointMap = {
+                    'Signs Requested': '/all_signs_requested',
+                    'Sign Requests': '/all_sign_requests',
+                    'Signed by Me': '/all_signed_by_me',
+                    'Signed': '/all_signed'
+                };
+                const tableIdMap = {
+                    'Signs Requested': 'signsRequestedTable',
+                    'Sign Requests': 'signRequestsTable',
+                    'Signed by Me': 'signedByMeTable',
+                    'Signed': 'signedTable'
+                };
+                fetchData(endpointMap[e.target.textContent], tableIdMap[e.target.textContent]);
+            });
         });
-      });
 
-      document.getElementById('firstTab').click();
+        document.getElementById('firstTab').click();
+        
+        const themeToggle = document.getElementById('theme-toggle');
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('light-mode');
+        });
     </script>
-  </body>
+</body>
 </html>

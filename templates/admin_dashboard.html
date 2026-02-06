@@ -1,751 +1,519 @@
 <!DOCTYPE html>
-<html> 
-  <head>
-    <title>Admin Dashboard</title>
+<html lang="en">
+<head>
+    <title>{{productname}} Admin Dashboard</title>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 
     <style>
-      @import url(https://fonts.googleapis.com/css?family=Poppins:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic);
-/* Modern Dashboard Theme */
-:root {
-  --primary-bg: #1a1d24;
-  --secondary-bg: #242832;
-  --accent-color: #3b82f6;
-  --accent-hover: #2563eb;
-  --text-primary: #ffffff;
-  --text-secondary: #94a3b8;
-  --border-color: #2d3241;
-  --success-color: #22c55e;
-  --danger-color: #ef4444;
-  --highlight-bg: rgba(59, 130, 246, 0.1);
-  --button-hover: #2f3849;
-  --chart-green: #4ade80;
-  --chart-blue: #60a5fa;
-}
+        :root {
+            /* Dark Mode (Default) */
+            --bg-color: #202124;
+            --card-bg-color: #292a2d;
+            --border-color: #5f6368;
+            --text-color-primary: #e8eaed;
+            --text-color-secondary: #bdc1c6;
+            --link-color: #8ab4f8;
+            --button-bg-color: #8ab4f8;
+            --button-text-color: #202124;
+            --button-hover-bg: #9ac0fa;
+            --hover-bg-color: rgba(255, 255, 255, 0.05);
+            --danger-color: #f28b82; /* Red for destructive actions */
+            --danger-hover-bg: rgba(242, 139, 130, 0.1);
+        }
 
-/* Global Styles */
-body {
-	background: linear-gradient(-45deg, #0f092b, #411325, #112c36, #102c26);
-	background-size: 400% 400%;
-	animation: gradient 15s ease infinite;
-	height: 100vh;
-  color: var(--text-primary);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  margin: 0;
-  padding: 0;
-  line-height: 1.5;
-}
+        body.light-mode {
+            /* Light Mode Palette */
+            --bg-color: #f8f9fa;
+            --card-bg-color: #ffffff;
+            --border-color: #dadce0;
+            --text-color-primary: #202124;
+            --text-color-secondary: #5f6368;
+            --link-color: #1a73e8;
+            --button-bg-color: #1a73e8;
+            --button-text-color: #ffffff;
+            --button-hover-bg: #1b66c9;
+            --hover-bg-color: rgba(0, 0, 0, 0.04);
+            --danger-color: #d93025;
+            --danger-hover-bg: rgba(217, 48, 37, 0.05);
+        }
 
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-@keyframes gradient {
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
-}
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color-primary);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            font-size: 14px;
+        }
 
+        a {
+            color: var(--link-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        /* NEW STYLE FOR SEARCH HIGHLIGHTING */
+        mark {
+            background-color: #ffdd00;
+            color: #000000;
+            padding: 2px 3px;
+            border-radius: 3px;
+        }
+        
+        .dashboard-container { padding: 2rem; }
 
-/* Header Styles */
-.headings {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  background-color: var(--secondary-bg);
-  border-bottom: 1px solid var(--border-color);
-}
+        .headings {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .logo-title { display: flex; align-items: center; gap: 1rem; }
+        .logo { width: 40px; height: 40px; }
+        .title-group h1 { font-family: 'Google Sans', sans-serif; font-size: 24px; font-weight: 500; line-height: 1.2; }
+        .title-group h2 { font-family: 'Roboto', sans-serif; font-size: 14px; font-weight: 400; color: var(--text-color-secondary); line-height: 1.2; }
+        .header-actions { display: flex; align-items: center; gap: 1rem; }
 
-.headings h1 {
-  margin: 0;
-  font-size: 1.5rem;
-  font-weight: 600;
-  letter-spacing: -0.025em;
-}
+        .counts { display: flex; gap: 1rem; }
+        .counts h3 {
+            background-color: var(--card-bg-color); padding: 0.75rem 1.25rem;
+            border-radius: 8px; margin: 0; font-size: 1rem; font-weight: 500;
+            border: 1px solid var(--border-color);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+            white-space: nowrap;
+        }
 
-/* Counts Section */
-.counts {
-  display: flex;
-  gap: 2rem;
-  padding: 1.5rem 2rem;
-}
+        .tab {
+            border-bottom: 1px solid var(--border-color); margin-bottom: 2rem;
+            transition: border-color 0.3s ease; white-space: nowrap; overflow-x: auto;
+        }
+        .tab button {
+            background: none; border: none; color: var(--text-color-secondary); padding: 1rem 0.5rem;
+            margin: 0 1rem; cursor: pointer; font-size: 1rem; font-family: 'Google Sans', sans-serif;
+            border-bottom: 3px solid transparent; transition: all 0.2s;
+        }
+        .tab button:first-child { margin-left: 0; }
+        .tab button:hover { color: var(--text-color-primary); }
+        .tab button.active { color: var(--link-color); border-bottom-color: var(--link-color); }
 
-.counts h3 {
-  background-color: var(--secondary-bg);
-  padding: 1rem 1.5rem;
-  border-radius: 8px;
-  margin: 0;
-  font-size: 1.1rem;
-  font-weight: 500;
-  border: 1px solid var(--border-color);
-}
+        .tabcontent { display: none; }
+        .tabcontent:first-of-type { display: block; }
+        
+        .df {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 1rem; flex-wrap: wrap; gap: 1rem;
+        }
+        .df h2 { font-family: 'Google Sans', sans-serif; font-size: 20px; font-weight: 400; }
+        .df h3 { font-size: 1rem; color: var(--text-color-secondary); font-weight: 500; }
+        
+        .action-bar { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem; }
 
-/* Tab Styles */
-.tab {
-  background-color: var(--secondary-bg);
-  padding: 0.5rem 1rem;
-  border-bottom: 1px solid var(--border-color);
-}
+        .btn {
+            display: inline-block; text-decoration: none;
+            background-color: var(--button-bg-color); color: var(--button-text-color);
+            border: none; border-radius: 4px; padding: 10px 16px;
+            font-size: 14px; font-weight: 500; font-family: 'Google Sans', sans-serif;
+            cursor: pointer; transition: all 0.2s ease;
+        }
+        .btn:hover { background-color: var(--button-hover-bg); box-shadow: 0 1px 2px 0 rgba(0,0,0,.3); }
+        
+        .btn-secondary {
+            background-color: transparent; color: var(--link-color);
+            border: 1px solid var(--border-color); padding: 9px 15px;
+        }
+        .btn-secondary:hover { background-color: var(--hover-bg-color); border-color: var(--link-color); }
+        
+        .btn-danger {
+            background-color: transparent; border: 1px solid var(--danger-color);
+            color: var(--danger-color); padding: 9px 15px;
+        }
+        .btn-danger:hover { background-color: var(--danger-hover-bg); color: var(--danger-color); }
+        
+        .filterInp { margin-bottom: 1.5rem; }
+        .filterInp input {
+            width: 100%; max-width: 320px; padding: 10px 12px;
+            border: 1px solid var(--border-color); border-radius: 4px;
+            background-color: transparent; color: var(--text-color-primary);
+            font-size: 1rem; transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .filterInp input:focus { outline: none; border-color: var(--link-color); box-shadow: 0 0 0 1px var(--link-color); }
+        
+        .table-container {
+            width: 100%; overflow-x: auto; border: 1px solid var(--border-color);
+            border-radius: 8px; background-color: var(--card-bg-color);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 1rem; text-align: left; border-bottom: 1px solid var(--border-color); transition: border-color 0.3s ease; }
+        td { white-space: nowrap; }
+        thead { background-color: var(--hover-bg-color); transition: background-color 0.3s ease; }
+        th { color: var(--text-color-secondary); font-weight: 500; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; }
+        
+        .w3-button { background: none; border: none; color: inherit; padding: 0; cursor: pointer; font-size: inherit; font-weight: inherit; text-align: left; width: 100%; font-family: inherit; }
+        .w3-button:hover { color: var(--text-color-primary); }
+        
+        tbody tr:hover { background-color: var(--hover-bg-color); }
 
-.tab button {
-  background: none;
-  border: none;
-  color: var(--text-secondary);
-  padding: 0.75rem 1.5rem;
-  cursor: pointer;
-  font-size: 0.9rem;
-  border-radius: 6px;
-  transition: all 0.2s;
-  font-weight: 500;
-}
-
-.tab button:hover {
-  background-color: var(--highlight-bg);
-  color: var(--accent-color);
-}
-
-.tab button.active {
-  color: var(--text-primary);
-  background-color: var(--accent-color);
-  font-weight: 600;
-}
-
-/* Table Styles */
-.tabcontent {
-  padding: 2rem;
-}
-
-.df {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2rem;
-}
-
-.df h2 {
-  margin: 0;
-  font-size: 1.3rem;
-  font-weight: 600;
-  letter-spacing: -0.025em;
-}
-
-.df h3 {
-  margin: 0;
-  font-size: 1rem;
-  color: var(--text-secondary);
-  font-weight: 500;
-}
-
-/* Filter Input */
-.filterInp {
-  margin: 1rem 0;
-}
-
-.filterInp input {
-  background-color: var(--secondary-bg);
-  border: 1px solid var(--border-color);
-  color: var(--text-primary);
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  width: 200px;
-  transition: all 0.2s;
-}
-
-.filterInp input:focus {
-  border-color: var(--accent-color);
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
-}
-
-/* Table Header Buttons */
-.w3-button.table-column,
-.w3-button.table-column2 {
-  background-color: var(--secondary-bg);
-  color: var(--text-secondary);
-  padding: 0.75rem 1rem;
-  border: none;
-  font-weight: 500;
-  text-align: left;
-  transition: all 0.2s;
-}
-
-.w3-button.table-column:hover,
-.w3-button.table-column2:hover {
-  background-color: var(--highlight-bg);
-  color: var(--accent-color);
-}
-
-/* Buttons */
-.btn {
-  background-color: var(--accent-color);
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  text-decoration: none;
-  font-size: 0.9rem;
-  transition: all 0.2s;
-  font-weight: 500;
-  border: none;
-}
-
-.btn:hover {
-  background-color: var(--accent-hover);
-}
-
-/* Refresh and Action Buttons */
-button {
-  background-color: var(--secondary-bg);
-  color: var(--text-primary);
-  border: 1px solid var(--border-color);
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  transition: all 0.2s;
-  font-weight: 500;
-}
-
-button:hover {
-  background-color: var(--button-hover);
-  border-color: var(--accent-color);
-}
-
-/* Table Styles */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 1rem;
-}
-
-th, td {
-  padding: 1rem;
-  text-align: left;
-  border-bottom: 1px solid var(--border-color);
-}
-
-th {
-  color: var(--text-secondary);
-  font-weight: 500;
-}
-
-tr:hover {
-  background-color: var(--highlight-bg);
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .counts {
-    flex-direction: column;
-    gap: 1rem;
-  }
-  
-  .tabcontent {
-    padding: 1rem;
-  }
-  
-  .df {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-  }
-}
+        #theme-toggle {
+            position: relative; width: 40px; height: 40px; background-color: var(--card-bg-color);
+            border: 1px solid var(--border-color); border-radius: 50%; cursor: pointer;
+            display: grid; place-items: center; transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        #theme-toggle:focus { outline: none; box-shadow: 0 0 0 2px var(--link-color); }
+        #theme-toggle .icon { width: 20px; height: 20px; fill: var(--text-color-secondary); transition: fill 0.3s ease; }
+        .icon-sun { display: none; }
+        .icon-moon { display: block; }
+        body.light-mode .icon-sun { display: block; }
+        body.light-mode .icon-moon { display: none; }
+        
+        @media (max-width: 768px) {
+            .dashboard-container { padding: 1rem; }
+            .headings { flex-direction: column; align-items: stretch; }
+            .header-actions { justify-content: space-between; width: 100%; }
+            .table-container { border: none; background-color: transparent; }
+            table, tbody, tr { display: block; width: 100%; }
+            table thead { display: none; }
+            tr { border: 1px solid var(--border-color); border-radius: 8px; margin-bottom: 1rem; background-color: var(--card-bg-color); }
+            td { display: flex; justify-content: space-between; align-items: center; text-align: right; padding: 0.75rem 1rem; border-bottom: 1px solid var(--border-color); white-space: normal; }
+            tr td:last-child { border-bottom: none; }
+            td::before { content: attr(data-label); font-weight: 500; text-align: left; margin-right: 1rem; color: var(--text-color-secondary); }
+        }
     </style>
-  </head>
-  <body>
-    <div class="headings">
-      <h1>Admin Dashboard</h1>
-      <br />
-      <p><a href="/dashboardlogout" class="btn">Logout</a></p>
-      <div class="counts">
-        <h3 id="logcount">0 Logs</h3>
-        <h3 id="usercount">0 Users</h3>
-      </div>
-    </div>
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="headings">
+            <div class="logo-title">
+                <img src="logo.png" alt="{{productname}} Logo" class="logo">
+                <div class="title-group">
+                    <h1>{{productname}}</h1>
+                    <h2>Admin Dashboard</h2>
+                </div>
+            </div>
+            <div class="header-actions">
+                <div class="counts">
+                    <h3 id="logcount">0 Logs</h3>
+                    <h3 id="usercount">0 Users</h3>
+                </div>
+                <button id="theme-toggle" title="Toggle light/dark theme">
+                    <svg class="icon icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.64 5.64c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41l1.06 1.06c.39.39 1.02.39 1.41 0s.39-1.02 0-1.41L5.64 5.64zm12.73 12.73c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41l1.06 1.06c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41l-1.06-1.06zM18.36 5.64l-1.06 1.06c-.39.39-.39 1.02 0 1.41s1.02.39 1.41 0l1.06-1.06c.39-.39.39-1.02 0-1.41-.39-.39-1.02-.39-1.41 0zM6.7 17.3c-.39.39-.39 1.02 0 1.41l1.06 1.06c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41l-1.06-1.06c-.39-.39-1.02-.39-1.41 0z"/></svg>
+                    <svg class="icon icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 2c-1.82 0-3.53.5-5 1.35C7.99 5.08 10 8.3 10 12s-2.01 6.92-5 8.65C6.47 21.5 8.18 22 10 22c5.52 0 10-4.48 10-10S15.52 2 10 2z"/></svg>
+                </button>
+                <a href="/dashboardlogout" class="btn btn-danger">Logout</a>
+            </div>
+        </div>
+        <div class="tab">
+            <button class="tablinks active" onclick="openTab(event, 'userstab');">Users</button>
+            <button class="tablinks" onclick="openTab(event, 'logstab');">Logs</button>
+            <button class="tablinks" onclick="fintechCode();">Get Fintech Auth Code</button>
+        </div>
 
-    <div class="tab">
-      <button class="tablinks" onclick="openTab(event, 'userstab');">
-        Users
-      </button>
-      <button class="tablinks" onclick="openTab(event, 'logstab');">
-        Logs
-      </button>
-      <button class="tablinks" onclick="fintechCode();">
-        Get Fintech Auth Code
-      </button>
-    </div>
+        <div id="logstab" class="tabcontent">
+            <div class="df">
+                <h2>Authentication Logs</h2>
+                <h3 id="filtercount">0 Results</h3>
+            </div>
+            <div class="action-bar">
+                <button onclick="populateTable();" class="btn">Refresh</button>
+                <button onclick="window.open('/analyticsdashboard');" class="btn-secondary">Advanced Analytics</button>
+                <button onclick="validatesig();" class="btn-secondary">Validate Document Signature</button>
+            </div>
+            <div class="filterInp">
+                <input type="text" id="myinput" placeholder="Search logs..." title="Type in something" />
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th><span id="name" class="w3-button table-column">Name <i class="caret"></i></span></th>
+                            <th><span id="email" class="w3-button table-column">Email <i class="caret"></i></span></th>
+                            <th><span id="requester" class="w3-button table-column">Requester <i class="caret"></i></span></th>
+                            <th><span id="timestamp" class="w3-button table-column">Date and Time <i class="caret"></i></span></th>
+                            <th><span id="ip" class="w3-button table-column">Client IP <i class="caret"></i></span></th>
+                        </tr>
+                    </thead>
+                    <tbody id="mytable"></tbody>
+                </table>
+            </div>
+        </div>
 
-    <div id="logstab" class="tabcontent">
-      <div class="df">
-        <h2>Logs - </h2>
-        <h3 id="filtercount">0 Result</h3>
-      </div>
-      <button onclick="populateTable();" class="btn">Refresh</button>
-      <button onclick="validatesig();" class="btn">Validate document signature</button>
-       <div class="filterInp">
-        <p>Filter:</p>
-
-        <input type="text" id="myinput" placeholder="Search..." title="Type in something" />
-      </div>
-
-      <p>Click on the header of a column to sort the table:</p>
-      <center>
-        <table>
-          <thead>
-            <tr>
-              <th>
-                <span id="name" class="w3-button table-column"
-                  >Name <i class="caret"></i
-                ></span>
-              </th>
-              <th>
-                <span id="email" class="w3-button table-column"
-                  >Email <i class="caret"></i
-                ></span>
-              </th>
-              <th>
-                <span id="requester" class="w3-button table-column"
-                  >Requester <i class="caret"></i
-                ></span>
-              </th>
-              <th>
-                <span id="timestamp" class="w3-button table-column"
-                  >Date and Time <i class="caret"></i
-                ></span>
-              </th>
-              <th>
-                <span id="ip" class="w3-button table-column"
-                  >Client IP <i class="caret"></i
-                ></span>
-              </th>
-            </tr>
-          </thead>
-          <tbody id="mytable"></tbody>
-        </table>
-      </center>
-    </div>
-
-    <script>
-      function validatesig()
-      {
-        filehash=prompt("Enter file hash")
-        signer=prompt("Enter signer email")
-        window.open("/adminsignvalidate?hash="+filehash+"&signer="+signer, "popup");
-      }
-    </script>
-
-    <div id="userstab" class="tabcontent">
-      <div class="df">
-        <h2>Users -</h2>
-        <h3 id="userfiltercount">0 Result</h3>
-      </div>
-      <button onclick="populateUserTable();" class="btn">Refresh</button>
-
-      <a href="/register"> <button class="btn">Register new user</button></a>
-
-      <div class="filterInp">
-        <p>Filter:</p>
-
-        <input type="text" id="myinput2" placeholder="Search..." title="Type in something" />
-      </div>
-
-      <p>Click on the header of a column to sort the table:</p>
-      <center>
-        <table>
-          <thead>
-            <tr>
-              <th>
-                <span id="name" class="w3-button table-column2"
-                  >Name <i class="caret"></i
-                ></span>
-              </th>
-              <th>
-                <span id="email" class="w3-button table-column2"
-                  >Email <i class="caret"></i
-                ></span>
-              </th>
-              <th>
-                <span id="edit" class="w3-button table-column2"
-                  >Edit <i class="caret"></i
-                ></span>
-              </th>
-                <th>
-                <span id="makeadmin" class="w3-button table-column2"
-                  >Make Admin <i class="caret"></i
-                ></span>
-              </th>
-            
-            </tr>
-          </thead>
-          <tbody id="mytable2"></tbody>
-        </table>
-      </center>
+        <div id="userstab" class="tabcontent">
+            <div class="df">
+                <h2>User Management</h2>
+                <h3 id="userfiltercount">0 Results</h3>
+            </div>
+            <div class="action-bar">
+                <button onclick="populateUserTable();" class="btn">Refresh</button>
+                <a href="/register" class="btn">Register New User</a>
+            </div>
+            <div class="filterInp">
+                <input type="text" id="myinput2" placeholder="Search users..." title="Type in something" />
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th><span id="name" class="w3-button table-column2">Name <i class="caret"></i></span></th>
+                            <th><span id="email" class="w3-button table-column2">Email <i class="caret"></i></span></th>
+                            <th><span id="edit" class="w3-button table-column2">Modify</span></th>
+                            <th><span id="makeadmin" class="w3-button table-column2">Make Admin</span></th>
+                        </tr>
+                    </thead>
+                    <tbody id="mytable2"></tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
     <script>
-      var table = document.getElementById("mytable");
-      var input = document.getElementById("myinput");
-      var tableData = [];
-      var tableData2 = [];
-      var table2 = document.getElementById("mytable2");
-      var input2 = document.getElementById("myinput2");
+        function validatesig() {
+            filehash = prompt("Enter file hash");
+            signer = prompt("Enter signer email");
+            window.open("/adminsignvalidate?hash=" + filehash + "&signer=" + signer, "popup");
+        }
 
-      var caretUpClassName = "fa fa-caret-up";
-      var caretDownClassName = "fa fa-caret-down";
-
-      const sort_by = (field, reverse, primer) => {
-        const key = primer
-          ? function (x) {
-              return primer(x[field]);
-            }
-          : function (x) {
-              return x[field];
-            };
-
-        reverse = !reverse ? 1 : -1;
-
-        return function (a, b) {
-          return (a = key(a)), (b = key(b)), reverse * ((a > b) - (b > a));
+        var table = document.getElementById("mytable");
+        var input = document.getElementById("myinput");
+        var tableData = [];
+        var tableData2 = [];
+        var table2 = document.getElementById("mytable2");
+        var input2 = document.getElementById("myinput2");
+        var caretUpClassName = "fa fa-caret-up";
+        var caretDownClassName = "fa fa-caret-down";
+        
+        const sort_by = (field, reverse, primer) => {
+            const key = primer ? function (x) { return primer(x[field]); } : function (x) { return x[field]; };
+            reverse = !reverse ? 1 : -1;
+            return function (a, b) { return (a = key(a)), (b = key(b)), reverse * ((a > b) - (b > a)); };
         };
-      };
 
-      function clearArrow() {
-        let carets = document.getElementsByClassName("caret");
-        for (let caret of carets) {
-          caret.className = "caret";
-        }
-      }
-
-      function toggleArrow(event) {
-        console.log("Sorting logs table");
-        let element = event.target;
-        let caret, field, reverse;
-        if (element.tagName === "SPAN") {
-          caret = element.getElementsByClassName("caret")[0];
-          field = element.id;
-        } else {
-          caret = element;
-          field = element.parentElement.id;
+        function clearArrow() {
+            let carets = document.getElementsByClassName("caret");
+            for (let caret of carets) { caret.className = "caret"; }
         }
 
-        let iconClassName = caret.className;
-        clearArrow();
-        if (iconClassName.includes(caretUpClassName)) {
-          caret.className = `caret ${caretDownClassName}`;
-          reverse = false;
-        } else {
-          reverse = true;
-          caret.className = `caret ${caretUpClassName}`;
-        }
-        console.log(field);
-        tableData.sort(sort_by(field, reverse));
-        //tableData2.sort(sort_by(field, reverse));
-        populateTableNoFetch();
-        //populateUserTable();
-      }
-
-      function toggleArrow2(event) {
-        console.log("Sorting user table");
-        let element = event.target;
-        let caret, field, reverse;
-        if (element.tagName === "SPAN") {
-          caret = element.getElementsByClassName("caret")[0];
-          field = element.id;
-        } else {
-          caret = element;
-          field = element.parentElement.id;
-        }
-
-        let iconClassName = caret.className;
-        clearArrow();
-        if (iconClassName.includes(caretUpClassName)) {
-          caret.className = `caret ${caretDownClassName}`;
-          reverse = false;
-        } else {
-          reverse = true;
-          caret.className = `caret ${caretUpClassName}`;
-        }
-        console.log(field);
-        //tableData.sort(sort_by(field, reverse));
-        tableData2.sort(sort_by(field, reverse));
-        //populateTable();
-        populateUserTableNoFetch();
-      }
-
-      async function fetchUsers() {
-        const response = await fetch("/all_users");
-        tableData2 = await response.json();
-        return tableData2;
-      }
-
-      async function fetchLogs() {
-        const response = await fetch("/all_logs");
-        tableData = await response.json();
-        return tableData;
-      }
-
-      function populateTable() {
-        table.innerHTML = "";
-        fetchLogs().then((tableData) => {
-          var elem = tableData.length;
-          document.getElementById("logcount").innerHTML = elem + " Logs";
-          for (let data of tableData) {
-            let row = table.insertRow(-1);
-            let name = row.insertCell(0);
-            name.innerHTML = data.name;
-
-            let email = row.insertCell(1);
-            email.innerHTML = data.email;
-
-            let requester = row.insertCell(2);
-            requester.innerHTML = data.requester;
-
-            let timestamp = row.insertCell(3);
-            timestamp.innerHTML = data.timestamp;
-            
-            let ip = row.insertCell(4);
-            ip.innerHTML = data.ip;
-          }
-
-          filterTable();
-        });
-      }
-
-      function populateTableNoFetch() {
-        table.innerHTML = "";
-        //console.log(tableData);
-        var elem = tableData.length;
-        document.getElementById("logcount").innerHTML = elem + " Logs";
-        for (let data of tableData) {
-          let row = table.insertRow(-1);
-          let name = row.insertCell(0);
-          name.innerHTML = data.name;
-
-          let email = row.insertCell(1);
-          email.innerHTML = data.email;
-
-          let requester = row.insertCell(2);
-          requester.innerHTML = data.requester;
-
-          let timestamp = row.insertCell(3);
-          timestamp.innerHTML = data.timestamp;
-          
-            let ip = row.insertCell(4);
-            ip.innerHTML = data.ip;
-        }
-
-        filterTable();
-      }
-
-      function populateUserTable() {
-        table2.innerHTML = "";
-        fetchUsers().then((tableData2) => {
-          var elem = tableData2.length;
-          document.getElementById("usercount").innerHTML = elem + " Users";
-          for (let data of tableData2) {
-            let row = table2.insertRow(-1);
-            let name = row.insertCell(0);
-            name.innerHTML = data.name;
-            let email = row.insertCell(1);
-            email.innerHTML = data.email;
-            let edit = row.insertCell(2);
-            edit.innerHTML =
-              "<button class=\"btn\" onclick='editUser(\"" +
-              data.email +
-              "\");'>Modify</button>";
-            let makeadmin = row.insertCell(3);
-            makeadmin.innerHTML =
-              "<button class=\"btn\" onclick='makeAdmin(\"" +
-              data.email +
-              "\");'>Make Admin</button>";
-          }
-
-          filterUserTable();
-        });
-      }
-
-      function populateUserTableNoFetch() {
-        table2.innerHTML = "";
-
-        var elem = tableData2.length;
-        document.getElementById("usercount").innerHTML = elem + " Users";
-        for (let data of tableData2) {
-          let row = table2.insertRow(-1);
-          let name = row.insertCell(0);
-          name.innerHTML = data.name;
-          let email = row.insertCell(1);
-          email.innerHTML = data.email;
-          let edit = row.insertCell(2);
-          edit.innerHTML =
-            "<button class=\"btn\" onclick='editUser(\"" +
-            data.email +
-            "\");'>Modify</button>";
-          let makeadmin = row.insertCell(3);
-            makeadmin.innerHTML =
-              "<button class=\"btn\" onclick='makeAdmin(\"" +
-              data.email +
-              "\");'>Make Admin</button>";
-        }
-
-        filterUserTable();
-      }
-
-      function editUser(email) {
-        fetch("/modify", {
-          body: "email=" + email,
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-          method: "post",
-        })
-          .then((response) => response.text())
-          .then((text) => {
-            alert(text);
-          });
-      }
-
-       function makeAdmin(email) {
-        fetch("/promoteadmin", {
-          body: "email=" + email,
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-          method: "post",
-        })
-          .then((response) => response.text())
-          .then((text) => {
-            alert(text);
-          });
-      }
-
-      function filterTable() {
-        let filter = input.value.toUpperCase();
-        rows = table.getElementsByTagName("TR");
-        let flag = false;
-        var cntelem = 0;
-
-        for (let row of rows) {
-          let cells = row.getElementsByTagName("TD");
-          for (let cell of cells) {
-            if (cell.textContent.toUpperCase().indexOf(filter) > -1) {
-              if (filter) {
-                cell.style.backgroundColor = "#aeb0ff";
-              } else {
-                cell.style.backgroundColor = "";
-              }
-
-              flag = true;
+        function toggleArrow(event) {
+            let element = event.target;
+            let caret, field, reverse;
+            if (element.tagName === "SPAN") {
+                caret = element.getElementsByClassName("caret")[0];
+                field = element.id;
             } else {
-              cell.style.backgroundColor = "";
+                caret = element;
+                field = element.parentElement.id;
             }
-          }
-
-          if (flag) {
-            row.style.display = "";
-            cntelem = cntelem + 1;
-          } else {
-            row.style.display = "none";
-          }
-
-          flag = false;
-        }
-        document.getElementById("filtercount").innerHTML = cntelem + " Results";
-      }
-
-      function filterUserTable() {
-        let filter = input2.value.toUpperCase();
-        rows = table2.getElementsByTagName("TR");
-        let flag = false;
-        var cntelem = 0;
-
-        for (let row of rows) {
-          let cells = row.getElementsByTagName("TD");
-          for (let cell of cells) {
-            if (cell.textContent.toUpperCase().indexOf(filter) > -1) {
-              if (filter) {
-                cell.style.backgroundColor = "#aeb0ff";
-              } else {
-                cell.style.backgroundColor = "";
-              }
-
-              flag = true;
+            let iconClassName = caret.className;
+            clearArrow();
+            if (iconClassName.includes(caretUpClassName)) {
+                caret.className = `caret ${caretDownClassName}`;
+                reverse = false;
             } else {
-              cell.style.backgroundColor = "";
+                reverse = true;
+                caret.className = `caret ${caretUpClassName}`;
             }
-          }
-
-          if (flag) {
-            row.style.display = "";
-            cntelem = cntelem + 1;
-          } else {
-            row.style.display = "none";
-          }
-
-          flag = false;
+            tableData.sort(sort_by(field, reverse));
+            populateTableNoFetch();
         }
-        document.getElementById("userfiltercount").innerHTML =
-          cntelem + " Results";
-      }
 
-      populateTable();
-      populateUserTable();
+        function toggleArrow2(event) {
+            let element = event.target;
+            let caret, field, reverse;
+            if (element.tagName === "SPAN") {
+                caret = element.getElementsByClassName("caret")[0];
+                field = element.id;
+            } else {
+                caret = element;
+                field = element.parentElement.id;
+            }
+            let iconClassName = caret.className;
+            clearArrow();
+            if (iconClassName.includes(caretUpClassName)) {
+                caret.className = `caret ${caretDownClassName}`;
+                reverse = false;
+            } else {
+                reverse = true;
+                caret.className = `caret ${caretUpClassName}`;
+            }
+            tableData2.sort(sort_by(field, reverse));
+            populateUserTableNoFetch();
+        }
 
-      let tableColumns = document.getElementsByClassName("table-column");
+        async function fetchUsers() {
+            const response = await fetch("/all_users");
+            tableData2 = await response.json();
+            return tableData2;
+        }
 
-      for (let column of tableColumns) {
-        column.addEventListener("click", function (event) {
-          toggleArrow(event);
+        async function fetchLogs() {
+            const response = await fetch("/all_logs");
+            tableData = await response.json();
+            return tableData;
+        }
+
+        function populateTable() {
+            table.innerHTML = "";
+            fetchLogs().then((data) => {
+                tableData = data; // Update global data
+                document.getElementById("logcount").innerHTML = tableData.length + " Logs";
+                populateTableNoFetch(); // Use the common function to build rows
+            });
+        }
+        
+        function populateTableNoFetch() {
+            table.innerHTML = "";
+            for (let data of tableData) {
+                let row = table.insertRow(-1);
+                let name = row.insertCell(0); name.innerHTML = data.name; name.setAttribute('data-label', 'Name');
+                let email = row.insertCell(1); email.innerHTML = data.email; email.setAttribute('data-label', 'Email');
+                let requester = row.insertCell(2); requester.innerHTML = data.requester; requester.setAttribute('data-label', 'Requester');
+                let timestamp = row.insertCell(3); timestamp.innerHTML = data.timestamp; timestamp.setAttribute('data-label', 'Date/Time');
+                let ip = row.insertCell(4); ip.innerHTML = data.ip; ip.setAttribute('data-label', 'Client IP');
+            }
+            filterTable(); // Apply filter after populating
+        }
+
+        function populateUserTable() {
+            table2.innerHTML = "";
+            fetchUsers().then((data) => {
+                tableData2 = data; // Update global data
+                document.getElementById("usercount").innerHTML = tableData2.length + " Users";
+                populateUserTableNoFetch(); // Use the common function to build rows
+            });
+        }
+        
+        function populateUserTableNoFetch() {
+            table2.innerHTML = "";
+            for (let data of tableData2) {
+                let row = table2.insertRow(-1);
+                let name = row.insertCell(0); name.innerHTML = data.name; name.setAttribute('data-label', 'Name');
+                let email = row.insertCell(1); email.innerHTML = data.email; email.setAttribute('data-label', 'Email');
+                let edit = row.insertCell(2); edit.innerHTML = `<button class="btn btn-secondary" onclick='editUser("${data.email}")'>Modify</button>`; edit.setAttribute('data-label', 'Modify');
+                let makeadmin = row.insertCell(3); makeadmin.innerHTML = `<button class="btn btn-secondary" onclick='makeAdmin("${data.email}")'>Make Admin</button>`; makeadmin.setAttribute('data-label', 'Make Admin');
+            }
+            filterUserTable(); // Apply filter after populating
+        }
+
+        function editUser(email) {
+            fetch("/modify", { body: "email=" + email, headers: { "Content-Type": "application/x-www-form-urlencoded" }, method: "post" })
+                .then((response) => response.text())
+                .then((text) => { alert(text); });
+        
+        }
+
+        function makeAdmin(email) {
+            fetch("/promoteadmin", { body: "email=" + email, headers: { "Content-Type": "application/x-www-form-urlencoded" }, method: "post" })
+                .then((response) => response.text())
+                .then((text) => { alert(text); });
+        }
+
+        // --- UPDATED FILTER FUNCTIONS WITH HIGHLIGHTING ---
+        function filterTable() {
+            let filter = input.value;
+            let rows = table.getElementsByTagName("TR");
+            let cntelem = 0;
+
+            for (let row of rows) {
+                let rowVisible = false;
+                for (let cell of row.cells) {
+                    const originalText = cell.textContent;
+                    cell.innerHTML = originalText; // Clear previous highlights
+
+                    if (filter && originalText.toUpperCase().includes(filter.toUpperCase())) {
+                        rowVisible = true;
+                        const regex = new RegExp(filter, 'gi');
+                        cell.innerHTML = originalText.replace(regex, (match) => `<mark>${match}</mark>`);
+                    }
+                }
+
+                if (!filter || rowVisible) {
+                    row.style.display = "";
+                    cntelem++;
+                } else {
+                    row.style.display = "none";
+                }
+            }
+            document.getElementById("filtercount").innerHTML = cntelem + " Results";
+        }
+
+        function filterUserTable() {
+            let filter = input2.value;
+            let rows = table2.getElementsByTagName("TR");
+            let cntelem = 0;
+
+            for (let row of rows) {
+                let rowVisible = false;
+                for (let cell of row.cells) {
+                    // Skip action cells for highlighting
+                    if (cell.getAttribute('data-label') === 'Modify' || cell.getAttribute('data-label') === 'Make Admin') {
+                        if(cell.textContent.toUpperCase().includes(filter.toUpperCase())){
+                            rowVisible = true;
+                        }
+                        continue;
+                    }
+                    const originalText = cell.textContent;
+                    cell.innerHTML = originalText; // Clear previous highlights
+
+                    if (filter && originalText.toUpperCase().includes(filter.toUpperCase())) {
+                        rowVisible = true;
+                        const regex = new RegExp(filter, 'gi');
+                        cell.innerHTML = originalText.replace(regex, (match) => `<mark>${match}</mark>`);
+                    }
+                }
+
+                if (!filter || rowVisible) {
+                    row.style.display = "";
+                    cntelem++;
+                } else {
+                    row.style.display = "none";
+                }
+            }
+            document.getElementById("userfiltercount").innerHTML = cntelem + " Results";
+        }
+        
+        input.addEventListener("keyup", filterTable);
+        input2.addEventListener("keyup", filterUserTable);
+        
+        let tableColumns = document.getElementsByClassName("table-column");
+        for (let column of tableColumns) { column.addEventListener("click", (event) => toggleArrow(event)); }
+        let tableColumns2 = document.getElementsByClassName("table-column2");
+        for (let column of tableColumns2) { column.addEventListener("click", (event) => toggleArrow2(event)); }
+        
+        function openTab(evt, tabName) {
+            var tabcontent = document.getElementsByClassName("tabcontent");
+            for (let i = 0; i < tabcontent.length; i++) { tabcontent[i].style.display = "none"; }
+            var tablinks = document.getElementsByClassName("tablinks");
+            for (let i = 0; i < tablinks.length; i++) { tablinks[i].className = tablinks[i].className.replace(" active", ""); }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+        
+        function fintechCode() {
+            fetch("/getfincode").then(res => res.text()).then(text => { prompt("This code will be shown only once. Copy it. " + text, text); });
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('.tablinks').click();
+            populateTable();
+            populateUserTable();
         });
-      }
-
-      let tableColumns2 = document.getElementsByClassName("table-column2");
-
-      for (let column of tableColumns2) {
-        column.addEventListener("click", function (event) {
-          toggleArrow2(event);
-        });
-      }
-
-      input.addEventListener("keyup", function (event) {
-        filterTable();
-      });
-      input2.addEventListener("keyup", function (event) {
-        filterUserTable();
-      });
-
-      function openTab(evt, tabName) {
-        var i, tabcontent, tablinks;
-        tabcontent = document.getElementsByClassName("tabcontent");
-        for (i = 0; i < tabcontent.length; i++) {
-          tabcontent[i].style.display = "none";
-        }
-        tablinks = document.getElementsByClassName("tablinks");
-        for (i = 0; i < tablinks.length; i++) {
-          tablinks[i].className = tablinks[i].className.replace(" active", "");
-        }
-        document.getElementById(tabName).style.display = "block";
-        evt.currentTarget.tabName += " active";
-      }
-
-      function fintechCode()
-        {
-          fetch("/getfincode")
-          .then((response) => response.text())
-          .then((text) => {
-            prompt("This code will be shown only once. Copy it. "+text,text);
-          });
-        }
-      
-      openTab(event, "userstab");
+        
+        const themeToggle = document.getElementById('theme-toggle');
+        themeToggle.addEventListener('click', () => { document.body.classList.toggle('light-mode'); });
     </script>
-  </body>
+</body>
 </html>
-

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{productname}} ID Verfication</title>
+    
+    <script src="https://sdk.mukham.in/MAuthN.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Dark Mode (Default) */
+            --bg-color: #202124;
+            --card-bg-color: #242424;
+            --border-color: #5f6368;
+            --text-color-primary: #e8eaed;
+            --text-color-secondary: #bdc1c6;
+            --link-color: #8ab4f8;
+            --button-bg-color: #8ab4f8;
+            --button-text-color: #202124;
+            --button-hover-bg: #9ac0fa;
+        }
+
+        body.light-mode {
+            /* Light Mode Palette */
+            --bg-color: #ffffff;
+            --card-bg-color: #ffffff;
+            --border-color: #dadce0;
+            --text-color-primary: #202124;
+            --text-color-secondary: #5f6368;
+            --link-color: #1a73e8;
+            --button-bg-color: #1a73e8;
+            --button-text-color: #ffffff;
+            --button-hover-bg: #1b66c9;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color-primary);
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 20px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        main {
+            width: 100%;
+            max-width: 448px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 48px 40px;
+            background-color: var(--card-bg-color);
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .logo {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 16px;
+            object-fit: contain;
+        }
+        
+        .header h1 {
+            font-family: 'Google Sans', sans-serif;
+            font-size: 24px;
+            font-weight: 400;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            font-size: 16px;
+            color: var(--text-color-secondary);
+            margin-bottom: 24px;
+        }
+        
+        /* QR Reader Style */
+        #qr-reader {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden; /* Clips the video feed to the rounded corners */
+        }
+        
+        /* Verifying State Styles */
+        #verifying p {
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-color-secondary);
+        }
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--border-color);
+            border-top-color: var(--link-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* Results State Styles */
+        #userimg {
+            width: 100%;
+            max-width: 300px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+        #multi-line-result {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 14px;
+            background-color: var(--bg-color);
+            color: var(--text-color-primary);
+            resize: none;
+            margin-bottom: 1.5rem;
+        }
+        
+        .btn {
+            background-color: var(--button-bg-color);
+            color: var(--button-text-color);
+            border: none;
+            border-radius: 4px;
+            padding: 10px 24px;
+            font-size: 14px;
+            font-weight: 500;
+            font-family: 'Google Sans', sans-serif;
+            cursor: pointer;
+            transition: background-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .btn:hover { background-color: var(--button-hover-bg); }
+
+        .footer { margin-top: 32px; font-size: 12px; color: var(--text-color-secondary); }
+        
+        #theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background-color: var(--card-bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            cursor: pointer;
+            display: grid;
+            place-items: center;
+        }
+        #theme-toggle:focus { outline: none; box-shadow: 0 0 0 2px var(--link-color); }
+        #theme-toggle .icon { width: 20px; height: 20px; fill: var(--text-color-secondary); }
+        .icon-sun { display: none; }
+        .icon-moon { display: block; }
+        body.light-mode .icon-sun { display: block; }
+        body.light-mode .icon-moon { display: none; }
+
+        @media (max-width: 480px) {
+            main { padding: 32px 24px; border: none; background-color: var(--bg-color); }
+        }
+    </style>
+</head>
+<body>
+    <button id="theme-toggle" title="Toggle light/dark theme">
+        <svg class="icon icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.64 5.64c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41l1.06 1.06c.39.39 1.02.39 1.41 0s.39-1.02 0-1.41L5.64 5.64zm12.73 12.73c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41l1.06 1.06c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41l-1.06-1.06zM18.36 5.64l-1.06 1.06c-.39.39-.39 1.02 0 1.41s1.02.39 1.41 0l1.06-1.06c.39-.39.39-1.02 0-1.41-.39-.39-1.02-.39-1.41 0zM6.7 17.3c-.39.39-.39 1.02 0 1.41l1.06 1.06c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41l-1.06-1.06c-.39-.39-1.02-.39-1.41 0z"/></svg>
+        <svg class="icon icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 2c-1.82 0-3.53.5-5 1.35C7.99 5.08 10 8.3 10 12s-2.01 6.92-5 8.65C6.47 21.5 8.18 22 10 22c5.52 0 10-4.48 10-10S15.52 2 10 2z"/></svg>
+    </button>
+    
+    <main>
+        <img src="/logo.png" alt="{{productname}} Logo" class="logo">
+        
+        <div id="qr-reader-container">
+            <div class="header">
+                <h1>{{productname}} ID Verifier</h1>
+                <p>Scan the QR code to proceed.</p>
+            </div>
+            <div id="qr-reader"></div>
+        </div>
+
+        <div id="verifying" style="display: none;">
+            <div class="header">
+                <h1>Verifying...</h1>
+            </div>
+            <div class="spinner"></div>
+            <p>Please ask the claimant to complete authentication on their device.</p>
+            <button class="btn" onclick="retryScan()">Cancel and Retry</button>
+        </div>
+
+        <div id="results" style="display: none;">
+             <div class="header">
+                <h1>Verification Complete</h1>
+            </div>
+            <img id="userimg" src="" alt="User Image">
+            <textarea id="multi-line-result" rows="6" readonly></textarea>
+            <button class="btn" onclick="retryScan()">Scan Another ID</button>
+        </div>
+
+        <div class="footer">
+            <p class="powered-by">Powered by Mukham</p>
+        </div>
+    </main>
+
+    <script>
+        function retryScan() {
+            document.getElementById('verifying').style.display = 'none';
+            document.getElementById('results').style.display = 'none';
+            document.getElementById('qr-reader-container').style.display = 'block';
+            if (html5QrCode && !html5QrCode.isScanning) {
+                html5QrCode.start(
+                    { facingMode: "environment" },
+                    { fps: 10, qrbox: { width: 250, height: 250 } },
+                    onScanSuccess,
+                    onScanFailure
+                ).catch(err => {
+                    console.error(`Unable to restart QR Code scanner: ${err}`);
+                });
+            }
+        }
+
+        function displayMultiLineResult(data) {
+            const resultField = document.getElementById('multi-line-result');
+            resultField.value = `Name: ${data.name}\nDate of Birth: ${data['date-of-birth']}\nEmail: ${data.email}\nDetails: ${data.claimant}`;
+            const imagePreview = document.getElementById('userimg');
+            imagePreview.src = `data:image/png;base64,${data.image}`; 
+        }
+
+        function onScanSuccess(decodedText, decodedResult) {
+            document.getElementById('verifying').style.display = 'block';
+            document.getElementById('qr-reader-container').style.display = 'none';
+            html5QrCode.stop().then(() => {
+                console.log("QR Code scanning stopped.");
+            }).catch(err => {
+                console.error("Error stopping QR Code scanning:", err);
+            });
+            fetchUserData(decodedText);
+        }
+
+        function onScanFailure(error) {
+            // This function is called frequently, so it's best to keep it quiet unless debugging.
+            // console.warn(`QR Code scan error: ${error}`);
+        }
+
+        const html5QrCode = new Html5Qrcode("qr-reader");
+        html5QrCode.start(
+            { facingMode: "environment" }, 
+            { fps: 10, qrbox: { width: 250, height: 250 } },
+            onScanSuccess,
+            onScanFailure
+        ).catch(err => {
+            console.error(`Unable to start QR Code scanner: ${err}`);
+            alert('Error: Could not start camera. Please grant camera permissions and refresh the page.');
+        });
+
+        async function fetchUserData(email) {
+            const dataFields = ["Name", "Image", "Date-Of-Birth"];
+            const appName = "MAuthN ID Verifier";
+            try {
+                const userData = await getUserData(email, dataFields, appName);
+                document.getElementById('verifying').style.display = 'none';
+                document.getElementById('results').style.display = 'block';
+                console.log("User Data:", JSON.parse(userData));
+                displayMultiLineResult(JSON.parse(userData)[0]); 
+            } catch (error) {
+                console.error("Error fetching user data:", error);
+                document.getElementById('verifying').style.display = 'none';
+                document.getElementById('results').style.display = 'none';
+                document.getElementById('qr-reader-container').style.display = 'block';
+                alert("Error: " + error);
+                retryScan();
+            }
+        }
+        
+        const themeToggle = document.getElementById('theme-toggle');
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('light-mode');
+        });
+    </script>
+</body>
+</html>

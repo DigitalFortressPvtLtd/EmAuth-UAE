@@ -238,6 +238,19 @@ def getUserImageOIDC(authtoken):
 	except:
 		return '0000'
 	
+def getUserDetailsApp(user):
+	try:
+		cursor.execute("SELECT email, name, imgblob FROM [Users] WHERE id=?", user)
+		data=cursor.fetchone()
+		cursor.commit()
+		dat={}
+		dat['email']=data[0]
+		dat['name']=data[1]
+		dat['image']=downloadFile(data[2]).decode()
+		return json.dumps(dat)
+	except:
+		return '0000'
+
 def revokeTokenOIDC(authtoken):
 	try:
 		cursor.execute("DELETE FROM [OIDCToken] WHERE authtoken=?", authtoken)
@@ -585,15 +598,7 @@ def checkAdmin(email):
 		return val>0
 	except:
 		return False
-
-def checkAnyAdmin():
-	try:
-		cursor.execute("SELECT COUNT(*) FROM [Admin]")
-		val=cursor.fetchone()[0]
-		print(val)
-		return val>0
-	except:
-		return False
+		
 
 def addToRequest(token,id,requester,ts,reqdata,ip): #Insert to requests table ts to str
 	try:
@@ -976,7 +981,7 @@ def getAllUsers(): #get from Users table JSON
 		#print(traceback.format_exc())
 		return "0000"
 
-def getResponse(reqdata,id,token, loc1): #get from Users table
+def getResponse(reqdata,id,token, loc1, eml): #get from Users table
 	if reqdata=="0000":
 		return json.dumps({"Verification":True})
 	try:
@@ -1001,6 +1006,7 @@ def getResponse(reqdata,id,token, loc1): #get from Users table
 		if reqdata[3]=='1':
 			d['location']=loc
 		d['claimant']=loc1
+		d['email']=eml
 		objects_list.append(d)
 		j=json.dumps(objects_list)
 		return j
@@ -1021,3 +1027,4 @@ def get_recent_user_emails(months=1):
 	except:
 		return []
     
+

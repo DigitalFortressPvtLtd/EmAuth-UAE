@@ -1,118 +1,214 @@
-<html>
-  <head>
-    <title>Login</title>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Signature Verification - {{productname}}</title>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     
     <style>
-      body{
-        font-family: 'Helvetica Neue', Helvetica,  sans-serif;
-        font-size: 14px;
-        line-height: 1.42857143;
-        color: #e9e9e9;
-        text-align: center;
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        background: linear-gradient(-45deg, #0f092b, #411325, #112c36, #102c26);
-	      background-size: 400% 400%;
-        animation: gradient 15s ease infinite;
-      }
-
-
-@keyframes gradient {
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
-}
-
-
-      form{
-        display: flex;
-        width: 100%;
-        max-width: 400px;
-        justify-content: center;
-        align-items: center;
-      }
-      input{
-        width: 100%;
-        height: 40px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        padding: 0 10px;
-        font-size: 14px;
-        line-height: 1.42857143;
-        color: #555;
-        background-color: #fff;
-        background-image: none;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-        box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-        -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
-      }
-      input[type="submit"]{
-        width: 120px;
-        height: auto;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        padding: 8px 30px;
-        font-size: 14px;
-        line-height: 1.42857143;
-        color: rgb(255, 255, 255);
-        background-color: #2f3192;
-        background-image: none;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        margin-left: 10px;
-      }
-      h1{
-        margin-bottom: 40px;
-      }
-      h2{
-        margin-bottom: 40px;
-      }
-      @media screen and (max-width: 630px) {
-        form{
-          flex-direction: column;
+        :root {
+            /* Dark Mode (Default) */
+            --bg-color: #202124;
+            --card-bg-color: #242424;
+            --border-color: #5f6368;
+            --text-color-primary: #e8eaed;
+            --text-color-secondary: #bdc1c6;
+            --link-color: #8ab4f8;
+            --button-bg-color: #8ab4f8;
+            --button-text-color: #202124;
+            --button-hover-bg: #9ac0fa;
+            --success-color: #81c995;
+            --error-color: #f28b82;
         }
-        input{
-          width: 100%;
-          margin-bottom: 10px;
+
+        body.light-mode {
+            /* Light Mode Palette */
+            --bg-color: #ffffff;
+            --card-bg-color: #ffffff;
+            --border-color: #dadce0;
+            --text-color-primary: #202124;
+            --text-color-secondary: #5f6368;
+            --link-color: #1a73e8;
+            --button-bg-color: #1a73e8;
+            --button-text-color: #ffffff;
+            --button-hover-bg: #1b66c9;
+            --success-color: #1e8e3e;
+            --error-color: #d93025;
         }
-      }
-      .result {
-            margin-top: 20px;
-            padding: 10px;
-            border: 1px solid #ccc;
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color-primary);
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 20px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        main {
+            width: 100%;
+            max-width: 448px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 48px 40px;
+            background-color: var(--card-bg-color);
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .logo {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 16px;
+            object-fit: contain;
+        }
+        
+        .header h1 {
+            font-family: 'Google Sans', sans-serif;
+            font-size: 24px;
+            font-weight: 400;
+            line-height: 1.3333;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            font-size: 16px;
+            line-height: 1.5;
+            color: var(--text-color-secondary);
+            margin-bottom: 24px;
+        }
+
+        form {
+            width: 100%;
+            text-align: left;
+        }
+
+        .input-wrapper {
+            position: relative;
+            margin-bottom: 24px;
+        }
+
+        .input-field {
+            width: 100%;
+            height: 56px;
+            padding: 13px 15px;
+            border: 1px solid var(--border-color);
             border-radius: 4px;
-            background-color: #f9f9f9;
-            color: #333;
-            max-width: 400px;
-            word-wrap: break-word;
-            }
-    </style>
-  </head>
-  <body>
-    <h1>Signed document verification</h1>
-    <form>
-        <input type="file" id="fileInput" accept="application/pdf" />
-        <input type="submit" value="Upload" onclick="uploadFile(event)" />
+            background-color: transparent;
+            color: var(--text-color-primary);
+            font-size: 16px;
+            font-family: 'Roboto', sans-serif;
+            transition: border-color 0.2s ease-in-out;
+        }
 
-        <script>
-            function uploadFile(event) {
+        input[type="file"] {
+            padding-top: 20px;
+            font-size: 14px;
+            color: var(--text-color-secondary);
+        }
+        
+        input[type="file"]::-webkit-file-upload-button {
+            background-color: var(--button-bg-color);
+            color: var(--button-text-color);
+            border: none; border-radius: 4px; padding: 6px 12px;
+            font-size: 12px; font-weight: 500; font-family: 'Google Sans', sans-serif;
+            cursor: pointer; transition: background-color 0.2s ease;
+            margin-right: 16px;
+        }
+        input[type="file"]::-webkit-file-upload-button:hover { background-color: var(--button-hover-bg); }
+
+        .btn-submit {
+            width: 100%;
+            background-color: var(--button-bg-color);
+            color: var(--button-text-color);
+            border: none; border-radius: 4px; padding: 10px 24px; height: 40px;
+            font-size: 14px; font-weight: 500; font-family: 'Google Sans', sans-serif;
+            cursor: pointer; transition: background-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .btn-submit:hover {
+            background-color: var(--button-hover-bg);
+            box-shadow: 0 1px 2px 0 rgba(0,0,0,.3), 0 1px 3px 1px rgba(0,0,0,.15);
+        }
+        
+        /* Result styles */
+        .result {
+            text-align: left; padding: 12px; border-radius: 4px;
+            margin-top: 24px; font-size: 14px; line-height: 1.6;
+            word-wrap: break-word;
+        }
+        .result.success {
+            background-color: rgba(129, 201, 149, 0.1); color: var(--success-color); border: 1px solid var(--success-color);
+        }
+        .result.error {
+            background-color: rgba(242, 139, 130, 0.1); color: var(--error-color); border: 1px solid var(--error-color);
+        }
+        
+        #theme-toggle {
+            position: fixed; top: 20px; right: 20px; width: 40px; height: 40px;
+            background-color: var(--card-bg-color); border: 1px solid var(--border-color);
+            border-radius: 50%; cursor: pointer; display: grid; place-items: center;
+        }
+        #theme-toggle:focus { outline: none; box-shadow: 0 0 0 2px var(--link-color); }
+        #theme-toggle .icon { width: 20px; height: 20px; fill: var(--text-color-secondary); }
+        .icon-sun { display: none; }
+        .icon-moon { display: block; }
+        body.light-mode .icon-sun { display: block; }
+        body.light-mode .icon-moon { display: none; }
+
+        @media (max-width: 480px) {
+            main {
+                padding: 32px 24px;
+                border: none;
+                background-color: var(--bg-color);
+            }
+        }
+    </style>
+</head>
+<body>
+    <button id="theme-toggle" title="Toggle light/dark theme">
+        <svg class="icon icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.64 5.64c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41l1.06 1.06c.39.39 1.02.39 1.41 0s.39-1.02 0-1.41L5.64 5.64zm12.73 12.73c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41l1.06 1.06c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41l-1.06-1.06zM18.36 5.64l-1.06 1.06c-.39.39-.39 1.02 0 1.41s1.02.39 1.41 0l1.06-1.06c.39-.39.39-1.02 0-1.41-.39-.39-1.02-.39-1.41 0zM6.7 17.3c-.39.39-.39 1.02 0 1.41l1.06 1.06c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41l-1.06-1.06c-.39-.39-1.02-.39-1.41 0z"/></svg>
+        <svg class="icon icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 2c-1.82 0-3.53.5-5 1.35C7.99 5.08 10 8.3 10 12s-2.01 6.92-5 8.65C6.47 21.5 8.18 22 10 22c5.52 0 10-4.48 10-10S15.52 2 10 2z"/></svg>
+    </button>
+    
+    <main>
+        <img src="/logo.png" alt="{{productname}} Logo" class="logo">
+        <div class="header">
+            <h1>Verify Document Signature</h1>
+            <p>Upload a signed PDF to check its integrity.</p>
+        </div>
+
+        <form>
+            <div class="input-wrapper">
+                <input type="file" id="fileInput" class="input-field" accept="application/pdf" />
+            </div>
+            <button type="submit" class="btn-submit" onclick="uploadFile(event)">Verify</button>
+        </form>
+        
+        <div id="result-container" style="display: none;"></div>
+    </main>
+
+    <script>
+        function uploadFile(event) {
             event.preventDefault();
             const fileInput = document.getElementById('fileInput');
+            const resultContainer = document.getElementById('result-container');
             const file = fileInput.files[0];
+
             if (file && file.type === 'application/pdf') {
                 const formData = new FormData();
                 formData.append('file', file);
@@ -123,18 +219,30 @@
                 })
                 .then(response => response.text())
                 .then(data => {
-                    const responseDiv = document.createElement('div');
-                    responseDiv.textContent = data;
-                    responseDiv.className = 'result';
-                    document.body.appendChild(responseDiv);
+                    resultContainer.textContent = data;
+                    // Add a class based on the response to style it as success or error
+                    if (data.toLowerCase().includes('valid')) {
+                        resultContainer.className = 'result success';
+                    } else {
+                        resultContainer.className = 'result error';
+                    }
+                    resultContainer.style.display = 'block';
                 })
-                .catch(error => console.error('Error:', error));
+                .catch(error => {
+                    console.error('Error:', error);
+                    resultContainer.textContent = 'An error occurred during verification.';
+                    resultContainer.className = 'result error';
+                    resultContainer.style.display = 'block';
+                });
             } else {
-                alert('Please upload a PDF file.');
+                alert('Please upload a valid PDF file.');
             }
-            }
-        </script>
-        
-      </form>
-  </body>
+        }
+
+        const themeToggle = document.getElementById('theme-toggle');
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('light-mode');
+        });
+    </script>
+</body>
 </html>

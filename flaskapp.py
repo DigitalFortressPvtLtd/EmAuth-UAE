@@ -1288,6 +1288,14 @@ def appinfo():
 		return json.dumps({'error':'User not found'})
 	return ret
 
+@app.route("/checkdomain", methods=['GET', 'POST'])
+def check_domain():
+	temp=str(uuid.uuid4())
+	outf=open(filepth+'temp', 'w')
+	outf.write(temp)
+	outf.close()
+	return temp
+
 def account_modify(email):
 	id=getIdFromEmail(email)
 	token=str(uuid.uuid4())

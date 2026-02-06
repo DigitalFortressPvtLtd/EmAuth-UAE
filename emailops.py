@@ -33,7 +33,7 @@ def signCompleteMail(email, title, signer):
 	sendmail(email, message)
 
 def appUpdate(emaillist):
-	message = "Subject:App Update Available\n\nA new update for MAuthN app is available. Download it for your phone from your administrator."
+	message = "Subject:App Update Available\n\nA new update for app is available. Download it for your phone from your administrator."
 	for email in emaillist:
 		sendmail(email, message)
 

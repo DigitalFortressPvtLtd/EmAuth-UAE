@@ -1128,7 +1128,7 @@ def reboot_server():
 	
 @app.route("/sdkdocs", methods=['GET', 'POST'])
 def sdkdocs():
-	return redirect(f'https://{get_productname(request).lower()}-sdk.mukham.in')
+	return redirect(f'https://emauthsdk.indominuslabs.in')
 
 @app.route("/appupdate", methods=['POST'])
 def appudpateavail():
@@ -1332,6 +1332,7 @@ def permToString(perms):
 if __name__ == "__main__":
 
 	app.run(ssl_context="adhoc", host='0.0.0.0', port=8080, debug=False)
+
 
 
 

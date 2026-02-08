@@ -24,6 +24,7 @@ def send_request(email_of_user, required_data, requester):
 		return status
 		
 def verifyUser(email_of_user, requester='', parent=''):
+	print('Starting authentication')
 	k=send_request(email_of_user,"0000",requester)
 	y= not k=='Authorization denied'
 	print('Authentication ',y)

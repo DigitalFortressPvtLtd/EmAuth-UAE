@@ -1,3 +1,4 @@
+import json
 import requests
 import time
 from masterurl import *
@@ -29,7 +30,13 @@ def verifyUser(email_of_user, requester='', parent=''):
 	print(k)
 	y= not k=='Authorization denied'
 	print('Authentication ',y)
-	return y
+	try:
+		ob=json.loads(k)
+		if 'Verification' in ob and ob['Verification']:
+			return True
+	except:
+		pass
+	return False
 
 def getUserData(email_of_user, requested_data, requester='', parent=''):
 	data=''

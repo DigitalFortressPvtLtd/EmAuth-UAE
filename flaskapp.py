@@ -547,9 +547,12 @@ def face():
 	imgblob=getImgBlobFromId(id) #Get from userstable
 	img_orig=getImageFromBlob(imgblob) 
 	vldty=facial_recognition(img,img_orig)
-	if 'match' in vldty and vldty['match']:
+	#if 'match' in vldty and vldty['match']:
+	#	return 'false'
+	
+	#face_match_score = vldty
+	if not vldty:
 		return 'false'
-	# face_match_score = vldty
 	updateGrantedPerms(token, 'face', loc) #Update requests table
 	gc.collect()
 	return 'true'
@@ -1332,6 +1335,7 @@ def permToString(perms):
 if __name__ == "__main__":
 
 	app.run(ssl_context="adhoc", host='0.0.0.0', port=8080, debug=False)
+
 
 
 

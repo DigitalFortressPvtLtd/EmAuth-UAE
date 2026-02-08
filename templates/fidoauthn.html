@@ -171,20 +171,6 @@
     <script src="/cbor.js"></script>
 </head>
 <body class="light-mode">
-<script>
-    
-const productName = window.location.hostname.toLowerCase();
-
-if (productName.includes('emauth')) {
-    // Get current URL
-    const currentUrl = new URL(window.location.href);
-    
-    // Change the host
-    currentUrl.host = 'mauthn.mukham.in';
-    currentUrl.searchParams.set('parent', 'emauth');
-    // Redirect to the new URL
-    window.location.href = currentUrl.href;
-}
 </script>
     
     <button id="theme-toggle" title="Toggle light/dark theme">
@@ -293,5 +279,6 @@ if (productName.includes('emauth')) {
 </body>
 
 </html>
+
 
 

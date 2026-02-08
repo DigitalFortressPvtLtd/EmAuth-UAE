@@ -6,45 +6,47 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <!-- Use same fonts as admin page -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@400;500&family=Manrope:wght@400;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            /* Dark Mode (Default) */
-            --bg-color: #202124;
-            --card-bg-color: #242424;
-            --border-color: #5f6368;
-            --text-color-primary: #e8eaed;
-            --text-color-secondary: #bdc1c6;
-            --link-color: #8ab4f8;
-            --button-bg-color: #8ab4f8;
-            --button-text-color: #202124;
-            --button-hover-bg: #9ac0fa;
+            /* Align colors with admin UI */
+            --bg-color: #0a0f1c;
+            --card-bg-color: rgba(18,26,44,0.88);
+            --border-color: rgba(255,255,255,0.06);
+            --text-color-primary: #e6edf3;
+            --text-color-secondary: rgba(230,237,243,0.65);
+            --link-color: #9ecbff;
+            --accent-1: #2f7bff;
+            --accent-2: #57c2ff;
+            --btn-gradient: linear-gradient(140deg, var(--accent-1), var(--accent-2));
+            --shadow-color: rgba(2,6,16,0.6);
+            --danger-color: #f28b82;
+            --hover-bg-color: rgba(255,255,255,0.05);
         }
 
         body.light-mode {
-            /* Light Mode Palette */
             --bg-color: #ffffff;
             --card-bg-color: #ffffff;
-            --border-color: #dadce0;
-            --text-color-primary: #202124;
-            --text-color-secondary: #5f6368;
-            --link-color: #1a73e8;
-            --button-bg-color: #1a73e8;
-            --button-text-color: #ffffff;
-            --button-hover-bg: #1b66c9;
+            --border-color: rgba(18,38,63,0.08);
+            --text-color-primary: #0b1220;
+            --text-color-secondary: rgba(11,18,32,0.65);
+            --link-color: #1a4aa3;
+            --accent-1: #2f7bff;
+            --accent-2: #57c2ff;
+            --btn-gradient: linear-gradient(140deg, var(--accent-1), var(--accent-2));
+            --shadow-color: rgba(16,24,40,0.06);
+            --danger-color: #d93025;
+            --hover-bg-color: rgba(0,0,0,0.04);
         }
 
-        *, *::before, *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Manrope', 'Roboto', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color-primary);
             min-height: 100vh;
@@ -65,50 +67,30 @@
             flex-direction: column;
             text-align: center;
             transition: background-color 0.3s ease, border-color 0.3s ease;
+            box-shadow: 0 30px 80px var(--shadow-color);
         }
 
         .logo {
-            width: 48px;
-            height: 48px;
-            margin: 0 auto 16px;
-            object-fit: contain;
+            width: 48px; height: 48px; margin: 0 auto 16px; object-fit: contain;
         }
         
         .header h1 {
             font-family: 'Google Sans', sans-serif;
-            font-size: 24px;
-            font-weight: 400;
-            line-height: 1.3333;
-            margin-bottom: 8px;
+            font-size: 24px; font-weight: 500; line-height: 1.3333; margin-bottom: 8px; color: var(--text-color-primary);
         }
 
         .header p {
-            font-size: 16px;
-            line-height: 1.5;
-            color: var(--text-color-secondary);
-            margin-bottom: 24px;
+            font-size: 16px; line-height: 1.5; color: var(--text-color-secondary); margin-bottom: 24px;
         }
 
-        form {
-            width: 100%;
-        }
+        form { width: 100%; }
 
-        .input-wrapper {
-            position: relative;
-            margin-bottom: 24px;
-        }
+        .input-wrapper { position: relative; margin-bottom: 24px; }
 
         .input-field {
-            width: 100%;
-            height: 56px;
-            padding: 13px 15px;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            background-color: transparent;
-            color: var(--text-color-primary);
-            font-size: 16px;
-            font-family: 'Roboto', sans-serif;
-            transition: border-color 0.2s ease-in-out;
+            width: 100%; height: 56px; padding: 13px 15px; border: 1px solid var(--border-color);
+            border-radius: 4px; background-color: transparent; color: var(--text-color-primary);
+            font-size: 16px; font-family: 'Roboto', sans-serif; transition: border-color 0.2s ease-in-out;
         }
         
         .input-field::placeholder { color: transparent; }
@@ -119,47 +101,33 @@
             transition: all 0.2s ease-in-out; background-color: var(--card-bg-color); padding: 0 4px;
         }
         
-        .input-field:focus { outline: none; border-color: var(--link-color); border-width: 2px; }
+        .input-field:focus { outline: none; border-color: var(--accent-1); border-width: 2px; box-shadow: 0 8px 30px rgba(47,123,255,0.08); }
 
         .input-field:focus ~ .input-label,
-        .input-field:not(:placeholder-shown) ~ .input-label {
-            top: 0; left: 12px; font-size: 12px; color: var(--link-color);
-        }
+        .input-field:not(:placeholder-shown) ~ .input-label { top: 0; left: 12px; font-size: 12px; color: var(--accent-1); }
         
         .btn, .btn-submit {
-            width: 100%; display: inline-block; text-decoration: none;
-            background-color: var(--button-bg-color); color: var(--button-text-color);
-            border: none; border-radius: 4px; padding: 10px 24px; height: 40px;
-            font-size: 14px; font-weight: 500; font-family: 'Google Sans', sans-serif;
-            cursor: pointer; transition: background-color 0.2s ease, box-shadow 0.2s ease;
+            width: 100%; display: inline-block; text-decoration: none; background: var(--btn-gradient);
+            color: #fff; border: none; border-radius: 8px; padding: 10px 24px; height: 40px;
+            font-size: 14px; font-weight: 600; font-family: 'Google Sans', sans-serif; cursor: pointer;
+            transition: filter 0.12s ease, box-shadow 0.12s ease, transform 0.12s ease;
         }
-        .btn:hover, .btn-submit:hover {
-            background-color: var(--button-hover-bg);
-            box-shadow: 0 1px 2px 0 rgba(0,0,0,.3), 0 1px 3px 1px rgba(0,0,0,.15);
-        }
+        .btn:hover, .btn-submit:hover { filter: brightness(.98); box-shadow: 0 12px 40px rgba(36,70,255,0.12); transform: translateY(-2px); }
         
-        .divider {
-            height: 1px;
-            width: 100%;
-            background-color: var(--border-color);
-            margin: 32px 0;
-        }
+        .divider { height: 1px; width: 100%; background-color: var(--border-color); margin: 32px 0; }
         
         #theme-toggle {
             position: fixed; top: 20px; right: 20px; width: 40px; height: 40px;
             background-color: var(--card-bg-color); border: 1px solid var(--border-color);
-            border-radius: 50%; cursor: pointer; display: grid; place-items: center;
+            border-radius: 50%; cursor: pointer; display: grid; place-items: center; transition: background .18s ease, box-shadow .18s ease, transform .12s ease;
         }
-        #theme-toggle:focus { outline: none; box-shadow: 0 0 0 2px var(--link-color); }
-        #theme-toggle .icon { width: 20px; height: 20px; fill: var(--text-color-secondary); }
-        .icon-sun { display: none; }
-        .icon-moon { display: block; }
-        body.light-mode .icon-sun { display: block; }
-        body.light-mode .icon-moon { display: none; }
+        #theme-toggle:focus { outline: none; box-shadow: 0 0 0 3px rgba(47,123,255,0.12); }
+        #theme-toggle .icon { width: 20px; height: 20px; fill: var(--text-color-secondary); transition: fill .12s ease; }
+        #theme-toggle:hover { background: var(--btn-gradient); box-shadow: 0 12px 40px rgba(36,70,255,0.12); transform: translateY(-2px); }
+        #theme-toggle:hover .icon { fill: #ffffff; }
+        .icon-sun { display: none; } .icon-moon { display: block; } body.light-mode .icon-sun { display: block } body.light-mode .icon-moon { display: none; }
 
-        @media (max-width: 480px) {
-            main { padding: 32px 24px; border: none; background-color: var(--bg-color); }
-        }
+        @media (max-width: 480px) { main { padding: 32px 24px; border: none; background-color: var(--bg-color); } }
     </style>
 </head>
 <body>

@@ -8,207 +8,146 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Manrope:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
     
     <style>
+        /* Design tokens aligned with other pages (register/dashboard/email-login) */
         :root {
-            /* Dark Mode (Default) */
-            --bg-color: #202124;
-            --card-bg-color: #242424;
-            --border-color: #5f6368;
-            --text-color-primary: #e8eaed;
-            --text-color-secondary: #bdc1c6;
-            --link-color: #8ab4f8;
-            --button-bg-color: #8ab4f8;
-            --button-text-color: #202124;
-            --button-hover-bg: #9ac0fa;
+            --bg-color: #0a0f1c;
+            --card-bg: rgba(18,26,44,0.88);
+            --border-color: rgba(255,255,255,0.06);
+            --text-color-primary: #e6edf3;
+            --text-color-secondary: rgba(230,237,243,0.65);
+            --accent-1: #2f7bff;
+            --accent-2: #57c2ff;
+            --btn-gradient: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+            --shadow-color: rgba(2,6,16,0.6);
         }
 
         body.light-mode {
-            /* Light Mode Palette */
             --bg-color: #ffffff;
-            --card-bg-color: #ffffff;
-            --border-color: #dadce0;
-            --text-color-primary: #202124;
-            --text-color-secondary: #5f6368;
-            --link-color: #1a73e8;
-            --button-bg-color: #1a73e8;
-            --button-text-color: #ffffff;
-            --button-hover-bg: #1b66c9;
+            --card-bg: rgba(255,255,255,0.98);
+            --border-color: rgba(12,24,48,0.12);
+            --text-color-primary: #0b1220;
+            --text-color-secondary: rgba(11,18,32,0.6);
+            --accent-1: #2f7bff;
+            --accent-2: #57c2ff;
+            --btn-gradient: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+            --shadow-color: rgba(16,24,40,0.06);
         }
 
-        *, *::before, *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body { height: 100%; }
 
         body {
-            font-family: 'Roboto', sans-serif;
-            background-color: var(--bg-color);
+            font-family: 'Manrope', sans-serif;
+            background: var(--bg-color);
             color: var(--text-color-primary);
             min-height: 100vh;
-            display: grid;
-            place-items: center;
-            padding: 20px;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            padding: 2.5rem 1.25rem;
+            transition: background 200ms, color 200ms;
         }
+
+        /* subtle page backdrop */
+        body::before { content: ""; position: fixed; inset: -20%; background: linear-gradient(160deg,#070b16,#0a1226,#0c1733); z-index:-2; filter: blur(8px); }
+        body.light-mode::before { background: linear-gradient(180deg,#ffffff,#f7fbff); filter:none; }
 
         main {
             width: 100%;
-            max-width: 448px;
+            max-width: 520px;
+            border-radius: 18px;
+            padding: 36px 44px;
+            background: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 48px 40px;
-            background-color: var(--card-bg-color);
+            box-shadow: 0 30px 80px var(--shadow-color);
             display: flex;
             flex-direction: column;
-            text-align: center;
-            transition: background-color 0.3s ease, border-color 0.3s ease;
+            gap: 18px;
+            align-items: flex-start;
+            text-align: left;
         }
 
-        .logo {
-            width: 48px;
-            height: 48px;
-            margin: 0 auto 16px;
-            object-fit: contain;
-        }
-        
-        .header h1 {
-            font-family: 'Google Sans', sans-serif;
-            font-size: 24px;
-            font-weight: 400;
-            line-height: 1.3333;
-            margin-bottom: 8px;
-        }
+        .logo { width: 72px; height: 72px; object-fit: contain; margin-bottom: 4px; }
+        .header h1 { font-family: 'Space Grotesk', sans-serif; font-size: 26px; font-weight: 700; margin: 0 0 6px; color: var(--text-color-primary); }
+        .header p { color: var(--text-color-secondary); font-size: 15px; margin: 0 0 8px; }
 
-        .header p {
-            font-size: 16px;
-            line-height: 1.5;
-            color: var(--text-color-secondary);
-            margin-bottom: 24px;
-        }
+        form { width: 100%; max-width: 480px; }
 
-        form {
-            width: 100%;
-        }
-
-        .input-wrapper {
-            position: relative;
-            margin-bottom: 24px;
-        }
+        .input-wrapper { position: relative; margin-bottom: 18px; }
 
         .input-field {
             width: 100%;
-            height: 56px;
-            padding: 13px 15px;
+            height: 52px;
+            padding: 12px 16px;
+            border-radius: 12px;
             border: 1px solid var(--border-color);
-            border-radius: 4px;
-            background-color: transparent;
+            background: transparent;
             color: var(--text-color-primary);
-            font-size: 16px;
-            font-family: 'Roboto', sans-serif;
-            transition: border-color 0.2s ease-in-out;
+            font-size: 15px;
+            transition: border-color .16s ease, box-shadow .16s ease;
         }
-        
-        .input-field::placeholder {
-            color: transparent;
-        }
+
+        .input-field::placeholder { color: transparent; }
 
         .input-label {
             position: absolute;
-            top: 28px;
             left: 16px;
+            top: 50%;
             transform: translateY(-50%);
             color: var(--text-color-secondary);
-            font-size: 16px;
+            padding: 0 6px;
+            transition: all .16s ease;
+            background: transparent;
             pointer-events: none;
-            transition: all 0.2s ease-in-out;
-            background-color: var(--card-bg-color);
-            padding: 0 4px;
-        }
-        
-        .input-field:focus {
-            outline: none;
-            border-color: var(--link-color);
-            border-width: 2px;
+            font-size: 15px;
+            z-index: 2;
         }
 
-        .input-field:focus ~ .input-label,
-        .input-field:not(:placeholder-shown) ~ .input-label {
-            top: 0;
-            left: 12px;
-            font-size: 12px;
-            color: var(--link-color);
-        }
-        
+        .input-field:focus { outline: none; border-color: var(--accent-1); box-shadow: 0 8px 30px rgba(47,123,255,0.08); }
+        .input-field:focus ~ .input-label, .input-field:not(:placeholder-shown) ~ .input-label { top: 6px; font-size: 12px; color: var(--accent-1); transform: none; }
+
+        /* email behavior like login page */
+        #email.input-field:focus ~ .input-label,
+        #email.input-field:not(:placeholder-shown) ~ .input-label { opacity: 0; visibility: hidden; pointer-events: none; top: 50%; transform: translateY(-50%); font-size: 15px; color: transparent; }
+        #email.input-field:placeholder-shown ~ .input-label { opacity: 1; visibility: visible; pointer-events: none; top: 50%; transform: translateY(-50%); font-size: 15px; color: var(--text-color-secondary); }
+
         .btn-submit {
+            display: inline-block;
             width: 100%;
-            background-color: var(--button-bg-color);
-            color: var(--button-text-color);
+            padding: 12px 16px;
+            height: 48px;
+            border-radius: 12px;
             border: none;
-            border-radius: 4px;
-            padding: 10px 24px;
-            height: 40px;
-            font-size: 14px;
-            font-weight: 500;
+            cursor: pointer;
+            color: #fff;
+            background: var(--btn-gradient);
+            font-weight: 700;
             font-family: 'Google Sans', sans-serif;
-            cursor: pointer;
-            transition: background-color 0.2s ease, box-shadow 0.2s ease;
+            transition: filter .12s ease, box-shadow .12s ease, transform .12s ease;
         }
+        .btn-submit:hover { filter: brightness(.98); box-shadow: 0 12px 40px rgba(36,70,255,0.12); }
 
-        .btn-submit:hover {
-            background-color: var(--button-hover-bg);
-            box-shadow: 0 1px 2px 0 rgba(0,0,0,.3), 0 1px 3px 1px rgba(0,0,0,.15);
-        }
-        
-        .status {
-            color: var(--text-color-secondary);
-            font-size: 14px;
-            margin-top: 16px;
-            min-height: 20px; /* Reserve space to prevent layout shift */
-        }
+        .status { color: var(--text-color-secondary); font-size: 14px; margin-top: 10px; min-height: 20px; }
 
-        .footer {
-            margin-top: 32px;
-        }
-        .footer-logo {
-            height: 24px;
-            opacity: 0.7;
-            transition: opacity 0.2s ease;
-        }
-        .footer-logo:hover {
-            opacity: 1;
-        }
-        
-        #theme-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            width: 40px;
-            height: 40px;
-            background-color: var(--card-bg-color);
-            border: 1px solid var(--border-color);
-            border-radius: 50%;
-            cursor: pointer;
-            display: grid;
-            place-items: center;
-        }
-        
-        #theme-toggle:focus { outline: none; box-shadow: 0 0 0 2px var(--link-color); }
-        #theme-toggle .icon { width: 20px; height: 20px; fill: var(--text-color-secondary); }
+        .footer { width: 100%; display:flex; justify-content:flex-start; margin-top:12px; }
+        .footer-logo { height: 28px; opacity: 0.8; }
+
+        /* Theme toggle */
+        #theme-toggle { position: fixed; top: 24px; right: 24px; width:44px; height:44px; border-radius:50%; display:grid; place-items:center; border:1px solid var(--border-color); background:transparent; cursor:pointer; z-index: 60; }
+        #theme-toggle .icon { width:20px; height:20px; fill:var(--text-color-secondary); }
         .icon-sun { display: none; }
         .icon-moon { display: block; }
         body.light-mode .icon-sun { display: block; }
         body.light-mode .icon-moon { display: none; }
+        #theme-toggle:hover { background: linear-gradient(140deg, #2f7bff, #57c2ff, #2446ff); border-color: rgba(47,123,255,0.45); box-shadow: 0 0 12px rgba(134,197,255,0.18); }
+        #theme-toggle:focus { outline: none; box-shadow: 0 0 0 3px rgba(47,123,255,0.12); }
 
-        @media (max-width: 480px) {
-            main {
-                padding: 32px 24px;
-                border: none;
-                background-color: var(--bg-color);
-            }
-        }
+        @media (max-width: 480px) { main { padding: 20px; max-width: 480px; } .logo { width:48px; height:48px; } .header h1 { font-size: 20px; } }
     </style>
 </head>
 <body>
@@ -239,11 +178,11 @@
 
         <p id="status" class="status"></p>
 
-        <div class="footer">
+        <!-- <div class="footer">
              <a href="https://digitalfortress.in">
                 <img class="footer-logo" src="/dfp.png" alt="Digital Fortress Logo" />
             </a>
-        </div>
+        </div> -->
     </main>
 
     <script>

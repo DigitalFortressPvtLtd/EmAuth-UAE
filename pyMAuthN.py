@@ -23,11 +23,11 @@ def send_request(email_of_user, required_data, requester):
 	else:
 		return status
 		
-def verifyUser(email_of_user, requester=''):
+def verifyUser(email_of_user, requester='', parent=''):
 	k=send_request(email_of_user,"0000",requester)
 	return not k=='Authorization denied'
 
-def getUserData(email_of_user, requested_data, requester=''):
+def getUserData(email_of_user, requested_data, requester='', parent=''):
 	data=''
 	if 'Name' in requested_data:
 		data=data+'1'

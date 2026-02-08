@@ -8,47 +8,44 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@400;500&family=Manrope:wght@400;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            /* Dark Mode (Default) */
-            --bg-color: #202124;
-            --card-bg-color: #242424;
-            --border-color: #5f6368;
-            --text-color-primary: #e8eaed;
-            --text-color-secondary: #bdc1c6;
-            --link-color: #8ab4f8;
-            --button-bg-color: #8ab4f8;
-            --button-text-color: #202124;
-            --button-hover-bg: #9ac0fa;
+            /* align with admin design tokens */
+            --bg-color: #0a0f1c;
+            --card-bg-color: rgba(18,26,44,0.88);
+            --border-color: rgba(255,255,255,0.06);
+            --text-color-primary: #e6edf3;
+            --text-color-secondary: rgba(230,237,243,0.65);
+            --link-color: #9ecbff;
+            --accent-1: #2f7bff;
+            --accent-2: #57c2ff;
+            --btn-gradient: linear-gradient(140deg, var(--accent-1), var(--accent-2));
+            --shadow-color: rgba(2,6,16,0.6);
             --success-color: #81c995;
             --error-color: #f28b82;
         }
 
         body.light-mode {
-            /* Light Mode Palette */
             --bg-color: #ffffff;
             --card-bg-color: #ffffff;
-            --border-color: #dadce0;
-            --text-color-primary: #202124;
-            --text-color-secondary: #5f6368;
-            --link-color: #1a73e8;
-            --button-bg-color: #1a73e8;
-            --button-text-color: #ffffff;
-            --button-hover-bg: #1b66c9;
+            --border-color: rgba(18,38,63,0.08);
+            --text-color-primary: #0b1220;
+            --text-color-secondary: rgba(11,18,32,0.65);
+            --link-color: #1a4aa3;
+            --accent-1: #2f7bff;
+            --accent-2: #57c2ff;
+            --btn-gradient: linear-gradient(140deg, var(--accent-1), var(--accent-2));
+            --shadow-color: rgba(16,24,40,0.06);
             --success-color: #1e8e3e;
             --error-color: #d93025;
         }
 
-        *, *::before, *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Manrope', 'Roboto', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color-primary);
             min-height: 100vh;
@@ -60,123 +57,78 @@
 
         main {
             width: 100%;
-            max-width: 448px;
+            max-width: 520px;
             border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 48px 40px;
+            border-radius: 12px;
+            padding: 32px 28px;
             background-color: var(--card-bg-color);
             display: flex;
             flex-direction: column;
             text-align: center;
             transition: background-color 0.3s ease, border-color 0.3s ease;
+            box-shadow: 0 30px 80px var(--shadow-color);
         }
 
-        .logo {
-            width: 48px;
-            height: 48px;
-            margin: 0 auto 16px;
-            object-fit: contain;
-        }
-        
-        .header h1 {
-            font-family: 'Google Sans', sans-serif;
-            font-size: 24px;
-            font-weight: 400;
-            line-height: 1.3333;
-            margin-bottom: 8px;
-        }
+        .logo { width: 56px; height: 56px; margin: 0 auto 12px; object-fit: contain; }
+        .header h1 { font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 600; margin-bottom: 6px; color: var(--text-color-primary); }
+        .header p { font-size: 15px; color: var(--text-color-secondary); margin-bottom: 18px; }
 
-        .header p {
-            font-size: 16px;
-            line-height: 1.5;
-            color: var(--text-color-secondary);
-            margin-bottom: 24px;
-        }
+        form { width: 100%; text-align: left; }
 
-        form {
-            width: 100%;
-            text-align: left;
-        }
+        /* Improved file input field matching other pages */
+        .input-wrapper { position: relative; margin-bottom: 18px; }
 
-        .input-wrapper {
-            position: relative;
-            margin-bottom: 24px;
+        .input-wrapper::after {
+            content: attr(data-placeholder);
+            position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
+            color: var(--text-color-secondary); font-size: 15px; pointer-events: none;
+            white-space: nowrap; max-width: calc(100% - 140px); overflow: hidden; text-overflow: ellipsis;
         }
+        .input-wrapper.has-file::after { content: attr(data-filename); color: var(--text-color-primary); }
 
+        /* Remove the in-field overlay on this page so the native file input filename is visible */
+        .input-wrapper::after { display: none !important; }
+
+        /* Ensure the file input uses the same sizing and spacing as in fileupload.html */
         .input-field {
             width: 100%;
-            height: 56px;
-            padding: 13px 15px;
+            height: 52px;
+            padding: 12px 14px;
+            border-radius: 10px;
             border: 1px solid var(--border-color);
-            border-radius: 4px;
-            background-color: transparent;
+            background: transparent;
             color: var(--text-color-primary);
-            font-size: 16px;
-            font-family: 'Roboto', sans-serif;
-            transition: border-color 0.2s ease-in-out;
+            font-size: 15px;
+            font-family: 'Manrope', sans-serif;
+            transition: border-color 160ms ease, box-shadow 160ms ease;
         }
 
-        input[type="file"] {
-            padding-top: 20px;
-            font-size: 14px;
-            color: var(--text-color-secondary);
-        }
-        
+        .input-field:focus { outline: none; border-color: var(--accent-1); box-shadow: 0 8px 30px rgba(47,123,255,0.12); }
+
+        /* Tweak file input specifics so the placeholder/filename does not get visually overlapped by the native button */
+        input[type="file"] { font-size: 14px; color: var(--text-color-secondary); padding-right: 140px; }
+        input[type="file"]::file-selector-button { cursor: pointer; }
+
         input[type="file"]::-webkit-file-upload-button {
-            background-color: var(--button-bg-color);
-            color: var(--button-text-color);
-            border: none; border-radius: 4px; padding: 6px 12px;
-            font-size: 12px; font-weight: 500; font-family: 'Google Sans', sans-serif;
-            cursor: pointer; transition: background-color 0.2s ease;
-            margin-right: 16px;
+            background: var(--btn-gradient); color: #fff; border: none; border-radius: 10px; padding: 8px 14px; font-weight: 700; cursor: pointer;
+            font-family: 'Google Sans', sans-serif; transition: filter .12s ease, box-shadow .12s ease;
         }
-        input[type="file"]::-webkit-file-upload-button:hover { background-color: var(--button-hover-bg); }
+        input[type="file"]::-webkit-file-upload-button:hover { filter: brightness(.98); box-shadow: 0 12px 40px rgba(36,70,255,0.12); }
 
-        .btn-submit {
-            width: 100%;
-            background-color: var(--button-bg-color);
-            color: var(--button-text-color);
-            border: none; border-radius: 4px; padding: 10px 24px; height: 40px;
-            font-size: 14px; font-weight: 500; font-family: 'Google Sans', sans-serif;
-            cursor: pointer; transition: background-color 0.2s ease, box-shadow 0.2s ease;
-        }
-        .btn-submit:hover {
-            background-color: var(--button-hover-bg);
-            box-shadow: 0 1px 2px 0 rgba(0,0,0,.3), 0 1px 3px 1px rgba(0,0,0,.15);
-        }
-        
-        /* Result styles */
-        .result {
-            text-align: left; padding: 12px; border-radius: 4px;
-            margin-top: 24px; font-size: 14px; line-height: 1.6;
-            word-wrap: break-word;
-        }
-        .result.success {
-            background-color: rgba(129, 201, 149, 0.1); color: var(--success-color); border: 1px solid var(--success-color);
-        }
-        .result.error {
-            background-color: rgba(242, 139, 130, 0.1); color: var(--error-color); border: 1px solid var(--error-color);
-        }
-        
-        #theme-toggle {
-            position: fixed; top: 20px; right: 20px; width: 40px; height: 40px;
-            background-color: var(--card-bg-color); border: 1px solid var(--border-color);
-            border-radius: 50%; cursor: pointer; display: grid; place-items: center;
-        }
-        #theme-toggle:focus { outline: none; box-shadow: 0 0 0 2px var(--link-color); }
-        #theme-toggle .icon { width: 20px; height: 20px; fill: var(--text-color-secondary); }
-        .icon-sun { display: none; }
-        .icon-moon { display: block; }
-        body.light-mode .icon-sun { display: block; }
-        body.light-mode .icon-moon { display: none; }
+        .btn-submit { width: 100%; background: var(--btn-gradient); color: #fff; border: none; border-radius: 10px; padding: 12px 16px; height: 44px; font-size: 14px; font-weight: 700; font-family: 'Google Sans', sans-serif; cursor: pointer; }
+        .btn-submit:hover { filter: brightness(.98); box-shadow: 0 12px 40px rgba(36,70,255,0.12); transform: translateY(-2px); }
 
-        @media (max-width: 480px) {
-            main {
-                padding: 32px 24px;
-                border: none;
-                background-color: var(--bg-color);
-            }
-        }
+        .result { text-align: left; padding: 12px; border-radius: 8px; margin-top: 18px; font-size: 14px; line-height: 1.6; word-wrap: break-word; }
+        .result.success { background-color: rgba(129, 201, 149, 0.08); color: var(--success-color); border: 1px solid rgba(129,201,149,0.16); }
+        .result.error { background-color: rgba(242,139,130,0.06); color: var(--error-color); border: 1px solid rgba(242,139,130,0.14); }
+
+        #theme-toggle { position: fixed; top: 20px; right: 20px; width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; border: 1px solid var(--border-color); background: var(--card-bg-color); cursor: pointer; transition: background .18s ease, box-shadow .18s ease, transform .12s ease; }
+        #theme-toggle .icon { width: 20px; height: 20px; fill: var(--text-color-secondary); transition: fill .12s ease; }
+        #theme-toggle:hover { background: var(--btn-gradient); box-shadow: 0 12px 40px rgba(36,70,255,0.12); transform: translateY(-2px); }
+        #theme-toggle:hover .icon { fill: #ffffff; }
+        .icon-sun { display: none; } .icon-moon { display: block; } body.light-mode .icon-sun { display: block } body.light-mode .icon-moon { display: none; }
+
+        @media (max-width: 480px) { main { padding: 24px; max-width: 100%; } .header h1 { font-size: 18px; } }
     </style>
 </head>
 <body>
@@ -193,56 +145,76 @@
         </div>
 
         <form>
-            <div class="input-wrapper">
+            <div class="input-wrapper" data-placeholder="Upload PDF">
                 <input type="file" id="fileInput" class="input-field" accept="application/pdf" />
+                <!-- in-field placeholder controlled via .input-wrapper::after -->
             </div>
-            <button type="submit" class="btn-submit" onclick="uploadFile(event)">Verify</button>
-        </form>
-        
-        <div id="result-container" style="display: none;"></div>
-    </main>
+             <button type="submit" class="btn-submit" onclick="uploadFile(event)">Verify</button>
+         </form>
+          
+         <div id="result-container" style="display: none;"></div>
+     </main>
 
-    <script>
-        function uploadFile(event) {
-            event.preventDefault();
+     <script>
+        // show filename in the wrapper similar to fileupload page
+        (function () {
             const fileInput = document.getElementById('fileInput');
-            const resultContainer = document.getElementById('result-container');
-            const file = fileInput.files[0];
+            if (!fileInput) return;
+            const wrapper = fileInput.closest('.input-wrapper');
+            if (!wrapper) return;
+            // wrapper.setAttribute('data-placeholder', 'Upload PDF');
 
-            if (file && file.type === 'application/pdf') {
-                const formData = new FormData();
-                formData.append('file', file);
+            fileInput.addEventListener('change', function () {
+                if (fileInput.files && fileInput.files.length > 0) {
+                    wrapper.classList.add('has-file');
+                    wrapper.setAttribute('data-filename', fileInput.files[0].name);
+                } else {
+                    wrapper.classList.remove('has-file');
+                    wrapper.removeAttribute('data-filename');
+                }
+            });
+        })();
 
-                fetch('/signverify', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.text())
-                .then(data => {
-                    resultContainer.textContent = data;
-                    // Add a class based on the response to style it as success or error
-                    if (data.toLowerCase().includes('valid')) {
-                        resultContainer.className = 'result success';
-                    } else {
-                        resultContainer.className = 'result error';
-                    }
-                    resultContainer.style.display = 'block';
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    resultContainer.textContent = 'An error occurred during verification.';
-                    resultContainer.className = 'result error';
-                    resultContainer.style.display = 'block';
-                });
-            } else {
-                alert('Please upload a valid PDF file.');
-            }
-        }
+         function uploadFile(event) {
+             event.preventDefault();
+             const fileInput = document.getElementById('fileInput');
+             const resultContainer = document.getElementById('result-container');
+             const file = fileInput.files[0];
 
-        const themeToggle = document.getElementById('theme-toggle');
-        themeToggle.addEventListener('click', () => {
-            document.body.classList.toggle('light-mode');
-        });
-    </script>
-</body>
-</html>
+             if (file && file.type === 'application/pdf') {
+                 const formData = new FormData();
+                 formData.append('file', file);
+
+                 fetch('/signverify', {
+                     method: 'POST',
+                     body: formData
+                 })
+                 .then(response => response.text())
+                 .then((data) => {
+                     resultContainer.textContent = data;
+                     // Add a class based on the response to style it as success or error
+                     if (data.toLowerCase().includes('valid')) {
+                         resultContainer.className = 'result success';
+                     } else {
+                         resultContainer.className = 'result error';
+                     }
+                     resultContainer.style.display = 'block';
+                 })
+                 .catch((error) => {
+                     console.error('Error:', error);
+                     resultContainer.textContent = 'An error occurred during verification.';
+                     resultContainer.className = 'result error';
+                     resultContainer.style.display = 'block';
+                 });
+             } else {
+                 alert('Please upload a valid PDF file.');
+             }
+         }
+
+         const themeToggle = document.getElementById('theme-toggle');
+         themeToggle.addEventListener('click', () => {
+             document.body.classList.toggle('light-mode');
+         });
+     </script>
+ </body>
+ </html>

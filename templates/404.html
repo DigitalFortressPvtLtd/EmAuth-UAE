@@ -1,51 +1,139 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<title>{{productname}}</title>
-<style type="text/css">
-body {
-	font-family: "Courier New", Courier, monospace;
-	font-size: 16px;
-	line-height: 16px;
-	letter-spacing: -4;
-	background-color: black;
-	color: green;
+  <meta charset="UTF-8" />
+  <title>{{productname}} | Page Not Found</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@400;500&family=Manrope:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b0f14;
+      --card: #121826;
+      --primary: #4f46e5;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --border: #1f2933;
+    }
 
-}
+    * {
+      box-sizing: border-box;
+    }
 
-pre {
-	display: block;
-	margin: 100px auto;
-	width: 250px;
-}
+    /* Use the same UI fonts as other pages */
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: radial-gradient(1200px 600px at 50% -20%, #111827, var(--bg));
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Manrope', 'Roboto', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
 
-</style>
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)), var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 48px 42px;
+      max-width: 520px;
+      width: 90%;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      text-align: center;
+    }
+
+    .logo {
+      font-weight: 700;
+      letter-spacing: 0.4px;
+      margin-bottom: 16px;
+      color: var(--muted);
+      font-size: 14px;
+      text-transform: uppercase;
+      font-family: 'Google Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Arial, sans-serif;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: 32px;
+      letter-spacing: -0.02em;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    p {
+      margin: 0 0 28px;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 15px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 10px 16px;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      font-family: 'Google Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Arial, sans-serif;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 6px 16px rgba(79, 70, 229, 0.4);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border-color: var(--border);
+      color: var(--text);
+    }
+
+    .footer {
+      margin-top: 24px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .status {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(79, 70, 229, 0.12);
+      color: #a5b4fc;
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
+  </style>
 </head>
 <body>
-<marquee><h1>{{productname}} - Page not found</h1></marquee>
-<pre>
-<h2>
-If this were a website <br>
-I would have written a nice 404 page <br>
-But this isnt. <br>
-And neither are you supposed to be here. <br>
-You are here means <br>
-Either you are a curious child <br>
-Or a scanning bot. <br>
-So how about a..... <br>
-</h2>
-</pre>
-<pre><h3>
-....................../´¯/) 
-....................,/¯../ 
-.................../..../ 
-............./´¯/'...'/´¯¯`·¸ 
-........../'/.../..../......./¨¯\ 
-........('(...´...´.... ¯~/'...') 
-.........\.................'...../ 
-..........''...\.......... _.·´ 
-............\..............( 
-..............\.............\...
-</h3></pre>
+  <div class="card">
+    <div class="logo">{{productname}}</div>
+    <div class="status">404 Error</div>
+    <h1>Page Not Found</h1>
+    <p>
+      The page you’re trying to reach doesn’t exist or the link has expired.  
+      If you believe this is an error, please contact your system administrator.
+    </p>
 
+    <div class="actions">
+      <a class="btn btn-secondary" href="">Contact Support</a>
+    </div>
+
+    <div class="footer">
+      © 2026 {{productname}}. All rights reserved.
+    </div>
+  </div>
 </body>
 </html>

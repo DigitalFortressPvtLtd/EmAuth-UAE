@@ -11,118 +11,94 @@
     <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 
     <style>
+        /* Reuse design tokens and visual language from other site pages (homepage/adminlogout) */
         :root {
-            /* Dark Mode (Default) */
-            --bg-color: #202124;
-            --card-bg-color: #242424;
-            --border-color: #5f6368;
-            --text-color-primary: #e8eaed;
-            --text-color-secondary: #bdc1c6;
-            --link-color: #8ab4f8;
+            --bg-color: #0a0f1c;
+            --panel-bg: rgba(18,26,44,0.9);
+            --card-bg: rgba(18,26,44,0.88);
+            --border-color: rgba(255,255,255,0.06);
+            --text-color-primary: #e6edf3;
+            --text-color-secondary: rgba(230,237,243,0.65);
+            --link-color: #9ecbff;
+            --accent-1: #2f7bff;
+            --accent-2: #57c2ff;
+            --btn-gradient: linear-gradient(140deg,var(--accent-1),var(--accent-2));
+            --shadow: 0 30px 80px rgba(2,6,16,0.6);
         }
 
         body.light-mode {
-            /* Light Mode Palette */
             --bg-color: #ffffff;
-            --card-bg-color: #ffffff;
-            --border-color: #dadce0;
-            --text-color-primary: #202124;
-            --text-color-secondary: #5f6368;
-            --link-color: #1a73e8;
+            --panel-bg: #ffffff;
+            --card-bg: rgba(255,255,255,0.98);
+            --border-color: rgba(18,38,63,0.08);
+            --text-color-primary: #0b1220;
+            --text-color-secondary: rgba(11,18,32,0.65);
+            --link-color: #1a4aa3;
+            --accent-1: #2f7bff;
+            --accent-2: #57c2ff;
+            --btn-gradient: linear-gradient(140deg,var(--accent-1),var(--accent-2));
+            --shadow: 0 20px 60px rgba(16,24,40,0.06);
         }
 
-        *, *::before, *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        *, *::before, *::after { box-sizing: border-box; margin:0; padding:0 }
+
+        html, body { height: 100%; font-family: 'Manrope', sans-serif; }
 
         body {
-            font-family: 'Roboto', sans-serif;
-            background-color: var(--bg-color);
+            background: var(--bg-color);
             color: var(--text-color-primary);
             min-height: 100vh;
-            display: grid;
-            place-items: center;
-            padding: 20px;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2.5rem 1.25rem;
+            transition: background 0.25s ease, color 0.25s ease;
+        }
+
+        /* subtle animated backdrop matching other pages */
+        body::before,
+        body::after {
+            display: none; /* hide backdrop pseudo-elements so no gradient is rendered */
         }
 
         main {
             width: 100%;
-            max-width: 448px;
+            max-width: 520px;
+            border-radius: 18px;
+            padding: 36px 40px;
+            background: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 48px 40px;
-            background-color: var(--card-bg-color);
+            box-shadow: var(--shadow);
             display: flex;
             flex-direction: column;
+            align-items: center;
             text-align: center;
-            transition: background-color 0.3s ease, border-color 0.3s ease;
+            gap: 12px;
         }
 
-        .logo {
-            width: 48px;
-            height: 48px;
-            margin: 0 auto 16px;
-        }
-        
-        
+        .logo { width: 56px; height: 56px; margin-bottom: 8px; }
 
-        .header h1 {
-            font-family: 'Google Sans', sans-serif;
-            font-size: 24px;
-            font-weight: 400;
-            line-height: 1.3333;
-            margin-bottom: 8px;
-        }
-        
-        .header p {
-            font-size: 16px;
-            line-height: 1.5;
-            color: var(--text-color-secondary);
-        }
+        .header h1 { font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight:700; margin:0 0 6px 0; color:var(--text-color-primary); }
+        .header p { font-size: 15px; color: var(--text-color-secondary); margin:0; }
 
-        /* Theme Toggle Button */
-        #theme-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            width: 40px;
-            height: 40px;
-            background-color: var(--card-bg-color);
-            border: 1px solid var(--border-color);
-            border-radius: 50%;
-            cursor: pointer;
-            display: grid;
-            place-items: center;
-            transition: background-color 0.3s ease, border-color 0.3s ease;
+        .primary-action {
+            display:inline-block; margin-top:14px; padding:10px 20px; border-radius:12px; text-decoration:none;
+            background: var(--btn-gradient); color: #fff; font-weight:700; font-family:'Google Sans',sans-serif;
+            box-shadow: 0 12px 40px rgba(36,70,255,0.12);
         }
-        
-        #theme-toggle:focus {
-             outline: none;
-             box-shadow: 0 0 0 2px var(--link-color);
-        }
+        .primary-action:hover { filter: brightness(.98); transform: translateY(-2px); }
 
-        #theme-toggle .icon {
-            width: 20px;
-            height: 20px;
-            fill: var(--text-color-secondary);
-            transition: fill 0.3s ease;
-        }
-        
-        .icon-sun { display: none; }
-        .icon-moon { display: block; }
-        body.light-mode .icon-sun { display: block; }
-        body.light-mode .icon-moon { display: none; }
+        /* theme toggle (match adminlogout) */
+        #theme-toggle { position: fixed; top:20px; right:20px; width:44px; height:44px; border-radius:50%; display:grid; place-items:center; border:1px solid var(--border-color); background:transparent; cursor:pointer; }
+        #theme-toggle .icon { width:20px; height:20px; fill:var(--text-color-secondary); }
+        #theme-toggle:focus { outline:none; box-shadow:0 0 0 3px rgba(47,123,255,0.12); }
 
+        .icon-sun{display:none}.icon-moon{display:block} body.light-mode .icon-sun{display:block} body.light-mode .icon-moon{display:none}
 
-        @media (max-width: 480px) {
-            main {
-                padding: 32px 24px;
-                border: none;
-                background-color: var(--bg-color);
-            }
+        @media (max-width:480px) {
+            main { padding: 24px; border-radius: 12px; }
+            .logo { width:48px; height:48px }
+            .header h1 { font-size: 20px }
         }
     </style>
     
@@ -137,8 +113,9 @@
         <img src="/logo.png" alt="{{productname}} Logo" class="logo">
 
         <div class="header">
-            <h1>Authentication Complete</h1>
-            <p>You can now close this page.</p>
+            <h1>Verification Complete</h1>
+            <p>Secure authentication has been completed.</p>
+            <p>No further action is required. You may close this page.</p>
         </div>
     </main>
     

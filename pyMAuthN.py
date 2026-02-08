@@ -25,7 +25,9 @@ def send_request(email_of_user, required_data, requester):
 		
 def verifyUser(email_of_user, requester='', parent=''):
 	k=send_request(email_of_user,"0000",requester)
-	return not k=='Authorization denied'
+	y= not k=='Authorization denied'
+	print('Authentication ',y)
+	return y
 
 def getUserData(email_of_user, requested_data, requester='', parent=''):
 	data=''

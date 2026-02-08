@@ -7,7 +7,7 @@ from fido2.ctap2 import AttestationObject, AuthenticatorData
 from fido2 import cbor
 from flask import *
 from cryptography.fernet import Fernet
-from datetime import datetime
+import datetime
 from os import path
 from dbops import *
 from blobops import *
@@ -340,7 +340,7 @@ def sign():
 		ptr=ptr-15
 	
 	ptr=ptr-15
-	current_time = datetime.now(tz=tz).strftime("%Y-%m-%d %H:%M:%S")
+	current_time = datetime.datetime.now(tz=tz).strftime("%Y-%m-%d %H:%M:%S")
 	can.drawString(100, ptr, f"Signed on {current_time}")
 
 	ptr=ptr-15
@@ -906,7 +906,7 @@ def move_to_log_preprocess_loc(token, id, product='MAuthN'):
 
 def move_to_log(token, id, loc):
 	requester=getRequesterFromToken(token) #Get from Requests table
-	dtm=datetime.now(tz=tz).strftime("%Y/%m/%d %H:%M:%S")
+	dtm=datetime.datetime.now(tz=tz).strftime("%Y/%m/%d %H:%M:%S")
 	addToLogs(token,id,requester,dtm,loc) #Add to logs table
 	remove_request(token) #Delete from Requests table
 	
@@ -1335,6 +1335,7 @@ def permToString(perms):
 if __name__ == "__main__":
 
 	app.run(ssl_context="adhoc", host='0.0.0.0', port=8080, debug=False)
+
 
 
 

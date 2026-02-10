@@ -318,7 +318,7 @@
             color: var(--muted);
         }
 
-        .emauth .item-icon {
+        .quantanex .item-icon {
             background: linear-gradient(135deg, var(--brand-1), var(--brand-2));
             color: white;
         }
@@ -330,7 +330,7 @@
         }
 
         /* check mark inside icon */
-        .emauth .item-icon svg {
+        .quantanex .item-icon svg {
             width: 16px;
             height: 16px;
         }
@@ -363,12 +363,12 @@
             border-color: rgba(15, 23, 42, 0.12);
         }
 
-        .cmp-card.emauth {
+        .cmp-card.quantanex {
             border: 2px solid rgba(37, 99, 235, 0.15);
             background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
         }
 
-        .cmp-card.emauth:hover {
+        .cmp-card.quantanex:hover {
             border-color: rgba(37, 99, 235, 0.25);
             box-shadow: 0 20px 60px rgba(37, 99, 235, 0.08);
         }
@@ -596,8 +596,8 @@
                 <a href="/signersignin">Sign In</a>
                 <a href="/sdkdocs">Docs</a>
                 <a href="/admin">Admin</a>
-                <a id="demolink" class="cta-primary" href="https://demo.mukham.in" target="_blank"
-                    rel="noopener noreferrer">Try Demo</a>
+                <!-- <a id="demolink" class="cta-primary" href="https://demo.mukham.in" target="_blank"
+                    rel="noopener noreferrer">Try Demo</a> -->
             </nav>
         </div>
     </header>
@@ -605,8 +605,8 @@
     <main class="hero">
         <div class="hero-left">
             <div class="eyebrow">Passwordless for Enterprise</div>
-            <h1>EmAuth — Passwordless authentication, rebuilt for modern teams</h1>
-            <p class="lead">Move beyond passwords and fragile MFA. EmAuth combines strong phishing-resistant factors,
+            <h1>QuantaNex — Passwordless authentication, rebuilt for modern teams</h1>
+            <p class="lead">Move beyond passwords and fragile MFA. QuantaNex combines strong phishing-resistant factors,
                 smooth user experiences, and developer-friendly APIs so you secure accounts and accelerate conversions.
             </p>
 
@@ -728,10 +728,10 @@
                     </div>
                 </article>
 
-                <article class="cmp-card emauth" role="listitem">
+                <article class="cmp-card quantanex" role="listitem">
                     <div class="cmp-left">
                         <div class="cmp-content">
-                            <div class="cmp-title">EmAuth World</div>
+                            <div class="cmp-title">QuantaNex World</div>
                             <ul class="cmp-list">
                                 <li><span class="item-icon"><svg viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -780,8 +780,8 @@
             <div style="margin-top: 56px; width: 100%;">
                 <div style="margin-bottom: 32px; text-align: center;">
                     <h3 style="font-size: 1.8rem; font-weight: 800; color: var(--text); margin-bottom: 8px;">ROI
-                        Comparison: Traditional Auth vs EmAuth</h3>
-                    <p style="color: var(--muted); font-size: 0.95rem;">See how EmAuth reduces operational costs and
+                        Comparison: Traditional Auth vs QuantaNex</h3>
+                    <p style="color: var(--muted); font-size: 0.95rem;">See how QuantaNex reduces operational costs and
                         fraud losses</p>
                 </div>
                 <canvas id="roiChart" style="width: 100%; height: 400px;"></canvas>
@@ -789,11 +789,11 @@
         </div>
     </section>
 
-    <!-- Why EmAuth Stands Out Section -->
+    <!-- Why QuantaNex Stands Out Section -->
     <section class="insight" aria-labelledby="standout-heading">
         <div>
-            <div class="heading" id="standout-heading">Why <span class="hl-accent">EmAuth</span> Stands Out</div>
-            <p class="sub">EmAuth delivers enterprise-grade authentication that combines cutting-edge security with
+            <div class="heading" id="standout-heading">Why <span class="hl-accent">QuantaNex</span> Stands Out</div>
+            <p class="sub">QuantaNex delivers enterprise-grade authentication that combines cutting-edge security with
                 frictionless user experience. Our platform integrates seamlessly with your existing infrastructure while
                 future-proofing your security architecture.</p>
             <br>
@@ -881,7 +881,7 @@
                         <h3 style="font-size: 1.1rem; font-weight: 800; color: var(--text); margin: 0;">2-Day
                             Integration</h3>
                     </div>
-                    <p style="color: var(--muted); font-size: 0.95rem; margin: 0; line-height: 1.6;">Deploy EmAuth
+                    <p style="color: var(--muted); font-size: 0.95rem; margin: 0; line-height: 1.6;">Deploy QuantaNex
                         across your enterprise in just two days with our comprehensive SDKs and dedicated integration
                         support.</p>
                 </div>
@@ -915,7 +915,7 @@
             <div>
                 <div class="heading" id="dev-heading" style="text-align: left; font-size: 2.2rem;">Designed By
                     Developers<br><span class="hl-accent">For Developers</span></div>
-                <p class="sub" style="text-align: left; margin-top: 16px;">Experience EmAuth's developer-friendly API
+                <p class="sub" style="text-align: left; margin-top: 16px;">Experience QuantaNex's developer-friendly API
                     firsthand. Our SDK provides simple, intuitive methods for implementing passwordless authentication
                     in minutes. Try editing the code to see real-time authentication flows.</p>
 
@@ -1089,9 +1089,9 @@
 
                         <!-- Panes -->
                         <div id="codePane" style="background: #ffffff; color: #0b1220; border-radius:12px; padding:16px; border:1px solid rgba(11,18,32,0.06);">
-                            <div style="color: #059669;">import { EmAuth } from '@emauth/sdk';</div>
+                            <div style="color: #059669;">import { QuantaNex } from '@quantanex/sdk';</div>
                             <div style="margin-top: 8px;"></div>
-                            <div style="color: #059669;">const auth = new EmAuth({</div>
+                            <div style="color: #059669;">const auth = new QuantaNex({</div>
                             <div style="margin-left: 20px; color: #6b7280;">clientId: <span style="color: #dc2626;">'your-client-id'</span>,</div>
                             <div style="margin-left: 20px; color: #6b7280;">redirectUri: <span style="color: #dc2626;">'https://yourapp.com/callback'</span></div>
                             <div style="color: #059669;">});</div>
@@ -1131,7 +1131,7 @@
             <!-- Left Content -->
             <div>
                 <h2 style="font-size: 2.2rem; font-weight: 800; color: var(--text); margin-bottom: 12px; line-height: 1.08;">Enterprise-Grade<br><span class="hl-accent">Architecture</span></h2>
-                <p style="color: var(--muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 24px;">EmAuth's security architecture is built on four foundational layers that work together to deliver uncompromising protection. Each layer leverages cutting-edge technology to ensure your enterprise authentication is bulletproof.</p>
+                <p style="color: var(--muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 24px;">QuantaNex's security architecture is built on four foundational layers that work together to deliver uncompromising protection. Each layer leverages cutting-edge technology to ensure your enterprise authentication is bulletproof.</p>
 
                 <!-- Layer Grid -->
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
@@ -1162,10 +1162,6 @@
                         <div style="font-weight: 700; color: var(--text); font-size: 0.95rem; margin-bottom: 8px;">Enterprise Integration</div>
                         <p style="font-size: 0.85rem; color: var(--muted); line-height: 1.5; margin: 0;">RESTful APIs, SDKs, seamless deployment</p>
                     </div>
-                </div>
-
-                <div style="margin-top: 24px;">
-                    <a href="/sdkdocs" style="display: inline-block; padding: 12px 24px; border: 1px solid rgba(15, 23, 42, 0.06); color: var(--text); border-radius: 10px; text-decoration: none; font-weight: 700;">Learn More About Architecture →</a>
                 </div>
             </div>
 
@@ -1267,7 +1263,7 @@
     <section class="insight" aria-labelledby="industry-heading">
         <div>
             <h2 class="heading" id="industry-heading" style="text-align: center; margin-bottom: 16px;">Solutions for Your <span class="hl-accent">Industry</span></h2>
-            <p style="text-align: center; color: var(--muted); font-size: 0.95rem; margin-bottom: 36px; max-width: 800px; margin-left: auto; margin-right: auto;">EmAuth delivers tailored authentication experiences designed for the unique security, compliance, and usability requirements of your industry. Explore how leading organizations are transforming their authentication.</p>
+            <p style="text-align: center; color: var(--muted); font-size: 0.95rem; margin-bottom: 36px; max-width: 800px; margin-left: auto; margin-right: auto;">QuantaNex delivers tailored authentication experiences designed for the unique security, compliance, and usability requirements of your industry. Explore how leading organizations are transforming their authentication.</p>
             
             <!-- Industry Cards Grid -->
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 36px;">
@@ -1367,7 +1363,7 @@
 
             <!-- Customer Testimonial -->
             <div style="background: linear-gradient(180deg, rgba(37, 99, 235, 0.06) 0%, rgba(6, 182, 212, 0.04) 100%); border-left: 4px solid var(--brand-1); padding: 28px; border-radius: 8px; margin-bottom: 28px;">
-                <p style="font-size: 0.95rem; color: var(--text); font-style: italic; margin: 0; margin-bottom: 12px; line-height: 1.6;">"EmAuth reduced our fraud losses by 99% while dramatically improving customer experience. Our users now authenticate in under 2 seconds with zero friction."</p>
+                <p style="font-size: 0.95rem; color: var(--text); font-style: italic; margin: 0; margin-bottom: 12px; line-height: 1.6;">"QuantaNex reduced our fraud losses by 99% while dramatically improving customer experience. Our users now authenticate in under 2 seconds with zero friction."</p>
                 <p style="font-size: 0.9rem; color: var(--muted); margin: 0; font-weight: 600;">— CISO, Global Bank with 15M+ customers</p>
             </div>
 
@@ -1386,7 +1382,7 @@
     <section class="insight" aria-labelledby="trust-heading">
         <div>
             <h2 class="heading" id="trust-heading" style="margin-bottom: 16px;">Trusted by <span class="hl-accent">Security Leaders</span></h2>
-            <p style="color: var(--muted); font-size: 0.95rem; margin-bottom: 32px; max-width: 900px;">Join 50+ enterprises that have transformed their authentication with EmAuth. Our customers report average fraud reductions of 99%, help desk volume decreases of 60%, and user satisfaction scores above 4.8 out of 5.</p>
+            <p style="color: var(--muted); font-size: 0.95rem; margin-bottom: 32px; max-width: 900px;">Join 50+ enterprises that have transformed their authentication with QuantaNex. Our customers report average fraud reductions of 99%, help desk volume decreases of 60%, and user satisfaction scores above 4.8 out of 5.</p>
 
             <!-- Customer Logos/Icons -->
             <div style="display: flex; justify-content: center; align-items: flex-start; gap: 24px; margin-bottom: 48px; flex-wrap: wrap;">
@@ -1422,7 +1418,7 @@
                 <!-- Testimonial Content -->
                 <div style="display: flex; flex-direction: column; align-items: center; text-align: center;">
                     <blockquote style="margin: 0; padding: 32px 40px; background: linear-gradient(180deg, rgba(37, 99, 235, 0.06) 0%, rgba(6, 182, 212, 0.04) 100%); border: 1px solid rgba(37, 99, 235, 0.15); border-radius: 16px; margin-bottom: 24px; max-width: 700px;">
-                        <p style="font-size: 1.1rem; color: var(--text); font-style: italic; margin: 0; line-height: 1.8; font-weight: 500; letter-spacing: -0.2px;">"EmAuth reduced our fraud losses by 99% while improving customer experience. Our authentication time dropped from 12 seconds to 1.8 seconds."</p>
+                        <p style="font-size: 1.1rem; color: var(--text); font-style: italic; margin: 0; line-height: 1.8; font-weight: 500; letter-spacing: -0.2px;">"QuantaNex reduced our fraud losses by 99% while improving customer experience. Our authentication time dropped from 12 seconds to 1.8 seconds."</p>
                     </blockquote>
 
                     <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 0;">
@@ -1502,7 +1498,7 @@
     <section class="insight" aria-labelledby="cta-heading">
         <div>
             <h2 class="heading" id="cta-heading" style="margin-bottom: 16px;">Ready to Eliminate <span class="hl-accent">Passwords?</span></h2>
-            <p style="color: var(--muted); font-size: 0.95rem; margin-bottom: 40px; max-width: 900px;">Join the authentication revolution. Start your free 30-day trial today and experience passwordless security that your users will love. Our team is ready to help you deploy EmAuth across your enterprise in just two days.</p>
+            <p style="color: var(--muted); font-size: 0.95rem; margin-bottom: 40px; max-width: 900px;">Join the authentication revolution. Start your free 30-day trial today and experience passwordless security that your users will love. Our team is ready to help you deploy QuantaNex across your enterprise in just two days.</p>
 
             <!-- Three Step Process -->
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 48px; margin-bottom: 56px;">
@@ -1514,7 +1510,7 @@
                         <div style="flex: 1; height: 2px; background: var(--brand-1);"></div>
                     </div>
                     <h3 style="font-size: 1.2rem; font-weight: 800; color: var(--text); margin-bottom: 16px;">Start Your Free Trial</h3>
-                    <p style="font-size: 0.95rem; color: var(--muted); line-height: 1.6; margin: 0;">Sign up in 60 seconds and get instant access to EmAuth's full feature set with no credit card required.</p>
+                    <p style="font-size: 0.95rem; color: var(--muted); line-height: 1.6; margin: 0;">Sign up in 60 seconds and get instant access to QuantaNex's full feature set with no credit card required.</p>
                 </div>
 
                 <!-- Step 02 -->
@@ -1524,7 +1520,7 @@
                         <div style="flex: 1; height: 2px; background: var(--brand-1);"></div>
                     </div>
                     <h3 style="font-size: 1.2rem; font-weight: 800; color: var(--text); margin-bottom: 16px;">Integrate in 2 Days</h3>
-                    <p style="font-size: 0.95rem; color: var(--muted); line-height: 1.6; margin: 0;">Deploy EmAuth with our comprehensive SDKs and dedicated integration support team.</p>
+                    <p style="font-size: 0.95rem; color: var(--muted); line-height: 1.6; margin: 0;">Deploy QuantaNex with our comprehensive SDKs and dedicated integration support team.</p>
                 </div>
 
                 <!-- Step 03 -->
@@ -1591,9 +1587,9 @@
             if (!canvas) return;
 
             const data = [
-                { label: 'Annual Cost', traditional: 120000, emauth: 45000 },
-                { label: 'Fraud Losses', traditional: 480000, emauth: 12000 },
-                { label: 'Help Desk', traditional: 95000, emauth: 38000 }
+                { label: 'Annual Cost', traditional: 120000, quantanex: 45000 },
+                { label: 'Fraud Losses', traditional: 480000, quantanex: 12000 },
+                { label: 'Help Desk', traditional: 95000, quantanex: 38000 }
             ];
 
             const maxValue = 600000;
@@ -1675,23 +1671,23 @@
                         label: item.label
                     });
 
-                    // EmAuth bar (blue)
-                    const emauthHeight = (item.emauth / maxValue) * chartHeight;
-                    const emauthX = groupX + barGap / 2;
-                    const emauthY = padding.top + chartHeight - emauthHeight;
+                    // QuantaNex bar (blue)
+                    const quantanexHeight = (item.quantanex / maxValue) * chartHeight;
+                    const quantanexX = groupX + barGap / 2;
+                    const quantanexY = padding.top + chartHeight - quantanexHeight;
 
-                    const isHoveredEmauth = hoveredBar && hoveredBar.index === index && hoveredBar.type === 'emauth';
-                    ctx.fillStyle = isHoveredEmauth ? 'rgba(37, 99, 235, 1)' : 'rgba(37, 99, 235, 0.9)';
-                    ctx.fillRect(emauthX, emauthY, barWidth, emauthHeight);
+                    const isHoveredQuantanex = hoveredBar && hoveredBar.index === index && hoveredBar.type === 'quantanex';
+                    ctx.fillStyle = isHoveredQuantanex ? 'rgba(37, 99, 235, 1)' : 'rgba(37, 99, 235, 0.9)';
+                    ctx.fillRect(quantanexX, quantanexY, barWidth, quantanexHeight);
 
                     barRects.push({
                         index: index,
-                        type: 'emauth',
-                        x: emauthX,
-                        y: emauthY,
+                        type: 'quantanex',
+                        x: quantanexX,
+                        y: quantanexY,
                         width: barWidth,
-                        height: emauthHeight,
-                        value: item.emauth,
+                        height: quantanexHeight,
+                        value: item.quantanex,
                         label: item.label
                     });
 
@@ -1706,7 +1702,7 @@
                     ctx.fillStyle = 'rgba(11, 18, 32, 0.7)';
                     ctx.textAlign = 'center';
                     ctx.fillText('$' + (item.traditional / 1000).toFixed(0) + 'k', traditionalX + barWidth / 2, traditionalY - 5);
-                    ctx.fillText('$' + (item.emauth / 1000).toFixed(0) + 'k', emauthX + barWidth / 2, emauthY - 5);
+                    ctx.fillText('$' + (item.quantanex / 1000).toFixed(0) + 'k', quantanexX + barWidth / 2, quantanexY - 5);
                 });
 
                 // Draw legend
@@ -1722,7 +1718,7 @@
                 ctx.fillStyle = 'rgba(37, 99, 235, 0.9)';
                 ctx.fillRect(padding.left + 200, legendY, 12, 12);
                 ctx.fillStyle = 'rgba(11, 18, 32, 0.8)';
-                ctx.fillText('EmAuth', padding.left + 220, legendY + 10);
+                ctx.fillText('QuantaNex', padding.left + 220, legendY + 10);
             }
 
             // Initial draw
@@ -1756,7 +1752,7 @@
                 for (let bar of barRects) {
                     if (x >= bar.x && x <= bar.x + bar.width && y >= bar.y && y <= bar.y + bar.height) {
                         hoveredBar = { index: bar.index, type: bar.type };
-                        tooltip.textContent = bar.type === 'traditional' ? 'Traditional Auth' : 'EmAuth';
+                        tooltip.textContent = bar.type === 'traditional' ? 'Traditional Auth' : 'QuantaNex';
                         tooltip.textContent += ` (${bar.label}): $${(bar.value / 1000).toFixed(0)}k`;
                         tooltip.style.display = 'block';
                         tooltip.style.left = (e.clientX + 10) + 'px';

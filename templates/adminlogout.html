@@ -92,10 +92,13 @@
 
         /* accessibility focus styles */
         a.primary-action:focus, #theme-toggle:focus{outline: none; box-shadow: 0 0 0 3px rgba(47,123,255,0.16)}
+
+        /* Temporary: force light theme and hide the theme toggle (will be re-enabled later) */
+        #theme-toggle { display: none !important; visibility: hidden !important; }
     </style>
 </head>
 
-<body>
+<body class="light-mode">
     <div class="top-right-actions" aria-hidden="false">
         <button id="theme-toggle" title="Toggle light/dark theme" aria-label="Toggle theme">
             <svg class="icon icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">

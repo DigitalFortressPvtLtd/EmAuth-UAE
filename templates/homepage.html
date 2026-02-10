@@ -775,10 +775,13 @@
         .store-badges { display:flex; gap:12px; align-items:center; }
         .store-badge { height:48px; object-fit:contain; display:inline-block; }
         .store-link { display:inline-block; border-radius:8px; overflow:hidden; }
+
+        /* Temporary: force light theme and hide the theme toggle (will be re-enabled later) */
+        #theme-toggle { display: none !important; visibility: hidden !important; }
     </style>
 </head>
 
-<body>
+<body class="light-mode">
     <div class="page-card">
         <div class="main-container">
             <div class="top-right-actions">

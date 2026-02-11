@@ -115,9 +115,12 @@
       font-size: 12px;
       margin-bottom: 12px;
     }
+
+    /* Temporary: force light theme and hide the theme toggle (will be re-enabled later) */
+    #theme-toggle { display: none !important; visibility: hidden !important; }
   </style>
 </head>
-<body>
+<body class="light-mode">
   <div class="card">
     <div class="logo">{{productname}}</div>
     <div class="status">404 Error</div>

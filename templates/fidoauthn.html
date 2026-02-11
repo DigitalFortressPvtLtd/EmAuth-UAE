@@ -160,6 +160,9 @@
         body.light-mode .icon-sun { display: block; }
         body.light-mode .icon-moon { display: none; }
 
+        /* Temporary: force light theme and hide the theme toggle (will be re-enabled later) */
+        #theme-toggle { display: none !important; visibility: hidden !important; }
+
         /* Responsive tweaks */
         @media (max-width: 480px) {
             main { max-width: 100%; padding: 28px 20px; border: none; box-shadow: none; }

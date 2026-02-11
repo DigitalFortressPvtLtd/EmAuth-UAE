@@ -88,6 +88,9 @@
 
         .floating-btn { position: fixed; bottom: 20px; right: 20px; width: 56px; height: 56px; background: var(--btn-gradient); color: #fff; border: none; border-radius: 50%; font-size: 24px; cursor: pointer; box-shadow: 0 12px 30px rgba(47,123,255,0.12); display: grid; place-items: center; }
 
+        /* Temporary: force light theme and hide the theme toggle (will be re-enabled later) */
+        #theme-toggle { display: none !important; visibility: hidden !important; }
+
         #theme-toggle { width:40px; height:40px; border-radius:50%; display:grid; place-items:center; border:1px solid var(--border-color); background:var(--panel-bg); cursor:pointer; transition: background 0.18s ease, box-shadow 0.18s ease, transform 0.12s ease; }
         #theme-toggle .icon { width:20px; height:20px; fill:var(--text-color-secondary); transition: fill 0.18s ease; }
         #theme-toggle:focus { outline:none; box-shadow: 0 0 0 3px rgba(47,123,255,0.12); }
@@ -132,7 +135,7 @@
         }
     </style>
 </head>
-<body>
+<body class="light-mode">
     <div class="dashboard-container">
         <div class="headings">
             <div class="logo-title">

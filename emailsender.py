@@ -2,8 +2,8 @@ import smtplib
 import io
 
 
-senderacc="mauthn.dev@gmail.com"
-senderpass="nyrsgaftrrxkvaig"
+senderacc="quantanex.noreply@gmail.com"
+senderpass="lxovmutrmgqsgwbf"
 server='smtp.gmail.com'
 port=587
 

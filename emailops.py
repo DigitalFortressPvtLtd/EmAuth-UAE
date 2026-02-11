@@ -5,11 +5,11 @@ def sendEmail(id,token, prod):
 	sendmail(id, message)
 	
 def sendSignupEmail(email,token, prod):
-	message = f'Subject:Account creation link\n\nThe link to set up MAuthN account is https://{deployed_domain}/email_signup_user?token='+token
+	message = f'Subject:Account creation link\n\nThe link to set up Quantanex.io account is https://{deployed_domain}/email_signup_user?token='+token
 	sendmail(email, message)
 
 def sendNewReqMail(email, requester, prod):
-	message = "Subject:Authentication Request\n\nNew authentication request on MAuthN. Details:\n"+requester+"\n\nCheck the app for more details."
+	message = "Subject:Authentication Request\n\nNew authentication request on Quantanex.io. Details:\n"+requester+"\n\nCheck the app for more details."
 	sendmail(email, message)
 
 def sendSuccessReqMail(email, requester, prod):
@@ -17,7 +17,7 @@ def sendSuccessReqMail(email, requester, prod):
 	sendmail(email, message)
 
 def adminPromoteMail(email, prod):
-	message = f"Subject:Promote to Admin\n\nYou have been promoted to admin in MAuthN. To go to admin dashboard, use https://{deployed_domain}/admin"
+	message = f"Subject:Promote to Admin\n\nYou have been promoted to admin in Quantanex.io. To go to admin dashboard, use https://{deployed_domain}/admin"
 	sendmail(email, message)
 
 def signInitMail(email, title, prod):

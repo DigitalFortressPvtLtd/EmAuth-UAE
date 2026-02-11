@@ -81,7 +81,7 @@ def get_productname(request):
 	#if (request.host is not None and 'emauth' in request.host.lower()) or (request.referrer is not None and 'emauth' in request.referrer.lower()) or 'emauth' in request.args.get('parent', '').lower():
 	#	return 'EmAuth'
 	#return 'MAuthN'	
-	return 'EmAuth'
+	return 'QuantaNex'
 
 def getproductname_link(request):
 	name=get_productname(request)
@@ -1335,6 +1335,7 @@ def permToString(perms):
 if __name__ == "__main__":
 
 	app.run(ssl_context="adhoc", host='0.0.0.0', port=8080, debug=False)
+
 
 
 

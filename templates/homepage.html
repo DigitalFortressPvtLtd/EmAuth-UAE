@@ -595,7 +595,7 @@
             <nav class="links" aria-label="Primary">
                 <a href="/signersignin">Sign In</a>
                 <a href="/sdkdocs">Docs</a>
-                <a href="/admin">Admin</a>
+                <!-- <a href="/admin">Admin</a> -->
                 <!-- <a id="demolink" class="cta-primary" href="https://demo.mukham.in" target="_blank"
                     rel="noopener noreferrer">Try Demo</a> -->
             </nav>
@@ -1127,13 +1127,17 @@
 
     <!-- Enterprise-Grade Architecture Section -->
     <section class="insight" aria-labelledby="arch-heading">
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: flex-start;">
-            <!-- Left Content -->
-            <div>
-                <h2 style="font-size: 2.2rem; font-weight: 800; color: var(--text); margin-bottom: 12px; line-height: 1.08;">Enterprise-Grade<br><span class="hl-accent">Architecture</span></h2>
-                <p style="color: var(--muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 24px;">QuantaNex's security architecture is built on four foundational layers that work together to deliver uncompromising protection. Each layer leverages cutting-edge technology to ensure your enterprise authentication is bulletproof.</p>
+        <div>
+            <h2 style="font-size: 2.2rem; font-weight: 800; color: var(--text); margin-bottom: 12px; line-height: 1.08;">Enterprise-Grade<br><span class="hl-accent">Architecture</span></h2>
+            <p style="color: var(--muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 24px;">QuantaNex's security architecture is built on four foundational layers that work together to deliver uncompromising protection. Each layer leverages cutting-edge technology to ensure your enterprise authentication is bulletproof.</p>
 
-                <!-- Layer Grid -->
+            <!-- Architecture Diagram Image -->
+            <div style="background: linear-gradient(135deg, rgba(37, 99, 235, 0.08) 0%, rgba(6, 182, 212, 0.08) 100%); border: 1px solid rgba(37, 99, 235, 0.15); border-radius: 20px; padding: 40px; box-shadow: 0 12px 40px rgba(15, 23, 42, 0.06); width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; margin: 32px 0;">
+                <img src="/static/diagram.png" alt="QuantaNex Enterprise-Grade Architecture - 4 Foundational Layers" style="width: 100%; height: auto; max-width: 100%; display: block; border-radius: 12px;">
+            </div>
+
+            <!-- Layer Details Grid -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 14px; margin-top: 24px;"
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
                     <!-- Layer 1 -->
                     <div style="padding: 18px; background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%); border: 1px solid rgba(15, 23, 42, 0.08); border-radius: 12px; box-shadow: 0 6px 20px rgba(15, 23, 42, 0.04);">
@@ -1161,98 +1165,6 @@
                         <div style="font-size: 2rem; font-weight: 800; color: var(--brand-1); margin-bottom: 6px;">4</div>
                         <div style="font-weight: 700; color: var(--text); font-size: 0.95rem; margin-bottom: 8px;">Enterprise Integration</div>
                         <p style="font-size: 0.85rem; color: var(--muted); line-height: 1.5; margin: 0;">RESTful APIs, SDKs, seamless deployment</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Right Content - Architecture Diagram -->
-            <div style="display: flex; flex-direction: column; gap: 20px; align-items: center; justify-content: flex-start;">
-                <!-- Architecture Diagram -->
-                <div style="background: linear-gradient(135deg, rgba(37, 99, 235, 0.08) 0%, rgba(6, 182, 212, 0.08) 100%); border: 1px solid rgba(37, 99, 235, 0.15); border-radius: 20px; padding: 40px; box-shadow: 0 12px 40px rgba(15, 23, 42, 0.06); width: 100%; aspect-ratio: 1 / 1.1; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden;">
-                    <!-- SVG Concentric Circles - Clean Design -->
-                    <svg viewBox="0 0 340 340" style="width: 100%; height: 100%; position: absolute; top: 0; left: 0;">
-                        <!-- Background gradient definitions -->
-                        <defs>
-                            <linearGradient id="outerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" style="stop-color:rgba(37, 99, 235, 0.12);stop-opacity:1" />
-                                <stop offset="100%" style="stop-color:rgba(37, 99, 235, 0.08);stop-opacity:1" />
-                            </linearGradient>
-                            <linearGradient id="ring3Grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" style="stop-color:rgba(37, 99, 235, 0.18);stop-opacity:1" />
-                                <stop offset="100%" style="stop-color:rgba(37, 99, 235, 0.12);stop-opacity:1" />
-                            </linearGradient>
-                            <linearGradient id="ring2Grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" style="stop-color:rgba(37, 99, 235, 0.25);stop-opacity:1" />
-                                <stop offset="100%" style="stop-color:rgba(37, 99, 235, 0.18);stop-opacity:1" />
-                            </linearGradient>
-                            <linearGradient id="coreGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" style="stop-color:rgba(37, 99, 235, 0.45);stop-opacity:1" />
-                                <stop offset="100%" style="stop-color:rgba(37, 99, 235, 0.35);stop-opacity:1" />
-                            </linearGradient>
-                        </defs>
-                        
-                        <!-- Outer Ring 4 - Enterprise Integration -->
-                        <circle cx="170" cy="170" r="160" fill="url(#outerGrad)" stroke="rgba(255, 255, 255, 0.6)" stroke-width="2"/>
-                        
-                        <!-- Ring 3 - Cryptographic Core -->
-                        <circle cx="170" cy="170" r="120" fill="url(#ring3Grad)" stroke="rgba(255, 255, 255, 0.5)" stroke-width="2"/>
-                        
-                        <!-- Ring 2 - Intelligence Engine -->
-                        <circle cx="170" cy="170" r="80" fill="url(#ring2Grad)" stroke="rgba(255, 255, 255, 0.4)" stroke-width="1.5"/>
-                        
-                        <!-- Inner Core - Device Security -->
-                        <circle cx="170" cy="170" r="40" fill="url(#coreGrad)" stroke="rgba(37, 99, 235, 0.6)" stroke-width="2"/>
-                        
-                        <!-- Core text -->
-                        <text x="170" y="166" text-anchor="middle" font-size="12" font-weight="800" fill="white">Device</text>
-                        <text x="170" y="182" text-anchor="middle" font-size="12" font-weight="800" fill="white">Security</text>
-                        
-                        <!-- Layer labels positioned around the circles -->
-                        <!-- Top - Cryptographic Core -->
-                        <text x="170" y="85" text-anchor="middle" font-size="16" font-weight="700" fill="rgba(37, 99, 235, 0.85)">Cryptographic</text>
-                        <text x="170" y="105" text-anchor="middle" font-size="16" font-weight="700" fill="rgba(37, 99, 235, 0.85)">Core</text>
-                        
-                        <!-- Left - Intelligence Engine -->
-                        <text x="75" y="176" text-anchor="middle" font-size="16" font-weight="700" fill="rgba(37, 99, 235, 0.8)">Intelligence</text>
-                        <text x="75" y="196" text-anchor="middle" font-size="16" font-weight="700" fill="rgba(37, 99, 235, 0.8)">Engine</text>
-                        
-                        <!-- Right - Enterprise Integration -->
-                        <text x="265" y="173" text-anchor="middle" font-size="16" font-weight="700" fill="rgba(37, 99, 235, 0.85)">Enterprise</text>
-                        <text x="265" y="193" text-anchor="middle" font-size="16" font-weight="700" fill="rgba(37, 99, 235, 0.85)">Integration</text>
-                        
-                        <!-- Bottom - 4 FOUNDATIONAL LAYERS -->
-                        <text x="170" y="348" text-anchor="middle" font-size="14" font-weight="700" fill="rgba(37, 99, 235, 0.8)" letter-spacing="1">4 FOUNDATIONAL LAYERS</text>
-                    </svg>
-                </div>
-
-                <!-- Key Features List -->
-                <div style="background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%); border: 1px solid rgba(15, 23, 42, 0.08); border-radius: 16px; padding: 24px; width: 100%; box-shadow: 0 12px 40px rgba(15, 23, 42, 0.06);">
-                    <h3 style="font-weight: 800; font-size: 1rem; color: var(--text); margin-bottom: 16px;">Why It Matters</h3>
-                    <div style="display: flex; flex-direction: column; gap: 12px;">
-                        <div style="display: flex; gap: 10px; align-items: flex-start;">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" style="color: var(--brand-1); flex-shrink: 0; margin-top: 2px;">
-                                <path fill="currentColor" d="M10.6 16.6L6 12l-1.4 1.4L10.6 19.4 21 9l-1.4-1.4z" />
-                            </svg>
-                            <span style="font-size: 0.9rem; color: var(--muted); line-height: 1.4;">Zero passwords to manage across any device</span>
-                        </div>
-                        <div style="display: flex; gap: 10px; align-items: flex-start;">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" style="color: var(--brand-1); flex-shrink: 0; margin-top: 2px;">
-                                <path fill="currentColor" d="M10.6 16.6L6 12l-1.4 1.4L10.6 19.4 21 9l-1.4-1.4z" />
-                            </svg>
-                            <span style="font-size: 0.9rem; color: var(--muted); line-height: 1.4;">99% fraud reduction with hardware-backed verification</span>
-                        </div>
-                        <div style="display: flex; gap: 10px; align-items: flex-start;">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" style="color: var(--brand-1); flex-shrink: 0; margin-top: 2px;">
-                                <path fill="currentColor" d="M10.6 16.6L6 12l-1.4 1.4L10.6 19.4 21 9l-1.4-1.4z" />
-                            </svg>
-                            <span style="font-size: 0.9rem; color: var(--muted); line-height: 1.4;">1.8 second average authentication time</span>
-                        </div>
-                        <div style="display: flex; gap: 10px; align-items: flex-start;">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" style="color: var(--brand-1); flex-shrink: 0; margin-top: 2px;">
-                                <path fill="currentColor" d="M10.6 16.6L6 12l-1.4 1.4L10.6 19.4 21 9l-1.4-1.4z" />
-                            </svg>
-                            <span style="font-size: 0.9rem; color: var(--muted); line-height: 1.4;">NIST AAL3+IAL3 compliant and FIDO certified</span>
-                        </div>
                     </div>
                 </div>
             </div>

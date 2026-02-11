@@ -958,11 +958,11 @@ def get_token_email():
 	token=str(uuid.uuid4())[:5]
 	id=getIdFromEmail(email)
 	if id=="0000":
-		return "No user found"
+		return render_template("user_not_found.html", productname=get_productname(request))
 	else:
 		addToSignIn(token,id)
 		sendEmail(email,token,getproductname_link(request))
-		return "Email sent"
+		return render_template("email_sent.html", productname=get_productname(request))
 	
 @app.route("/email-login", methods=["GET","POST"])
 def email_login():
@@ -1335,6 +1335,7 @@ def permToString(perms):
 if __name__ == "__main__":
 
 	app.run(ssl_context="adhoc", host='0.0.0.0', port=8080, debug=False)
+
 
 
 

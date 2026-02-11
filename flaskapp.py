@@ -99,10 +99,10 @@ def getproductname():
 
 @app.route("/dfp.png")
 def dfplogo():
-	if get_productname(request).lower()=='emauth':
-		return redirect('/quantanexio.png')	
-	else:
-		return redirect('/dfp_logo.png')
+	#if get_productname(request).lower()=='emauth':
+	return redirect('/quantanexio.png')	
+	#else:
+	#	return redirect('/dfp_logo.png')
 
 @app.route("/.well-known/webauthn")
 def wellknown():
@@ -1335,6 +1335,7 @@ def permToString(perms):
 if __name__ == "__main__":
 
 	app.run(ssl_context="adhoc", host='0.0.0.0', port=8080, debug=False)
+
 
 
 

@@ -39,6 +39,7 @@ def verifyUser(email_of_user, requester='', parent=''):
 	return False
 
 def getUserData(email_of_user, requested_data, requester='', parent=''):
+	print("Get data start")
 	data=''
 	if 'Name' in requested_data:
 		data=data+'1'
@@ -58,4 +59,5 @@ def getUserData(email_of_user, requested_data, requester='', parent=''):
 		data=data+'0'
 		
 	resp=send_request(email_of_user,data,requester)
+	print("Got response "+resp)
 	return resp

@@ -275,8 +275,10 @@ def signremind():
 
 @app.route("/sign", methods=["GET", "POST"])
 def sign():
+	print("Starting sign1")
 	from PIL import Image
 	import PIL
+	print("Starting sign2")
 	Image.VERSION=PIL.__version__
 	cms_signer = signers.SimpleSigner.load(cert_file=filepth+'certificate.pem', key_file=filepth+'privatekey.pem')
 	
@@ -1338,6 +1340,7 @@ def permToString(perms):
 if __name__ == "__main__":
 
 	app.run(ssl_context="adhoc", host='0.0.0.0', port=8080, debug=False)
+
 
 
 

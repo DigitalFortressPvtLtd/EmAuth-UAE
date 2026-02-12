@@ -298,16 +298,17 @@ def sign():
 	can = canvas.Canvas(packet, pagesize=letter)
 	# Add a graphic green tick to show document signed
 
+	print("Signing started")
 
 	
     # URL to tick image
-	tick_image_url = "https://mauthn.mukham.in/logo.png"
+	tick_image_url = f"https://{masterurl}/logo.png"
 	tick_image_response = requests.get(tick_image_url)
 	if tick_image_response.status_code == 200:
 		tick_image = Image.open(BytesIO(tick_image_response.content))
 		can.drawImage(ImageReader(tick_image), 450, 650, width=50, height=50)
 	
-	tick_image_url = f"https://mauthn.mukham.in/dfp.png?parent={get_productname(request)}"
+	tick_image_url = f"https://{masterurl}/dfp.png?parent={get_productname(request)}"
 	tick_image_response = requests.get(tick_image_url)
 	if tick_image_response.status_code == 200:
 		tick_image = Image.open(BytesIO(tick_image_response.content))
@@ -315,6 +316,7 @@ def sign():
 	
 	reqemail=getPreSignUploader(filehash, email)
 	reqname=getNameFromEmail(reqemail)
+	print("Drawing sign image")
 	ptr=600
     # Draw signature image
 	can.drawString(100, ptr, f"Signed by {name} ({email})")
@@ -409,6 +411,7 @@ def sign():
 
 	new_file_hash = hashlib.sha256(newfile).hexdigest()
 	# Upload the signed PDF
+	print("Sign done, uploading")
 	uploadFile(newfile, new_file_hash)
 	uploader=getPreSignUploader(filehash, email)
 	title=getPreSignTitle(filehash)
@@ -1335,6 +1338,7 @@ def permToString(perms):
 if __name__ == "__main__":
 
 	app.run(ssl_context="adhoc", host='0.0.0.0', port=8080, debug=False)
+
 
 
 

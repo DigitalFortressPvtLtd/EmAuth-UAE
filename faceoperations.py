@@ -33,5 +33,6 @@ def compare_faces(b64_image1, b64_image2, threshold=60):
     recognizer = train_face_recognizer(b64_image1)
     image2 = decode_base64_image(b64_image2)
     label, confidence = recognizer.predict(image2)
-    return confidence < threshold  # Returns True/False based on confidence score
+    return confidence >= threshold  # Returns True/False based on confidence score
+
 

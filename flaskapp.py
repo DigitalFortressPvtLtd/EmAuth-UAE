@@ -284,7 +284,7 @@ def sign_process():
 
 	thread= Thread(target=sign, args=(email, filehash,product,), daemon=False)
 	thread.start()
-	return "Signing started"
+	return "Signing started. Verify from app."
 
 
 
@@ -1355,6 +1355,7 @@ def permToString(perms):
 if __name__ == "__main__":
 
 	app.run(ssl_context="adhoc", host='0.0.0.0', port=8080, debug=False)
+
 
 
 

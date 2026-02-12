@@ -38,7 +38,7 @@ def sign(key, msg):
 
 def get_signature_key():
     """Generate AWS signature key."""
-    date_stamp = datetime.datetime.now(datetime.UTC).strftime("%Y%m%d")
+    date_stamp = datetime.datetime.utcnow().strftime("%Y%m%d")
     key_date = sign(("AWS4" + AWS_SECRET_KEY).encode("utf-8"), date_stamp)
     key_region = sign(key_date, AWS_REGION)
     key_service = sign(key_region, SERVICE)
@@ -48,7 +48,7 @@ def get_signature_key():
 
 def create_headers(payload, date_stamp):
     """Create AWS authentication headers."""
-    amz_date = datetime.datetime.now(datetime.UTC).strftime("%Y%m%dT%H%M%SZ")
+    amz_date = datetime.datetime.utcnow().strftime("%Y%m%dT%H%M%SZ")
     signed_key = get_signature_key()
 
     # Create string-to-sign

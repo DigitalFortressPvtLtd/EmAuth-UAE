@@ -14,7 +14,7 @@ def sendNewReqMail(email, requester, prod):
 
 def sendSuccessReqMail(email, requester, prod):
 	message = "Subject:Authentication Success\n\nAuthentication sucessful. Details:\n"+requester+"\n\nContact admin if not done by you."
-	sendmail(senderacc, email, message)
+	sendmail(email, message)
 
 def adminPromoteMail(email, prod):
 	message = f"Subject:Promote to Admin\n\nYou have been promoted to admin in Quantanex.io. To go to admin dashboard, use https://{deployed_domain}/admin"

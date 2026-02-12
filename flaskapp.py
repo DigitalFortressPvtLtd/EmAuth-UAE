@@ -7,7 +7,7 @@ from fido2.ctap2 import AttestationObject, AuthenticatorData
 from fido2 import cbor
 from flask import *
 from cryptography.fernet import Fernet
-from datetime import datetime
+import datetime
 from os import path
 from dbops import *
 from blobops import *
@@ -81,7 +81,7 @@ def get_productname(request):
 	#if (request.host is not None and 'emauth' in request.host.lower()) or (request.referrer is not None and 'emauth' in request.referrer.lower()) or 'emauth' in request.args.get('parent', '').lower():
 	#	return 'EmAuth'
 	#return 'MAuthN'	
-	return 'EmAuth'
+	return 'QuantaNex'
 
 def getproductname_link(request):
 	name=get_productname(request)
@@ -99,10 +99,10 @@ def getproductname():
 
 @app.route("/dfp.png")
 def dfplogo():
-	if get_productname(request).lower()=='emauth':
-		return redirect('/il_logo.png')	
-	else:
-		return redirect('/dfp_logo.png')
+	#if get_productname(request).lower()=='emauth':
+	return redirect('/il_logo.png')	
+	#else:
+	#	return redirect('/dfp_logo.png')
 
 @app.route("/.well-known/webauthn")
 def wellknown():
@@ -273,22 +273,38 @@ def signremind():
 	signReminderMail(signer, title,getproductname_link(request))
 	return "Reminder sent"
 
+from threading import Thread
 @app.route("/sign", methods=["GET", "POST"])
-def sign():
-	from PIL import Image
-	import PIL
-	Image.VERSION=PIL.__version__
-	cms_signer = signers.SimpleSigner.load(cert_file=filepth+'certificate.pem', key_file=filepth+'privatekey.pem')
-	
+def sign_process():
 	if request.cookies.get('authorization') != 'signerauthorized':
 		return "Session expired. Please logout and login."
 	email=request.cookies.get('id')
 	filehash=bleach.clean(request.form['filehash'])
+	product=get_productname(request)
+
+	thread= Thread(target=sign, args=(email, filehash,product,), daemon=False)
+	thread.start()
+	return "Signing started. Verify from app."
+
+
+
+def sign(email, filehash, product):
+	print("Starting sign1")
+	from PIL import Image
+	import PIL
+	print("Starting sign2")
+	Image.VERSION=PIL.__version__
+	cms_signer = signers.SimpleSigner.load(cert_file=filepth+'certificate.pem', key_file=filepth+'privatekey.pem')
+	
+	#if request.cookies.get('authorization') != 'signerauthorized':
+	#	return "Session expired. Please logout and login."
+	#email=request.cookies.get('id')
+	#filehash=bleach.clean(request.form['filehash'])
 	
 	if not checkPreSign(email, filehash):
 		return "Unauthorized"
 	requested_data=['Name']
-	data=getUserData(email, requested_data, requester=f'{get_productname(request)} Signer: Sign document {filehash}', parent=get_productname(request))
+	data=getUserData(email, requested_data, requester=f'{product} Signer: Sign document {filehash}', parent=product)
 	datajson=json.loads(data)[0]
 	name=datajson['name']
 	claimant=datajson['claimant']
@@ -298,16 +314,17 @@ def sign():
 	can = canvas.Canvas(packet, pagesize=letter)
 	# Add a graphic green tick to show document signed
 
+	print("Signing started")
 
 	
     # URL to tick image
-	tick_image_url = "https://mauthn.mukham.in/logo.png"
+	tick_image_url = f"https://{deployed_domain}/logo.png"
 	tick_image_response = requests.get(tick_image_url)
 	if tick_image_response.status_code == 200:
 		tick_image = Image.open(BytesIO(tick_image_response.content))
 		can.drawImage(ImageReader(tick_image), 450, 650, width=50, height=50)
 	
-	tick_image_url = f"https://mauthn.mukham.in/dfp.png?parent={get_productname(request)}"
+	tick_image_url = f"https://{deployed_domain}/dfp.png?parent=emauth"
 	tick_image_response = requests.get(tick_image_url)
 	if tick_image_response.status_code == 200:
 		tick_image = Image.open(BytesIO(tick_image_response.content))
@@ -315,6 +332,7 @@ def sign():
 	
 	reqemail=getPreSignUploader(filehash, email)
 	reqname=getNameFromEmail(reqemail)
+	print("Drawing sign image")
 	ptr=600
     # Draw signature image
 	can.drawString(100, ptr, f"Signed by {name} ({email})")
@@ -340,7 +358,7 @@ def sign():
 		ptr=ptr-15
 	
 	ptr=ptr-15
-	current_time = datetime.now(tz=tz).strftime("%Y-%m-%d %H:%M:%S")
+	current_time = datetime.datetime.now(tz=tz).strftime("%Y-%m-%d %H:%M:%S")
 	can.drawString(100, ptr, f"Signed on {current_time}")
 
 	ptr=ptr-15
@@ -348,7 +366,7 @@ def sign():
 
 	ptr=ptr-100
 
-	tick_image_url = "https://mauthn.mukham.in/sign.png"
+	tick_image_url = f"https://{deployed_domain}/sign.png"
 	tick_image_response = requests.get(tick_image_url)
 	if tick_image_response.status_code == 200:
 		tick_image = Image.open(BytesIO(tick_image_response.content))
@@ -409,13 +427,15 @@ def sign():
 
 	new_file_hash = hashlib.sha256(newfile).hexdigest()
 	# Upload the signed PDF
+	print("Sign done, uploading")
 	uploadFile(newfile, new_file_hash)
 	uploader=getPreSignUploader(filehash, email)
 	title=getPreSignTitle(filehash)
 	addPostSign(uploader, filehash, new_file_hash, title, email)
 	removePreSign(uploader, filehash, email)
-	signCompleteMail(uploader, title, email,getproductname_link(request))
+	signCompleteMail(uploader, title, email, product)
 	return "File signed successfully"
+
 
 @app.route("/all_signs_requested", methods=["GET", "POST"])
 def all_signs_requested():
@@ -547,9 +567,12 @@ def face():
 	imgblob=getImgBlobFromId(id) #Get from userstable
 	img_orig=getImageFromBlob(imgblob) 
 	vldty=facial_recognition(img,img_orig)
-	if 'match' in vldty and vldty['match']:
+	#if 'match' in vldty and vldty['match']:
+	#	return 'false'
+	
+	#face_match_score = vldty
+	if not vldty:
 		return 'false'
-	# face_match_score = vldty
 	updateGrantedPerms(token, 'face', loc) #Update requests table
 	gc.collect()
 	return 'true'
@@ -903,7 +926,7 @@ def move_to_log_preprocess_loc(token, id, product='MAuthN'):
 
 def move_to_log(token, id, loc):
 	requester=getRequesterFromToken(token) #Get from Requests table
-	dtm=datetime.now(tz=tz).strftime("%Y/%m/%d %H:%M:%S")
+	dtm=datetime.datetime.now(tz=tz).strftime("%Y/%m/%d %H:%M:%S")
 	addToLogs(token,id,requester,dtm,loc) #Add to logs table
 	remove_request(token) #Delete from Requests table
 	
@@ -955,11 +978,11 @@ def get_token_email():
 	token=str(uuid.uuid4())[:5]
 	id=getIdFromEmail(email)
 	if id=="0000":
-		return "No user found"
+		return render_template("user_not_found.html", productname=get_productname(request))
 	else:
 		addToSignIn(token,id)
 		sendEmail(email,token,getproductname_link(request))
-		return "Email sent"
+		return render_template("email_sent.html", productname=get_productname(request))
 	
 @app.route("/email-login", methods=["GET","POST"])
 def email_login():
@@ -1332,6 +1355,20 @@ def permToString(perms):
 if __name__ == "__main__":
 
 	app.run(ssl_context="adhoc", host='0.0.0.0', port=8080, debug=False)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

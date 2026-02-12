@@ -1,3 +1,4 @@
+import json
 import requests
 import time
 from masterurl import *
@@ -23,11 +24,22 @@ def send_request(email_of_user, required_data, requester):
 	else:
 		return status
 		
-def verifyUser(email_of_user, requester=''):
+def verifyUser(email_of_user, requester='', parent=''):
+	print('Starting authentication')
 	k=send_request(email_of_user,"0000",requester)
-	return not k=='Authorization denied'
+	print(k)
+	y= not k=='Authorization denied'
+	print('Authentication ',y)
+	try:
+		ob=json.loads(k)
+		if 'Verification' in ob and ob['Verification']:
+			return True
+	except:
+		pass
+	return False
 
-def getUserData(email_of_user, requested_data, requester=''):
+def getUserData(email_of_user, requested_data, requester='', parent=''):
+	print("Get data start")
 	data=''
 	if 'Name' in requested_data:
 		data=data+'1'
@@ -47,4 +59,5 @@ def getUserData(email_of_user, requested_data, requester=''):
 		data=data+'0'
 		
 	resp=send_request(email_of_user,data,requester)
+	print("Got response "+resp)
 	return resp

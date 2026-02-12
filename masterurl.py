@@ -1,4 +1,4 @@
-deployed_domain='emauth.indominuslabs.in'
+deployed_domain='app.quantanex.io'
 
 import requests
 def check_domain_valid():
@@ -7,4 +7,5 @@ def check_domain_valid():
 	tempf=open('/etc/mauthn/temp','r')
 	data2=tempf.read()
 	return data==data2
+
 

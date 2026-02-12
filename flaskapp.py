@@ -273,8 +273,16 @@ def signremind():
 	signReminderMail(signer, title,getproductname_link(request))
 	return "Reminder sent"
 
+from threading import Thread
 @app.route("/sign", methods=["GET", "POST"])
-def sign():
+def sign_process():
+	thread= Thread(taget=sign, args=(request,), daemon=False)
+	thread.start()
+	return "Signing started"
+
+
+
+def sign(request):
 	print("Starting sign1")
 	from PIL import Image
 	import PIL
@@ -1340,6 +1348,7 @@ def permToString(perms):
 if __name__ == "__main__":
 
 	app.run(ssl_context="adhoc", host='0.0.0.0', port=8080, debug=False)
+
 
 
 

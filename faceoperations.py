@@ -131,6 +131,7 @@ def facial_recognition_aws(base64_img1, base64_img2):
 
 def facial_recognition(base64_img1, base64_img2):
     #return True #Comment this line out when you fix the AWS
-    facial_recognition_aws(base64_img1, base64_img2) #Uncomment this line after fixing the AWS
+    return facial_recognition_aws(base64_img1, base64_img2) #Uncomment this line after fixing the AWS
+
 
 

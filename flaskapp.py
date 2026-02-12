@@ -276,13 +276,19 @@ def signremind():
 from threading import Thread
 @app.route("/sign", methods=["GET", "POST"])
 def sign_process():
-	thread= Thread(target=sign, args=(request,), daemon=False)
+	if request.cookies.get('authorization') != 'signerauthorized':
+		return "Session expired. Please logout and login."
+	email=request.cookies.get('id')
+	filehash=bleach.clean(request.form['filehash'])
+	product=get_productname(request)
+
+	thread= Thread(target=sign, args=(email, filehash,product,), daemon=False)
 	thread.start()
 	return "Signing started"
 
 
 
-def sign(request):
+def sign(email, filehash, product):
 	print("Starting sign1")
 	from PIL import Image
 	import PIL
@@ -290,15 +296,15 @@ def sign(request):
 	Image.VERSION=PIL.__version__
 	cms_signer = signers.SimpleSigner.load(cert_file=filepth+'certificate.pem', key_file=filepth+'privatekey.pem')
 	
-	if request.cookies.get('authorization') != 'signerauthorized':
-		return "Session expired. Please logout and login."
-	email=request.cookies.get('id')
-	filehash=bleach.clean(request.form['filehash'])
+	#if request.cookies.get('authorization') != 'signerauthorized':
+	#	return "Session expired. Please logout and login."
+	#email=request.cookies.get('id')
+	#filehash=bleach.clean(request.form['filehash'])
 	
 	if not checkPreSign(email, filehash):
 		return "Unauthorized"
 	requested_data=['Name']
-	data=getUserData(email, requested_data, requester=f'{get_productname(request)} Signer: Sign document {filehash}', parent=get_productname(request))
+	data=getUserData(email, requested_data, requester=f'{product} Signer: Sign document {filehash}', parent=product)
 	datajson=json.loads(data)[0]
 	name=datajson['name']
 	claimant=datajson['claimant']
@@ -318,7 +324,7 @@ def sign(request):
 		tick_image = Image.open(BytesIO(tick_image_response.content))
 		can.drawImage(ImageReader(tick_image), 450, 650, width=50, height=50)
 	
-	tick_image_url = f"https://{deployed_domain}/dfp.png?parent={get_productname(request)}"
+	tick_image_url = f"https://{deployed_domain}/dfp.png?parent=emauth"
 	tick_image_response = requests.get(tick_image_url)
 	if tick_image_response.status_code == 200:
 		tick_image = Image.open(BytesIO(tick_image_response.content))
@@ -427,8 +433,9 @@ def sign(request):
 	title=getPreSignTitle(filehash)
 	addPostSign(uploader, filehash, new_file_hash, title, email)
 	removePreSign(uploader, filehash, email)
-	signCompleteMail(uploader, title, email,getproductname_link(request))
+	signCompleteMail(uploader, title, email, product)
 	return "File signed successfully"
+
 
 @app.route("/all_signs_requested", methods=["GET", "POST"])
 def all_signs_requested():
@@ -1348,6 +1355,7 @@ def permToString(perms):
 if __name__ == "__main__":
 
 	app.run(ssl_context="adhoc", host='0.0.0.0', port=8080, debug=False)
+
 
 
 

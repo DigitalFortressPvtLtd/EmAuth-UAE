@@ -304,13 +304,13 @@ def sign():
 
 	
     # URL to tick image
-	tick_image_url = f"https://{masterurl}/logo.png"
+	tick_image_url = f"https://{deployed_domain}/logo.png"
 	tick_image_response = requests.get(tick_image_url)
 	if tick_image_response.status_code == 200:
 		tick_image = Image.open(BytesIO(tick_image_response.content))
 		can.drawImage(ImageReader(tick_image), 450, 650, width=50, height=50)
 	
-	tick_image_url = f"https://{masterurl}/dfp.png?parent={get_productname(request)}"
+	tick_image_url = f"https://{deployed_domain}/dfp.png?parent={get_productname(request)}"
 	tick_image_response = requests.get(tick_image_url)
 	if tick_image_response.status_code == 200:
 		tick_image = Image.open(BytesIO(tick_image_response.content))
@@ -352,7 +352,7 @@ def sign():
 
 	ptr=ptr-100
 
-	tick_image_url = "https://mauthn.mukham.in/sign.png"
+	tick_image_url = f"https://{deployed_domain}/sign.png"
 	tick_image_response = requests.get(tick_image_url)
 	if tick_image_response.status_code == 200:
 		tick_image = Image.open(BytesIO(tick_image_response.content))
@@ -1340,6 +1340,7 @@ def permToString(perms):
 if __name__ == "__main__":
 
 	app.run(ssl_context="adhoc", host='0.0.0.0', port=8080, debug=False)
+
 
 
 

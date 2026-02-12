@@ -276,7 +276,7 @@ def signremind():
 from threading import Thread
 @app.route("/sign", methods=["GET", "POST"])
 def sign_process():
-	thread= Thread(taget=sign, args=(request,), daemon=False)
+	thread= Thread(target=sign, args=(request,), daemon=False)
 	thread.start()
 	return "Signing started"
 
@@ -1348,6 +1348,7 @@ def permToString(perms):
 if __name__ == "__main__":
 
 	app.run(ssl_context="adhoc", host='0.0.0.0', port=8080, debug=False)
+
 
 
 

@@ -324,11 +324,11 @@ def sign(email, filehash, product):
 		tick_image = Image.open(BytesIO(tick_image_response.content))
 		can.drawImage(ImageReader(tick_image), 450, 650, width=50, height=50)
 	
-	tick_image_url = f"https://{deployed_domain}/dfp.png?parent=emauth"
-	tick_image_response = requests.get(tick_image_url)
-	if tick_image_response.status_code == 200:
-		tick_image = Image.open(BytesIO(tick_image_response.content))
-		can.drawImage(ImageReader(tick_image), 250, 650, width=170, height=50)
+	# tick_image_url = f"https://{deployed_domain}/dfp.png?parent=emauth"
+	# tick_image_response = requests.get(tick_image_url)
+	# if tick_image_response.status_code == 200:
+	# 	tick_image = Image.open(BytesIO(tick_image_response.content))
+	# 	can.drawImage(ImageReader(tick_image), 250, 650, width=170, height=50)
 	
 	reqemail=getPreSignUploader(filehash, email)
 	reqname=getNameFromEmail(reqemail)

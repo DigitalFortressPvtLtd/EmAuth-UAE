@@ -52,10 +52,24 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 2rem;
+            gap: 3.5rem;
             padding: 2.5rem 1.5rem;
             position: relative;
             overflow-x: hidden;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                gap: 2.5rem;
+                padding: 2rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                gap: 2rem;
+                padding: 1.5rem 1rem;
+            }
         }
 
         /* === PREMIUM ANIMATED BACKGROUND === */
@@ -112,6 +126,24 @@
             position: relative;
         }
 
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 2rem;
+                padding-top: 3rem;
+                padding-bottom: 2rem;
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-container {
+                padding: 1.5rem 1rem;
+                padding-top: 2rem;
+                padding-bottom: 1.5rem;
+                gap: 1rem;
+            }
+        }
+
         /* Page card wrapper around main content for image and visual treatments */
         .page-card {
             width: 100%;
@@ -125,6 +157,21 @@
             box-shadow: 0 18px 48px rgba(11,18,32,0.18);
             position: relative;
             z-index: 0;
+        }
+
+        @media (max-width: 768px) {
+            .page-card {
+                border-radius: 24px;
+                padding: 20px;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-card {
+                border-radius: 20px;
+                padding: 16px;
+            }
         }
  
          /* Keep the internal main-container spacing intact when inside the card */
@@ -162,6 +209,22 @@
             margin-bottom: 1.5rem;
         }
 
+        @media (max-width: 768px) {
+            .logo {
+                width: 60px;
+                height: 60px;
+                margin-bottom: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                width: 50px;
+                height: 50px;
+                margin-bottom: 0.75rem;
+            }
+        }
+
         .left-panel h1 {
             font-family: 'Space Grotesk', sans-serif;
             font-size: 3.4rem;
@@ -172,12 +235,40 @@
             text-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
         }
 
+        @media (max-width: 768px) {
+            .left-panel h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .left-panel h1 {
+                font-size: 1.75rem;
+                margin-bottom: 0.75rem;
+            }
+        }
+
         .left-panel p.subtitle {
             font-size: 1.05rem;
             color: rgba(11, 18, 32, 0.75);
             line-height: 1.7;
             margin-top: 1rem;
             max-width: 420px;
+        }
+
+        @media (max-width: 768px) {
+            .left-panel p.subtitle {
+                font-size: 0.95rem;
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .left-panel p.subtitle {
+                font-size: 0.85rem;
+                line-height: 1.6;
+                margin-top: 0.75rem;
+            }
         }
 
         .auth-count-container {
@@ -307,6 +398,24 @@
             box-shadow: 0 6px 24px rgba(47, 123, 255, 0.25);
         }
 
+        @media (max-width: 768px) {
+            .link-group a {
+                font-size: 0.95rem;
+                padding: 11px 22px;
+                min-width: 200px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .link-group a {
+                font-size: 0.9rem;
+                padding: 10px 20px;
+                min-width: 100%;
+                text-align: center;
+            }
+        }
+
         .link-group a:hover {
             background: linear-gradient(140deg, #1f5fdb, #3fa5ff);
             text-decoration: none;
@@ -332,6 +441,13 @@
             cursor: pointer;
             transition: background-color 0.2s ease;
             backdrop-filter: blur(8px);
+        }
+
+        @media (max-width: 480px) {
+            .dropbtn {
+                font-size: 12px;
+                padding: 8px 12px;
+            }
         }
 
         .dropbtn:hover {
@@ -437,6 +553,24 @@
             box-shadow: 0 12px 24px rgba(12, 24, 48, 0.12);
         }
 
+        @media (max-width: 768px) {
+            .top-right-actions {
+                top: 12px;
+                right: 12px;
+                gap: 10px;
+                padding: 7px 9px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .top-right-actions {
+                top: 8px;
+                right: 8px;
+                gap: 8px;
+                padding: 6px 8px;
+            }
+        }
+
         #theme-toggle {
             width: 40px;
             height: 40px;
@@ -448,6 +582,13 @@
             place-items: center;
             backdrop-filter: blur(10px);
             transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        @media (max-width: 480px) {
+            #theme-toggle {
+                width: 36px;
+                height: 36px;
+            }
         }
 
         #theme-toggle:hover {
@@ -517,24 +658,19 @@
             .main-container {
                 flex-direction: column;
                 padding: 2rem;
-                padding-top: 4.5rem;
-                gap: 2rem;
-                margin-top: 1rem;
-                margin-bottom: 1rem;
+                padding-top: 3rem;
+                padding-bottom: 2rem;
+                gap: 1.5rem;
+                margin-top: 0.5rem;
+                margin-bottom: 0.5rem;
             }
 
             /* Center-align content in both panels */
             .left-panel,
             .right-panel {
                 text-align: center;
+                width: 100%;
             }
-
-            .right-panel h2 {
-                font-size: 1.4rem;
-                font-weight: 700;
-                letter-spacing: 0.4px;
-            }
-
 
             .right-panel {
                 background: rgba(255, 255, 255, 0.03);
@@ -543,7 +679,6 @@
                 border: 1px solid rgba(255, 255, 255, 0.08);
                 backdrop-filter: blur(12px);
             }
-
 
             .logo {
                 /* Center the logo */
@@ -563,6 +698,7 @@
             .link-group {
                 /* Center links and buttons */
                 align-items: center;
+                gap: 0.8rem;
             }
 
             .developer-resources-title {
@@ -573,31 +709,129 @@
                 justify-content: center;
             }
 
+            body.light-mode .dropbtn:hover {
+                background: var(--blue-gradient);
+                color: white;
+            }
+
         }
 
         /* For small mobile phones */
         @media (max-width: 480px) {
+            html,
+            body {
+                display: block;
+                padding: 1rem 0.75rem;
+                gap: 1rem;
+            }
+
             .main-container {
                 padding: 1.5rem 1rem;
-                padding-top: 4rem;
+                padding-top: 1.5rem;
+                padding-bottom: 1.5rem;
+                gap: 1rem;
+            }
+
+            .page-card {
+                border-radius: 20px;
+                padding: 12px;
             }
 
             .left-panel h1 {
-                font-size: 2.25rem;
-                /* Make heading smaller */
+                font-size: 1.75rem;
+                margin-bottom: 0.75rem;
+            }
 
+            .left-panel p.subtitle {
+                font-size: 0.85rem;
+                line-height: 1.6;
+                margin-top: 0.75rem;
             }
 
             .logo {
                 width: 50px;
                 height: 50px;
-
+                margin-bottom: 0.75rem;
             }
 
             /* Scale down the 7-segment display to fit better */
             .seven-segment-display {
-                transform: scale(0.9);
+                transform: scale(0.85);
                 transform-origin: center;
+                margin-top: 0.5rem;
+            }
+
+            .link-group {
+                gap: 0.75rem;
+            }
+
+            .link-group a {
+                font-size: 0.9rem;
+                padding: 10px 20px;
+                width: 100%;
+                text-align: center;
+            }
+
+            .section-title {
+                font-size: 1.15rem;
+                margin-bottom: 0.75rem !important;
+            }
+
+            .site-footer {
+                font-size: 0.8rem;
+                margin-top: 1rem;
+            }
+
+            .top-right-actions {
+                top: 8px;
+                right: 8px;
+                gap: 8px;
+                padding: 6px 8px;
+            }
+
+            #theme-toggle {
+                width: 36px;
+                height: 36px;
+            }
+
+            .dropbtn {
+                font-size: 12px;
+                padding: 8px 12px;
+            }
+
+            .store-badge {
+                width: 220px;
+                max-width: 60vw;
+                height: 48px;
+            }
+
+            .store-badge img {
+                max-height: 36px;
+            }
+        }
+
+        /* Extra small screens (max 360px) */
+        @media (max-width: 360px) {
+            .main-container {
+                padding: 1rem 0.75rem;
+            }
+
+            .left-panel h1 {
+                font-size: 1.5rem;
+            }
+
+            .left-panel p.subtitle {
+                font-size: 0.8rem;
+                margin-top: 0.5rem;
+            }
+
+            .link-group a {
+                font-size: 0.85rem;
+                padding: 9px 16px;
+            }
+
+            .seven-segment-display {
+                transform: scale(0.75);
             }
         }
 
@@ -607,12 +841,44 @@
             margin-right: 5px;
         }
 
+        @media (max-width: 480px) {
+            .footer-logo {
+                max-width: 16px;
+                max-height: 16px;
+                margin-right: 4px;
+            }
+        }
+
         .site-footer {
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 6px;
             color: var(--text-color-secondary);
             margin-top: 1rem;
+            width: 100%;
+            padding: 0 1.5rem;
+            flex-wrap: wrap;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .site-footer {
+                margin-top: 0.75rem;
+                padding: 0 1rem;
+                font-size: 0.85rem;
+                gap: 4px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .site-footer {
+                font-size: 0.75rem;
+                margin-top: 1.5rem;
+                padding: 0 0.75rem;
+                gap: 3px;
+            }
         }
 
         .demo-link {
@@ -665,6 +931,19 @@
             /* ⬅️ prevents line break */
         }
 
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 1.4rem;
+                white-space: normal;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .section-title {
+                font-size: 1.15rem;
+            }
+        }
+
         .resource-panel {
             display: flex;
             flex-direction: column;
@@ -700,6 +979,13 @@
                     <a href="/signersignin">Document Signing</a>
                     <a href="/admin">Admin Login</a>
                     <a href="/register">Sign Up</a>
+                </div>
+            </div>
+
+            <div class="right-panel">
+                <h2 class="section-title" style="margin-bottom: 1.1rem;">Download Mobile App</h2>
+                <div class="link-group">
+                    <a href="https://quantanex.s3.us-east-1.amazonaws.com/quantanex.apk" id="apk-download-link">Download APK</a>
                 </div>
             </div>
 
